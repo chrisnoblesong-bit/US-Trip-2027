@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+
+  <title>🇺🇸 미국여행 플래너</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <header class="hero">
+
+    <div class="hero-content">
+
+      <p class="eyebrow">2027 USA TRIP</p>
+
+      <h1>🇺🇸 미국여행 플래너</h1>
+
+      <p class="hero-description">
+        LA · San Diego · Las Vegas<br>
+        일정부터 호텔, 교통, 예산까지 한 곳에서 관리하세요.
+      </p>
+
+      <div class="trip-summary">
+
+        <div>
+          <span>여행 기간</span>
+          <strong>1/30 ~ 2/10</strong>
+        </div>
+
+        <div>
+          <span>여행 인원</span>
+          <strong>4명</strong>
+        </div>
+
+        <div>
+          <span>주요 도시</span>
+          <strong>3곳</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav class="navigation">
+
+    <button class="nav-button active" data-section="schedule">
+      📅 일정
+    </button>
+
+    <button class="nav-button" data-section="hotels">
+      🏨 LA 호텔
+    </button>
+
+    <button class="nav-button" data-section="cities">
+      🏙️ 도시
+    </button>
+
+    <button class="nav-button" data-section="transport">
+      🚗 교통
+    </button>
+
+    <button class="nav-button" data-section="budget">
+      💰 예산
+    </button>
+
+    <button class="nav-button" data-section="checklist">
+      ☑️ 체크
+    </button>
+
+  </nav>
+
+
+  <main>
+
+
+    <!-- =========================
+         SCHEDULE
+    ========================== -->
+
+    <section id="schedule" class="page-section active">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          ITINERARY
+        </p>
+
+        <h2>
+          전체 여행 일정
+        </h2>
+
+        <p>
+          LA → 샌디에이고 → LA → 라스베이거스 → LA
+        </p>
+
+      </div>
+
+      <div id="scheduleList" class="timeline"></div>
+
+    </section>
+
+
+    <!-- =========================
+         HOTELS
+    ========================== -->
+
+    <section id="hotels" class="page-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          LOS ANGELES HOTELS
+        </p>
+
+        <h2>
+          🏨 LA 호텔
+        </h2>
+
+        <p>
+          한인타운과 관광지 접근성을 기준으로 호텔을 비교해보세요.
+        </p>
+
+      </div>
+
+
+      <div class="hotel-notice">
+
+        <strong>📍 이번 여행의 호텔 선택 기준</strong>
+
+        <p>
+          한인타운 접근성뿐만 아니라 Hollywood,
+          Downtown LA, 공항 이동, 대중교통, 주차 등을
+          함께 고려할 수 있도록 구성했습니다.
+        </p>
+
+      </div>
+
+
+      <div id="hotelList" class="hotel-grid"></div>
+
+
+      <div class="hotel-tip">
+
+        <h3>
+          💡 호텔 선택 팁
+        </h3>
+
+        <p>
+          LA에서는 호텔의 단순한 가격보다
+          주차비, 세금, 리조트피, 교통비 등을
+          함께 계산하는 것이 좋습니다.
+        </p>
+
+        <p>
+          특히 4명이 대형 캐리어 3~4개를 가지고 이동한다면
+          객실 크기와 주차 가능 여부도 함께 확인하세요.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CITIES
+    ========================== -->
+
+    <section id="cities" class="page-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          DESTINATIONS
+        </p>
+
+        <h2>
+          도시별 여행 정보
+        </h2>
+
+      </div>
+
+
+      <div class="city-grid">
+
+
+        <article class="city-card los-angeles">
+
+          <div class="city-image">
+            🌴
+          </div>
+
+          <div class="city-content">
+
+            <span class="city-tag">
+              CALIFORNIA
+            </span>
+
+            <h3>
+              Los Angeles
+            </h3>
+
+            <p>
+              할리우드, 유니버설 스튜디오,
+              산타모니카 등을 즐길 수 있는 도시.
+            </p>
+
+            <ul>
+              <li>🎬 Hollywood</li>
+              <li>🎢 Universal Studios</li>
+              <li>🌊 Santa Monica</li>
+              <li>🌴 Venice Beach</li>
+            </ul>
+
+          </div>
+
+        </article>
+
+
+        <article class="city-card san-diego">
+
+          <div class="city-image">
+            🌊
+          </div>
+
+          <div class="city-content">
+
+            <span class="city-tag">
+              CALIFORNIA
+            </span>
+
+            <h3>
+              San Diego
+            </h3>
+
+            <p>
+              최대 2박으로 핵심 관광지를
+              둘러보는 일정.
+            </p>
+
+            <ul>
+              <li>🐼 San Diego Zoo</li>
+              <li>⚓ USS Midway</li>
+              <li>🏖️ La Jolla</li>
+              <li>🌴 Balboa Park</li>
+            </ul>
+
+          </div>
+
+        </article>
+
+
+        <article class="city-card las-vegas">
+
+          <div class="city-image">
+            🎰
+          </div>
+
+          <div class="city-content">
+
+            <span class="city-tag">
+              NEVADA
+            </span>
+
+            <h3>
+              Las Vegas
+            </h3>
+
+            <p>
+              약 2박 동안 스트립 중심으로 관광.
+            </p>
+
+            <ul>
+              <li>🌃 Las Vegas Strip</li>
+              <li>🎡 High Roller</li>
+              <li>🏨 호텔 쇼</li>
+              <li>🌵 주변 관광</li>
+            </ul>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TRANSPORT
+    ========================== -->
+
+    <section id="transport" class="page-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          TRANSPORTATION
+        </p>
+
+        <h2>
+          교통수단 비교
+        </h2>
+
+        <p>
+          4명 기준으로 비교해보세요.
+        </p>
+
+      </div>
+
+
+      <div class="transport-grid">
+
+
+        <article class="transport-card">
+
+          <div class="transport-icon">
+            🚗
+          </div>
+
+          <h3>
+            렌터카
+          </h3>
+
+          <p>
+            관광지를 여러 곳 이동할 때 편리합니다.
+          </p>
+
+          <div class="transport-info">
+
+            <span>편의성</span>
+            <strong>★★★★★</strong>
+
+            <span>짐 이동</span>
+            <strong>★★★★★</strong>
+
+            <span>주차 부담</span>
+            <strong>★★★☆☆</strong>
+
+          </div>
+
+        </article>
+
+
+        <article class="transport-card">
+
+          <div class="transport-icon">
+            🚆
+          </div>
+
+          <h3>
+            기차
+          </h3>
+
+          <p>
+            LA ↔ 샌디에이고 이동에 활용할 수 있습니다.
+          </p>
+
+          <div class="transport-info">
+
+            <span>편의성</span>
+            <strong>★★★★☆</strong>
+
+            <span>짐 이동</span>
+            <strong>★★★★☆</strong>
+
+            <span>관광지 접근</span>
+            <strong>★★★☆☆</strong>
+
+          </div>
+
+        </article>
+
+
+        <article class="transport-card">
+
+          <div class="transport-icon">
+            🚕
+          </div>
+
+          <h3>
+            Uber / Lyft
+          </h3>
+
+          <p>
+            필요한 구간만 이용할 수 있습니다.
+          </p>
+
+          <div class="transport-info">
+
+            <span>편의성</span>
+            <strong>★★★★★</strong>
+
+            <span>짐 이동</span>
+            <strong>★★★☆☆</strong>
+
+            <span>비용 예측</span>
+            <strong>★★★☆☆</strong>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <div class="comparison-box">
+
+        <h3>
+          💡 이번 여행에서 생각해볼 조합
+        </h3>
+
+        <p>
+          LA 관광은 대중교통 또는 Uber/Lyft를 활용하고,
+          샌디에이고에서는 렌터카를 사용하는 방법과
+          LA ↔ 샌디에이고 기차를 이용하는 방법을 비교해보세요.
+        </p>
+
+        <div class="notice">
+
+          ⚠️ 실제 비용은 날짜,
+          차량 종류, 보험, 주차비 등에 따라 달라질 수 있습니다.
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         BUDGET
+    ========================== -->
+
+    <section id="budget" class="page-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          TRAVEL BUDGET
+        </p>
+
+        <h2>
+          여행 예산 계산기
+        </h2>
+
+        <p>
+          원하는 금액을 직접 입력해서 총예산을 계산하세요.
+        </p>
+
+      </div>
+
+
+      <div class="budget-layout">
+
+
+        <div class="budget-form">
+
+
+          <label>
+            항공권
+
+            <input
+              id="flightCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            호텔
+
+            <input
+              id="hotelCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            렌터카
+
+            <input
+              id="carCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            교통
+
+            <input
+              id="transportCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            식비
+
+            <input
+              id="foodCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            관광 / 입장료
+
+            <input
+              id="activityCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <label>
+            기타
+
+            <input
+              id="otherCost"
+              type="number"
+              value="0"
+              min="0"
+            >
+
+          </label>
+
+
+          <button
+            id="calculateBudget"
+            class="primary-button"
+          >
+            💰 예산 계산
+          </button>
+
+
+        </div>
+
+
+        <div class="budget-result">
+
+          <p>
+            예상 총비용
+          </p>
+
+          <strong id="totalBudget">
+            $0
+          </strong>
+
+
+          <div class="per-person">
+
+            1인 예상 비용
+
+            <strong id="perPersonBudget">
+              $0
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CHECKLIST
+    ========================== -->
+
+    <section id="checklist" class="page-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          CHECKLIST
+        </p>
+
+        <h2>
+          여행 준비 체크리스트
+        </h2>
+
+      </div>
+
+
+      <div class="checklist">
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            여권 확인
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            항공권 예약
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            LA 호텔 예약
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            샌디에이고 호텔 예약
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            라스베이거스 호텔 예약
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            미국 입국 관련 서류 확인
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            여행자보험 확인
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            렌터카 예약
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            국제운전면허 관련 준비
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            유심 / eSIM 준비
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            환전 / 해외결제 카드 준비
+          </span>
+
+        </label>
+
+
+        <label class="check-item">
+
+          <input type="checkbox">
+
+          <span>
+            짐 최종 확인
+          </span>
+
+        </label>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <p>
+      🇺🇸 USA Travel Planner
+    </p>
+
+    <small>
+      2027 California & Las Vegas Trip
+    </small>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
