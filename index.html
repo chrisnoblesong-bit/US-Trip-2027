@@ -1,388 +1,165 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1f3a">
-
-  <title>2027 미국 가족여행</title>
-
+  <title>My US Trip Planner</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-
-<header class="hero">
-  <div class="hero-overlay">
-    <p class="eyebrow">FAMILY TRIP 2027</p>
-
-    <h1>🇺🇸 미국 가족여행</h1>
-
-    <p class="hero-date">
-      2027.01.30 — 2027.02.10
-    </p>
-
-    <p class="hero-route">
-      Los Angeles → Las Vegas → Grand Canyon → San Diego → Los Angeles
-    </p>
-  </div>
-</header>
-
-
-<nav class="nav">
-
-  <button class="nav-btn active" data-target="schedule">
-    📅 일정
-  </button>
-
-  <button class="nav-btn" data-target="hotels">
-    🏨 호텔
-  </button>
-
-  <button class="nav-btn" data-target="transport">
-    🚗 교통
-  </button>
-
-  <button class="nav-btn" data-target="checklist">
-    🧳 준비
-  </button>
-
-</nav>
-
-
-<main>
-
-<!-- =========================
-     여행 개요
-========================= -->
-
-<section class="overview">
-
-  <div class="overview-card">
-    <span>✈️</span>
-    <strong>여행기간</strong>
-    <p>12박 13일</p>
-  </div>
-
-  <div class="overview-card">
-    <span>📍</span>
-    <strong>주요 지역</strong>
-    <p>LA · LV · Grand Canyon · SD</p>
-  </div>
-
-  <div class="overview-card">
-    <span>👨‍👩‍👧‍👦</span>
-    <strong>여행형태</strong>
-    <p>가족여행</p>
-  </div>
-
-  <div class="overview-card">
-    <span>🚆</span>
-    <strong>주요 교통</strong>
-    <p>Metro · Uber · Amtrak</p>
-  </div>
-
-</section>
-
-
-<!-- =========================
-     일정
-========================= -->
-
-<section id="schedule" class="page-section active-section">
-
-  <div class="section-title">
-    <span>📅</span>
-
-    <div>
-      <h2>전체 여행 일정</h2>
-      <p>2027년 미국 가족여행 전체 일정</p>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">FAMILY TRAVEL · 2027</p>
+      <h1>My US Trip Planner 🇺🇸</h1>
+      <p>우리 가족 미국 서부 여행 계획표</p>
+      <div class="trip-info">
+        <span>📅 2027.01.30 – 02.10</span>
+        <span>👨‍👩‍👧‍👦 여행 인원 4명</span>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div id="scheduleList" class="schedule-list"></div>
-
-</section>
-
-
-<!-- =========================
-     호텔
-========================= -->
-
-<section id="hotels" class="page-section">
-
-  <div class="section-title">
-
-    <span>🏨</span>
-
-    <div>
-      <h2>지역별 호텔</h2>
-      <p>
-        여행 지역을 선택하면 해당 지역의 호텔 후보를 확인할 수 있습니다.
-      </p>
-    </div>
-
-  </div>
-
-
-  <div class="hotel-filter">
-
-    <button class="hotel-filter-btn active" data-city="all">
-      전체
-    </button>
-
-    <button class="hotel-filter-btn" data-city="la">
-      🇺🇸 LA
-    </button>
-
-    <button class="hotel-filter-btn" data-city="lasvegas">
-      🎰 Las Vegas
-    </button>
-
-    <button class="hotel-filter-btn" data-city="grandcanyon">
-      🏜️ Grand Canyon
-    </button>
-
-    <button class="hotel-filter-btn" data-city="sandiego">
-      🌴 San Diego
-    </button>
-
-  </div>
-
-
-  <div id="hotelList" class="hotel-grid"></div>
-
-
-  <div class="hotel-memo">
-
-    <h3>📝 호텔 선택 메모</h3>
-
-    <textarea
-      id="hotelMemo"
-      placeholder="예: LA는 한인타운 근처 / 4명 숙박 / 주차 필요 / 조식 필요 등"
-    ></textarea>
-
-    <button class="save-btn" id="saveHotelMemo">
-      💾 호텔 메모 저장
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     교통
-========================= -->
-
-<section id="transport" class="page-section">
-
-  <div class="section-title">
-
-    <span>🚗</span>
-
-    <div>
-      <h2>교통 계획</h2>
-      <p>구간별 이동수단</p>
-    </div>
-
-  </div>
-
-
-  <div class="transport-list">
-
-    <div class="transport-card">
-
-      <span>🚕</span>
-
+  <main class="container">
+    <section class="toolbar panel">
       <div>
-        <h3>LA 공항 → 호텔</h3>
-        <p>Uber / Lyft</p>
-        <small>짐이 많다면 차량 이동이 편리합니다.</small>
+        <h2>여행 관리</h2>
+        <p class="muted">일정을 수정한 뒤 저장 버튼을 눌러 줘.</p>
+      </div>
+      <div class="toolbar-actions">
+        <button id="exportBtn" class="btn secondary">백업하기</button>
+        <button id="importBtn" class="btn secondary">백업 불러오기</button>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow dark">YOUR SCHEDULE</p>
+          <h2>여행 일정</h2>
+          <p class="muted">날짜와 장소를 자유롭게 편집할 수 있어.</p>
+        </div>
+        <button id="addTripBtn" class="btn primary">＋ 일정 추가</button>
       </div>
 
-    </div>
-
-
-    <div class="transport-card">
-
-      <span>🚇</span>
-
-      <div>
-        <h3>LA 시내 관광</h3>
-        <p>Metro + Bus + Uber</p>
-        <small>
-          관광지에 따라 대중교통과 Uber를 조합합니다.
-        </small>
+      <div class="filters">
+        <label for="cityFilter">지역별 보기</label>
+        <select id="cityFilter">
+          <option value="all">전체 일정</option>
+          <option value="로스앤젤레스">로스앤젤레스</option>
+          <option value="샌디에이고">샌디에이고</option>
+          <option value="라스베이거스">라스베이거스</option>
+          <option value="이동">도시 간 이동</option>
+        </select>
       </div>
 
-    </div>
+      <p id="tripCount" class="muted"></p>
+      <div id="tripList" class="trip-list"></div>
+      <p id="emptyTrips" class="empty" hidden>일정이 없어. 위의 일정 추가 버튼을 눌러 봐!</p>
+    </section>
 
-
-    <div class="transport-card">
-
-      <span>🚌</span>
-
-      <div>
-        <h3>LA → Las Vegas</h3>
-        <p>포시즌투어</p>
-        <small>
-          Grand Canyon 일정과 연결합니다.
-        </small>
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow dark">ACCOMMODATION</p>
+          <h2>호텔 관리 🏨</h2>
+          <p class="muted">호텔명, 주소, 가격, 예약 메모를 직접 입력해.</p>
+        </div>
+        <button id="addHotelBtn" class="btn primary">＋ 호텔 추가</button>
       </div>
+      <div id="hotelList" class="hotel-list"></div>
+      <p id="emptyHotels" class="empty" hidden>등록된 호텔이 없어. 호텔 추가를 눌러 입력해 줘.</p>
+    </section>
 
-    </div>
+    <section class="panel tips">
+      <h2>여행 메모 📝</h2>
+      <textarea id="travelNotes" rows="4"
+        placeholder="예약 번호, 준비물, 항공편, 주의사항 등을 기록해 줘."></textarea>
+      <button id="saveNotesBtn" class="btn primary">메모 저장</button>
+    </section>
 
+    <footer>
+      <p>My US Trip Planner · 가족 미국 여행 2027</p>
+      <p class="muted">일정과 호텔 정보는 직접 확인하고 수정해 줘.</p>
+    </footer>
+  </main>
 
-    <div class="transport-card">
+  <dialog id="tripDialog">
+    <form id="tripForm" class="editor">
+      <h2 id="tripDialogTitle">일정 추가</h2>
+      <input id="tripId" type="hidden">
 
-      <span>🚆</span>
+      <label for="tripDate">날짜</label>
+      <input id="tripDate" type="date" min="2027-01-01" max="2027-12-31" required>
 
-      <div>
-        <h3>LA ↔ San Diego</h3>
-        <p>Amtrak + Uber</p>
-        <small>
-          역과 호텔 사이 Uber 이용을 고려합니다.
-        </small>
+      <label for="tripCity">도시</label>
+      <select id="tripCity" required>
+        <option value="로스앤젤레스">로스앤젤레스</option>
+        <option value="샌디에이고">샌디에이고</option>
+        <option value="라스베이거스">라스베이거스</option>
+        <option value="이동">도시 간 이동</option>
+      </select>
+
+      <label for="tripTitle">일정 제목</label>
+      <input id="tripTitle" maxlength="120" required placeholder="예: 유니버설 스튜디오">
+
+      <label for="tripDetails">상세 내용</label>
+      <textarea id="tripDetails" rows="3" maxlength="1500"
+        placeholder="방문할 장소, 예약 정보 등"></textarea>
+
+      <label for="tripTransport">교통수단</label>
+      <input id="tripTransport" maxlength="200" placeholder="예: Metro, Uber">
+
+      <label for="tripTime">예정 시간 (선택)</label>
+      <input id="tripTime" type="time">
+
+      <div class="dialog-actions">
+        <button type="button" class="btn secondary" data-close="tripDialog">취소</button>
+        <button type="submit" class="btn primary">일정 저장</button>
       </div>
+    </form>
+  </dialog>
 
-    </div>
+  <dialog id="hotelDialog">
+    <form id="hotelForm" class="editor">
+      <h2 id="hotelDialogTitle">호텔 추가</h2>
+      <input id="hotelId" type="hidden">
 
+      <label for="hotelCity">지역</label>
+      <select id="hotelCity" required>
+        <option value="로스앤젤레스">로스앤젤레스</option>
+        <option value="샌디에이고">샌디에이고</option>
+        <option value="라스베이거스">라스베이거스</option>
+      </select>
 
-    <div class="transport-card">
+      <label for="hotelName">호텔 이름</label>
+      <input id="hotelName" maxlength="150" required placeholder="호텔 이름">
 
-      <span>✈️</span>
+      <label for="hotelAddress">주소</label>
+      <input id="hotelAddress" maxlength="300" placeholder="호텔 주소">
 
-      <div>
-        <h3>LA 호텔 → LAX</h3>
-        <p>Uber / Lyft</p>
-        <small>
-          2/10 한국행 비행기를 위해 공항으로 이동합니다.
-        </small>
+      <label for="hotelPrice">1박 가격 (달러)</label>
+      <input id="hotelPrice" type="number" min="0" step="0.01" placeholder="예: 150">
+
+      <label for="hotelDates">숙박 날짜</label>
+      <input id="hotelDates" maxlength="100" placeholder="예: 1/30~2/3">
+
+      <label for="hotelLink">호텔 웹사이트 또는 예약 링크</label>
+      <input id="hotelLink" type="url" placeholder="https://...">
+
+      <label for="hotelNotes">예약 메모</label>
+      <textarea id="hotelNotes" rows="3" maxlength="1000"
+        placeholder="예약 여부, 취소 규정, 객실 정보 등"></textarea>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn secondary" data-close="hotelDialog">취소</button>
+        <button type="submit" class="btn primary">호텔 저장</button>
       </div>
+    </form>
+  </dialog>
 
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     준비
-========================= -->
-
-<section id="checklist" class="page-section">
-
-  <div class="section-title">
-
-    <span>🧳</span>
-
-    <div>
-      <h2>여행 준비 체크리스트</h2>
-      <p>준비한 항목을 체크하세요.</p>
-    </div>
-
-  </div>
-
-
-  <div class="checklist">
-
-    <label>
-      <input type="checkbox">
-      <span>여권</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>ESTA</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>항공권</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>여행자보험</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>호텔 예약</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>포시즌투어 예약</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>Amtrak 예약</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>Uber / Lyft</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>해외결제 카드</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>충전기 / 보조배터리</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>미국용 eSIM</span>
-    </label>
-
-    <label>
-      <input type="checkbox">
-      <span>겨울 옷</span>
-    </label>
-
-  </div>
-
-
-  <div class="memo-box">
-
-    <h3>📝 여행 메모</h3>
-
-    <textarea
-      id="tripMemo"
-      placeholder="맛집, 쇼핑, 예약번호, 관광지 등을 자유롭게 적어보세요."
-    ></textarea>
-
-    <button class="save-btn" id="saveMemo">
-      💾 메모 저장
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <p>🇺🇸 2027 FAMILY USA TRIP</p>
-
-  <p>
-    Los Angeles · Las Vegas · Grand Canyon · San Diego
-  </p>
-
-</footer>
-
-
-<script src="script.js"></script>
-
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
