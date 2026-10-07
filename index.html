@@ -3,163 +3,162 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My US Trip Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My US Trip Planner 🇺🇸</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
   <header class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">FAMILY TRAVEL · 2027</p>
-      <h1>My US Trip Planner 🇺🇸</h1>
-      <p>우리 가족 미국 서부 여행 계획표</p>
-      <div class="trip-info">
-        <span>📅 2027.01.30 – 02.10</span>
-        <span>👨‍👩‍👧‍👦 여행 인원 4명</span>
-      </div>
-    </div>
+    <p>FAMILY TRAVEL · 2027</p>
+    <h1>My US Trip Planner 🇺🇸</h1>
+    <p>우리 가족 미국 서부 여행 계획표</p>
+    <span>📅 2027.01.30–02.10　 👨‍👩‍👧‍👦 4명</span>
   </header>
 
   <main class="container">
-    <section class="toolbar panel">
-      <div>
-        <h2>여행 관리</h2>
-        <p class="muted">일정을 수정한 뒤 저장 버튼을 눌러 줘.</p>
-      </div>
-      <div class="toolbar-actions">
-        <button id="exportBtn" class="btn secondary">백업하기</button>
-        <button id="importBtn" class="btn secondary">백업 불러오기</button>
-        <input id="importFile" type="file" accept=".json,application/json" hidden>
-      </div>
+    <section id="loginPanel" class="panel">
+      <h2>🔐 여행 계획 로그인</h2>
+      <p>Supabase에 등록한 이메일과 비밀번호를 입력해 줘.</p>
+      <form id="loginForm">
+        <label for="email">이메일</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">비밀번호</label>
+        <input id="password" type="password"
+          autocomplete="current-password" required>
+        <button class="btn primary" type="submit">로그인</button>
+      </form>
+      <p id="loginMessage" role="status"></p>
     </section>
 
-    <section class="panel">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow dark">YOUR SCHEDULE</p>
-          <h2>여행 일정</h2>
-          <p class="muted">날짜와 장소를 자유롭게 편집할 수 있어.</p>
-        </div>
-        <button id="addTripBtn" class="btn primary">＋ 일정 추가</button>
+    <div id="app" hidden>
+      <div class="toolbar">
+        <span id="userLabel">로그인됨</span>
+        <button id="logoutBtn" class="btn secondary">로그아웃</button>
       </div>
 
-      <div class="filters">
+      <section class="panel">
+        <div class="heading">
+          <div>
+            <h2>🗓️ 여행 일정</h2>
+            <p>일정을 추가하거나 수정하고 저장할 수 있어.</p>
+          </div>
+          <button id="addTripBtn" class="btn primary">＋ 일정 추가</button>
+        </div>
         <label for="cityFilter">지역별 보기</label>
         <select id="cityFilter">
-          <option value="all">전체 일정</option>
-          <option value="로스앤젤레스">로스앤젤레스</option>
-          <option value="샌디에이고">샌디에이고</option>
-          <option value="라스베이거스">라스베이거스</option>
-          <option value="이동">도시 간 이동</option>
+          <option value="all">전체</option>
+          <option>로스앤젤레스</option>
+          <option>샌디에이고</option>
+          <option>라스베이거스</option>
+          <option>이동</option>
         </select>
-      </div>
+        <div id="tripList"></div>
+      </section>
 
-      <p id="tripCount" class="muted"></p>
-      <div id="tripList" class="trip-list"></div>
-      <p id="emptyTrips" class="empty" hidden>일정이 없어. 위의 일정 추가 버튼을 눌러 봐!</p>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow dark">ACCOMMODATION</p>
-          <h2>호텔 관리 🏨</h2>
-          <p class="muted">호텔명, 주소, 가격, 예약 메모를 직접 입력해.</p>
+      <section class="panel">
+        <div class="heading">
+          <div>
+            <h2>🏨 호텔 관리</h2>
+            <p>호텔 이름, 가격, 주소, 예약 링크를 기록해.</p>
+          </div>
+          <button id="addHotelBtn" class="btn primary">＋ 호텔 추가</button>
         </div>
-        <button id="addHotelBtn" class="btn primary">＋ 호텔 추가</button>
-      </div>
-      <div id="hotelList" class="hotel-list"></div>
-      <p id="emptyHotels" class="empty" hidden>등록된 호텔이 없어. 호텔 추가를 눌러 입력해 줘.</p>
-    </section>
+        <div id="hotelList"></div>
+      </section>
 
-    <section class="panel tips">
-      <h2>여행 메모 📝</h2>
-      <textarea id="travelNotes" rows="4"
-        placeholder="예약 번호, 준비물, 항공편, 주의사항 등을 기록해 줘."></textarea>
-      <button id="saveNotesBtn" class="btn primary">메모 저장</button>
-    </section>
+      <section class="panel">
+        <h2>📝 여행 메모</h2>
+        <textarea id="notes" rows="5"
+          placeholder="항공편, 예약 번호, 준비물 등을 기록해 줘."></textarea>
+        <button id="saveNotesBtn" class="btn primary">메모 저장</button>
+      </section>
 
-    <footer>
-      <p>My US Trip Planner · 가족 미국 여행 2027</p>
-      <p class="muted">일정과 호텔 정보는 직접 확인하고 수정해 줘.</p>
-    </footer>
+      <section class="panel">
+        <h2>💾 백업과 복원</h2>
+        <p>일정과 호텔을 JSON 파일로 보관할 수 있어.</p>
+        <div class="button-row">
+          <button id="exportBtn" class="btn secondary">백업 다운로드</button>
+          <button id="importBtn" class="btn secondary">백업 복원</button>
+          <input id="importFile" type="file" accept=".json" hidden>
+        </div>
+      </section>
+    </div>
   </main>
 
   <dialog id="tripDialog">
     <form id="tripForm" class="editor">
-      <h2 id="tripDialogTitle">일정 추가</h2>
+      <h2>일정 편집</h2>
       <input id="tripId" type="hidden">
 
       <label for="tripDate">날짜</label>
-      <input id="tripDate" type="date" min="2027-01-01" max="2027-12-31" required>
+      <input id="tripDate" type="date" required>
 
-      <label for="tripCity">도시</label>
+      <label for="tripCity">지역</label>
       <select id="tripCity" required>
-        <option value="로스앤젤레스">로스앤젤레스</option>
-        <option value="샌디에이고">샌디에이고</option>
-        <option value="라스베이거스">라스베이거스</option>
-        <option value="이동">도시 간 이동</option>
+        <option>로스앤젤레스</option>
+        <option>샌디에이고</option>
+        <option>라스베이거스</option>
+        <option>이동</option>
       </select>
 
       <label for="tripTitle">일정 제목</label>
-      <input id="tripTitle" maxlength="120" required placeholder="예: 유니버설 스튜디오">
+      <input id="tripTitle" maxlength="120" required>
 
       <label for="tripDetails">상세 내용</label>
-      <textarea id="tripDetails" rows="3" maxlength="1500"
-        placeholder="방문할 장소, 예약 정보 등"></textarea>
+      <textarea id="tripDetails" rows="3"></textarea>
 
       <label for="tripTransport">교통수단</label>
-      <input id="tripTransport" maxlength="200" placeholder="예: Metro, Uber">
+      <input id="tripTransport" maxlength="200">
 
-      <label for="tripTime">예정 시간 (선택)</label>
+      <label for="tripTime">시간 (선택)</label>
       <input id="tripTime" type="time">
 
-      <div class="dialog-actions">
+      <div class="button-row">
         <button type="button" class="btn secondary" data-close="tripDialog">취소</button>
-        <button type="submit" class="btn primary">일정 저장</button>
+        <button type="submit" class="btn primary">저장</button>
       </div>
     </form>
   </dialog>
 
   <dialog id="hotelDialog">
     <form id="hotelForm" class="editor">
-      <h2 id="hotelDialogTitle">호텔 추가</h2>
+      <h2>호텔 편집</h2>
       <input id="hotelId" type="hidden">
 
       <label for="hotelCity">지역</label>
       <select id="hotelCity" required>
-        <option value="로스앤젤레스">로스앤젤레스</option>
-        <option value="샌디에이고">샌디에이고</option>
-        <option value="라스베이거스">라스베이거스</option>
+        <option>로스앤젤레스</option>
+        <option>샌디에이고</option>
+        <option>라스베이거스</option>
       </select>
 
       <label for="hotelName">호텔 이름</label>
-      <input id="hotelName" maxlength="150" required placeholder="호텔 이름">
+      <input id="hotelName" maxlength="150" required>
 
       <label for="hotelAddress">주소</label>
-      <input id="hotelAddress" maxlength="300" placeholder="호텔 주소">
+      <input id="hotelAddress" maxlength="300">
 
       <label for="hotelPrice">1박 가격 (달러)</label>
-      <input id="hotelPrice" type="number" min="0" step="0.01" placeholder="예: 150">
+      <input id="hotelPrice" type="number" min="0" step="0.01">
 
       <label for="hotelDates">숙박 날짜</label>
-      <input id="hotelDates" maxlength="100" placeholder="예: 1/30~2/3">
+      <input id="hotelDates" maxlength="100" placeholder="예: 1/30~2/2">
 
-      <label for="hotelLink">호텔 웹사이트 또는 예약 링크</label>
+      <label for="hotelLink">호텔 웹사이트 / 예약 링크</label>
       <input id="hotelLink" type="url" placeholder="https://...">
 
       <label for="hotelNotes">예약 메모</label>
-      <textarea id="hotelNotes" rows="3" maxlength="1000"
-        placeholder="예약 여부, 취소 규정, 객실 정보 등"></textarea>
+      <textarea id="hotelNotes" rows="3"></textarea>
 
-      <div class="dialog-actions">
+      <div class="button-row">
         <button type="button" class="btn secondary" data-close="hotelDialog">취소</button>
-        <button type="submit" class="btn primary">호텔 저장</button>
+        <button type="submit" class="btn primary">저장</button>
       </div>
     </form>
   </dialog>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="toast" role="status"></div>
 </body>
 </html>
