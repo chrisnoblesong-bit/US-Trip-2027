@@ -1,884 +1,416 @@
-/* =========================================
-   2027 USA FAMILY TRIP
-   JavaScript
-========================================= */
 
+const STORAGE_KEY = "my-us-trip-planner-v1";
 
-/* =========================================
-   여행 일정
-========================================= */
+const defaultData = {
+  trips: [
+    { id: "t1", date: "2027-01-30", city: "로스앤젤레스", title: "LA 도착 및 그리피스 천문대", details: "LA 도착 → 호텔 체크인 → 그리피스 천문대", transport: "Uber", time: "" },
+    { id: "t2", date: "2027-01-31", city: "로스앤젤레스", title: "산타모니카 + 베니스 비치", details: "해변 산책 및 주변 관광", transport: "대중교통 + Uber", time: "" },
+    { id: "t3", date: "2027-02-01", city: "로스앤젤레스", title: "유니버설 스튜디오", details: "유니버설 스튜디오 할리우드 방문", transport: "Metro", time: "" },
+    { id: "t4", date: "2027-02-02", city: "로스앤젤레스", title: "할리우드 + 게티 센터", details: "할리우드 관광 및 게티 센터 방문", transport: "대중교통 + Uber", time: "" },
+    { id: "t5", date: "2027-02-03", city: "이동", title: "라스베이거스 이동", details: "포시즌 투어 출발. 출발 시간과 집결 장소 확인", transport: "투어 차량", time: "" },
+    { id: "t6", date: "2027-02-04", city: "라스베이거스", title: "라스베이거스 관광", details: "세부 일정 입력하기", transport: "도보 / Uber", time: "" },
+    { id: "t7", date: "2027-02-05", city: "라스베이거스", title: "라스베이거스 자유 일정", details: "관광 및 숙소 일정 확인", transport: "도보 / Uber", time: "" },
+    { id: "t8", date: "2027-02-06", city: "이동", title: "이동 일정", details: "출발지와 도착지를 입력해 줘", transport: "미정", time: "" },
+    { id: "t9", date: "2027-02-07", city: "샌디에이고", title: "샌디에이고 관광", details: "방문할 관광지를 입력해 줘", transport: "미정", time: "" },
+    { id: "t10", date: "2027-02-08", city: "샌디에이고", title: "샌디에이고 자유 일정", details: "방문할 관광지를 입력해 줘", transport: "미정", time: "" },
+    { id: "t11", date: "2027-02-09", city: "로스앤젤레스", title: "LA 복귀 및 마지막 숙박", details: "공항 이동에 편리한 숙소와 이동 시간 확인", transport: "미정", time: "" },
+    { id: "t12", date: "2027-02-10", city: "이동", title: "귀국 항공편", details: "항공편 시간과 공항 이동 시간 확인", transport: "Uber / Lyft", time: "" }
+  ],
+  hotels: [],
+  notes: ""
+};
 
-const travelSchedule = [
+let data = loadData();
 
-  {
-    date: "1/30",
-    day: "토요일",
-    location: "Los Angeles",
-    title: "LA 도착",
-    description:
-      "LA 도착 → 호텔 체크인 → Griffith Observatory",
-    transport: "Uber"
-  },
+const $ = (id) => document.getElementById(id);
 
-  {
-    date: "1/31",
-    day: "일요일",
-    location: "Los Angeles",
-    title: "Santa Monica + Venice Beach",
-    description:
-      "Santa Monica와 Venice Beach 관광",
-    transport: "Metro / Bus + Uber"
-  },
+function makeId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
+}
 
-  {
-    date: "2/1",
-    day: "월요일",
-    location: "Los Angeles",
-    title: "Universal Studios Hollywood",
-    description:
-      "Universal Studios Hollywood 하루 관광",
-    transport: "Metro"
-  },
-
-  {
-    date: "2/2",
-    day: "화요일",
-    location: "Los Angeles",
-    title: "Hollywood + Getty Center",
-    description:
-      "Hollywood 관광 후 Getty Center 방문",
-    transport: "Metro + Uber"
-  },
-
-  {
-    date: "2/3",
-    day: "수요일",
-    location: "LA → Las Vegas",
-    title: "Las Vegas 이동",
-    description:
-      "포시즌투어 출발 → Las Vegas 이동",
-    transport: "포시즌투어"
-  },
-
-  {
-    date: "2/4",
-    day: "목요일",
-    location: "Las Vegas / Grand Canyon",
-    title: "Grand Canyon",
-    description:
-      "포시즌투어를 이용하여 Grand Canyon 관광",
-    transport: "포시즌투어"
-  },
-
-  {
-    date: "2/5",
-    day: "금요일",
-    location: "Grand Canyon → Las Vegas → LA",
-    title: "LA 복귀",
-    description:
-      "Grand Canyon 관광 후 Las Vegas를 거쳐 LA 도착",
-    transport: "포시즌투어"
-  },
-
-  {
-    date: "2/6",
-    day: "토요일",
-    location: "LA → San Diego",
-    title: "San Diego 이동",
-    description:
-      "San Diego 이동 → Little Italy / 항구",
-    transport: "Uber + Amtrak"
-  },
-
-  {
-    date: "2/7",
-    day: "일요일",
-    location: "San Diego",
-    title: "La Jolla + 해변",
-    description:
-      "La Jolla와 San Diego 해변 관광",
-    transport: "Bus / Trolley + Uber"
-  },
-
-  {
-    date: "2/8",
-    day: "월요일",
-    location: "San Diego → LA",
-    title: "LA 복귀",
-    description:
-      "오전/낮 San Diego 관광 후 LA 이동",
-    transport: "Amtrak + Uber"
-  },
-
-  {
-    date: "2/9",
-    day: "화요일",
-    location: "Los Angeles",
-    title: "LA 마지막 관광 + 쇼핑",
-    description:
-      "마지막 LA 관광 → 쇼핑 / 마트",
-    transport: "Metro + Uber"
-  },
-
-  {
-    date: "2/10",
-    day: "수요일",
-    location: "Los Angeles → LAX",
-    title: "한국 출국",
-    description:
-      "호텔 → LAX → 한국행 비행기",
-    transport: "Uber / Lyft"
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed.trips) && Array.isArray(parsed.hotels)) {
+        return {
+          trips: parsed.trips,
+          hotels: parsed.hotels,
+          notes: typeof parsed.notes === "string" ? parsed.notes : ""
+        };
+      }
+    }
+  } catch (error) {
+    console.error("저장 데이터 읽기 오류:", error);
   }
 
-];
-
-
-/* =========================================
-   호텔 데이터
-========================================= */
-
-const hotels = [
-
-  /* =====================
-     LA
-  ===================== */
-
-  {
-    city: "la",
-    cityName: "Los Angeles",
-
-    name: "Ramada by Wyndham LA/Koreatown West",
-
-    location: "Koreatown",
-
-    icon: "🇺🇸",
-
-    description:
-      "LA 한인타운 주변에서 숙박을 찾을 때 고려할 수 있는 호텔 후보입니다.",
-
-    features: [
-      "한인타운",
-      "식당 접근",
-      "가족여행",
-      "LA 관광"
-    ],
-
-    note:
-      "한인타운 중심 숙박을 원한다면 위치를 우선적으로 비교해보세요."
-  },
-
-
-  {
-    city: "la",
-    cityName: "Los Angeles",
-
-    name: "Garden Suite Hotel",
-
-    location: "Koreatown",
-
-    icon: "🏨",
-
-    description:
-      "한인타운과 LA 도심 관광을 함께 고려할 수 있는 숙박 후보입니다.",
-
-    features: [
-      "Koreatown",
-      "식당",
-      "마트 접근",
-      "가족여행"
-    ],
-
-    note:
-      "4인 가족 객실 조건과 주차비를 예약 전에 확인하세요."
-  },
-
-
-  {
-    city: "la",
-    cityName: "Los Angeles",
-
-    name: "Hotel Normandie LA",
-
-    location: "Koreatown",
-
-    icon: "🏨",
-
-    description:
-      "Koreatown에서 관광과 식사를 함께 고려할 수 있는 숙소 후보입니다.",
-
-    features: [
-      "Koreatown",
-      "Metro 접근",
-      "관광 편리",
-      "도심"
-    ],
-
-    note:
-      "Metro 이용 계획이 있다면 역까지의 실제 도보거리를 확인하세요."
-  },
-
-
-  {
-    city: "la",
-    cityName: "Los Angeles",
-
-    name: "Loews Hollywood Hotel",
-
-    location: "Hollywood",
-
-    icon: "🎬",
-
-    description:
-      "Hollywood 관광을 중심으로 숙소를 잡을 때 고려할 수 있는 호텔입니다.",
-
-    features: [
-      "Hollywood",
-      "관광지 접근",
-      "가족여행",
-      "Metro"
-    ],
-
-    note:
-      "Hollywood 관광 비중이 높다면 위치상 편리할 수 있습니다."
-  },
-
-
-  {
-    city: "la",
-    cityName: "Los Angeles",
-
-    name: "Hilton Los Angeles/Universal City",
-
-    location: "Universal City",
-
-    icon: "🎢",
-
-    description:
-      "Universal Studios 방문일 숙박 후보로 고려할 수 있는 호텔입니다.",
-
-    features: [
-      "Universal",
-      "테마파크",
-      "가족여행",
-      "Metro"
-    ],
-
-    note:
-      "2/1 Universal Studios 일정과 함께 비교해보세요."
-  },
-
-
-  /* =====================
-     LAS VEGAS
-  ===================== */
-
-  {
-    city: "lasvegas",
-    cityName: "Las Vegas",
-
-    name: "Four Seasons Hotel Las Vegas",
-
-    location: "Las Vegas Strip",
-
-    icon: "🎰",
-
-    description:
-      "가족여행에서 조용한 숙박환경을 우선할 때 비교할 수 있는 후보입니다.",
-
-    features: [
-      "가족여행",
-      "Non-Gaming",
-      "Strip",
-      "고급호텔"
-    ],
-
-    note:
-      "Grand Canyon 투어 픽업 위치와 시간을 반드시 확인하세요."
-  },
-
-
-  {
-    city: "lasvegas",
-    cityName: "Las Vegas",
-
-    name: "Vdara Hotel & Spa",
-
-    location: "Las Vegas Strip",
-
-    icon: "🏨",
-
-    description:
-      "Las Vegas Strip 중심에서 숙박을 고려할 때 비교할 수 있는 후보입니다.",
-
-    features: [
-      "Non-Gaming",
-      "Strip",
-      "가족여행",
-      "Suite"
-    ],
-
-    note:
-      "객실 크기와 가족 4명 숙박 조건을 비교해보세요."
-  },
-
-
-  /* =====================
-     GRAND CANYON
-  ===================== */
-
-  {
-    city: "grandcanyon",
-    cityName: "Grand Canyon",
-
-    name: "The Squire at Grand Canyon",
-
-    location: "Tusayan",
-
-    icon: "🏜️",
-
-    description:
-      "Grand Canyon South Rim 접근을 고려할 때 비교할 수 있는 Tusayan 지역 숙소입니다.",
-
-    features: [
-      "Tusayan",
-      "South Rim",
-      "가족여행",
-      "관광"
-    ],
-
-    note:
-      "포시즌투어에서 숙박을 포함하는지 먼저 확인하세요."
-  },
-
-
-  {
-    city: "grandcanyon",
-    cityName: "Grand Canyon",
-
-    name: "Grand Canyon Plaza Hotel",
-
-    location: "Tusayan",
-
-    icon: "🏜️",
-
-    description:
-      "Grand Canyon South Rim 관광을 위한 Tusayan 숙소 후보입니다.",
-
-    features: [
-      "Tusayan",
-      "South Rim",
-      "가족여행"
-    ],
-
-    note:
-      "투어 일정과 숙박 필요 여부를 먼저 확인하세요."
-  },
-
-
-  {
-    city: "grandcanyon",
-    cityName: "Grand Canyon",
-
-    name: "Holiday Inn Express & Suites Grand Canyon",
-
-    location: "Tusayan",
-
-    icon: "🏨",
-
-    description:
-      "Grand Canyon 관광을 위해 Tusayan 지역에서 비교할 수 있는 호텔 후보입니다.",
-
-    features: [
-      "Tusayan",
-      "조식",
-      "가족여행",
-      "South Rim"
-    ],
-
-    note:
-      "겨울철 도로 상황과 투어 픽업 여부를 확인하세요."
-  },
-
-
-  /* =====================
-     SAN DIEGO
-  ===================== */
-
-  {
-    city: "sandiego",
-    cityName: "San Diego",
-
-    name: "Courtyard San Diego Downtown / Little Italy",
-
-    location: "Little Italy",
-
-    icon: "🌴",
-
-    description:
-      "Little Italy와 Downtown 관광을 중심으로 숙박할 때 비교할 수 있는 후보입니다.",
-
-    features: [
-      "Little Italy",
-      "Downtown",
-      "가족여행",
-      "관광"
-    ],
-
-    note:
-      "2/6 Little Italy 관광 일정과 연결하기 좋습니다."
-  },
-
-
-  {
-    city: "sandiego",
-    cityName: "San Diego",
-
-    name: "La Pensione Hotel",
-
-    location: "Little Italy",
-
-    icon: "🌴",
-
-    description:
-      "San Diego Little Italy에서 숙박을 찾을 때 고려할 수 있는 호텔 후보입니다.",
-
-    features: [
-      "Little Italy",
-      "식당",
-      "Downtown",
-      "도보관광"
-    ],
-
-    note:
-      "4인 가족 객실 형태와 침대 구성을 확인하세요."
-  },
-
-
-  {
-    city: "sandiego",
-    cityName: "San Diego",
-
-    name: "Hampton Inn San Diego Downtown",
-
-    location: "Downtown",
-
-    icon: "🏨",
-
-    description:
-      "Downtown 관광과 가족 숙박을 함께 고려할 수 있는 호텔 후보입니다.",
-
-    features: [
-      "Downtown",
-      "조식",
-      "가족여행",
-      "관광"
-    ],
-
-    note:
-      "Little Italy와 Amtrak역까지의 이동방법을 비교해보세요."
-  },
-
-
-  {
-    city: "sandiego",
-    cityName: "San Diego",
-
-    name: "La Jolla Cove Hotel & Suites",
-
-    location: "La Jolla",
-
-    icon: "🌊",
-
-    description:
-      "2/7 La Jolla와 해변 관광을 중심으로 숙소를 잡을 때 비교할 수 있는 후보입니다.",
-
-    features: [
-      "La Jolla",
-      "해변",
-      "관광",
-      "가족여행"
-    ],
-
-    note:
-      "La Jolla 관광을 가장 중요하게 생각한다면 위치를 비교해보세요."
+  return JSON.parse(JSON.stringify(defaultData));
+}
+
+function saveData(message = "저장했어!") {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    render();
+    showToast(message);
+  } catch (error) {
+    console.error("저장 오류:", error);
+    showToast("저장에 실패했어. 브라우저 저장 공간을 확인해 줘.");
   }
-
-];
-
-
-/* =========================================
-   일정 화면
-========================================= */
-
-const scheduleList =
-  document.getElementById("scheduleList");
-
-
-function renderSchedule() {
-
-  scheduleList.innerHTML = "";
-
-  travelSchedule.forEach(item => {
-
-    const card =
-      document.createElement("article");
-
-    card.className = "schedule-card";
-
-    card.innerHTML = `
-
-      <div class="schedule-date">
-
-        <div class="date">
-          ${item.date}
-        </div>
-
-        <div class="day">
-          ${item.day}
-        </div>
-
-      </div>
-
-
-      <div class="schedule-info">
-
-        <div class="location-tag">
-          📍 ${item.location}
-        </div>
-
-        <h3>
-          ${item.title}
-        </h3>
-
-        <p>
-          ${item.description}
-        </p>
-
-      </div>
-
-
-      <div class="transport-tag">
-        🚗 ${item.transport}
-      </div>
-
-    `;
-
-    scheduleList.appendChild(card);
-
-  });
-
 }
 
+let toastTimer;
 
-/* =========================================
-   호텔 화면
-========================================= */
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
 
-const hotelList =
-  document.getElementById("hotelList");
-
-
-function renderHotels(city = "all") {
-
-  hotelList.innerHTML = "";
-
-  const filteredHotels =
-    city === "all"
-      ? hotels
-      : hotels.filter(
-          hotel => hotel.city === city
-        );
-
-
-  filteredHotels.forEach(hotel => {
-
-    const card =
-      document.createElement("article");
-
-    card.className = "hotel-card";
-
-    card.innerHTML = `
-
-      <div class="hotel-top">
-
-        <span class="hotel-icon">
-          ${hotel.icon}
-        </span>
-
-        <span class="hotel-city">
-          ${hotel.cityName}
-        </span>
-
-      </div>
-
-
-      <h3>
-        ${hotel.name}
-      </h3>
-
-
-      <p class="hotel-location">
-        📍 ${hotel.location}
-      </p>
-
-
-      <p class="hotel-description">
-        ${hotel.description}
-      </p>
-
-
-      <div class="hotel-features">
-
-        ${hotel.features
-          .map(
-            feature =>
-              `<span class="hotel-feature">
-                ${feature}
-              </span>`
-          )
-          .join("")}
-
-      </div>
-
-
-      <div class="hotel-note">
-        💡 ${hotel.note}
-      </div>
-
-    `;
-
-    hotelList.appendChild(card);
-
-  });
-
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-
-/* =========================================
-   호텔 필터
-========================================= */
-
-const hotelFilterButtons =
-  document.querySelectorAll(
-    ".hotel-filter-btn"
-  );
-
-
-hotelFilterButtons.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      hotelFilterButtons.forEach(btn => {
-
-        btn.classList.remove("active");
-
-      });
-
-
-      button.classList.add("active");
-
-
-      renderHotels(
-        button.dataset.city
-      );
-
-    }
-  );
-
-});
-
-
-/* =========================================
-   메인 메뉴
-========================================= */
-
-const navButtons =
-  document.querySelectorAll(".nav-btn");
-
-
-const sections =
-  document.querySelectorAll(".page-section");
-
-
-navButtons.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const target =
-        button.dataset.target;
-
-
-      navButtons.forEach(btn => {
-
-        btn.classList.remove("active");
-
-      });
-
-
-      sections.forEach(section => {
-
-        section.classList.remove(
-          "active-section"
-        );
-
-      });
-
-
-      button.classList.add("active");
-
-
-      const targetSection =
-        document.getElementById(target);
-
-
-      if (targetSection) {
-
-        targetSection.classList.add(
-          "active-section"
-        );
-
-      }
-
-
-      window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-      });
-
-    }
-  );
-
-});
-
-
-/* =========================================
-   호텔 메모
-========================================= */
-
-const hotelMemo =
-  document.getElementById("hotelMemo");
-
-
-const savedHotelMemo =
-  localStorage.getItem("hotelMemo");
-
-
-if (savedHotelMemo) {
-
-  hotelMemo.value =
-    savedHotelMemo;
-
+function makeElement(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text !== undefined) el.textContent = text;
+  return el;
 }
 
+function formatDate(date) {
+  if (!date) return "날짜 미정";
 
-document
-  .getElementById("saveHotelMemo")
-  .addEventListener(
-    "click",
-    () => {
-
-      localStorage.setItem(
-        "hotelMemo",
-        hotelMemo.value
-      );
-
-      alert(
-        "호텔 메모가 저장되었습니다."
-      );
-
-    }
-  );
-
-
-/* =========================================
-   여행 메모
-========================================= */
-
-const tripMemo =
-  document.getElementById("tripMemo");
-
-
-const savedTripMemo =
-  localStorage.getItem("tripMemo");
-
-
-if (savedTripMemo) {
-
-  tripMemo.value =
-    savedTripMemo;
-
+  const parts = date.split("-").map(Number);
+  return `${parts[1]}월 ${parts[2]}일`;
 }
 
+function render() {
+  renderTrips();
+  renderHotels();
 
-document
-  .getElementById("saveMemo")
-  .addEventListener(
-    "click",
-    () => {
+  $("travelNotes").value = data.notes;
+}
 
-      localStorage.setItem(
-        "tripMemo",
-        tripMemo.value
-      );
+function renderTrips() {
+  const list = $("tripList");
+  const filter = $("cityFilter").value;
+  list.replaceChildren();
 
-      alert(
-        "여행 메모가 저장되었습니다."
-      );
-
-    }
-  );
-
-
-/* =========================================
-   체크리스트 저장
-========================================= */
-
-const checklist =
-  document.querySelectorAll(
-    '.checklist input[type="checkbox"]'
-  );
-
-
-checklist.forEach(
-  (input, index) => {
-
-    const saved =
-      localStorage.getItem(
-        `tripCheck_${index}`
-      );
-
-
-    input.checked =
-      saved === "true";
-
-
-    input.addEventListener(
-      "change",
-      () => {
-
-        localStorage.setItem(
-          `tripCheck_${index}`,
-          input.checked
-        );
-
-      }
+  const trips = [...data.trips]
+    .filter(trip => filter === "all" || trip.city === filter)
+    .sort((a, b) =>
+      (a.date || "").localeCompare(b.date || "") ||
+      (a.time || "").localeCompare(b.time || "")
     );
 
+  $("tripCount").textContent =
+    `전체 ${data.trips.length}개 일정 · 현재 ${trips.length}개 표시`;
+
+  $("emptyTrips").hidden = trips.length !== 0;
+
+  trips.forEach(trip => {
+    const card = makeElement("article", "trip-card");
+    const dateBox = makeElement("div", "date-box");
+    const date = makeElement("strong", "", formatDate(trip.date));
+    const year = makeElement("span", "", trip.date ? trip.date.slice(0, 4) : "");
+    dateBox.append(date, year);
+
+    const main = makeElement("div", "card-main");
+    main.append(
+      makeElement("p", "muted", trip.city || "지역 미정"),
+      makeElement("h3", "", trip.title || "제목 없음")
+    );
+
+    if (trip.time) {
+      main.append(makeElement("p", "", "🕒 " + trip.time));
+    }
+
+    if (trip.details) {
+      main.append(makeElement("p", "", trip.details));
+    }
+
+    if (trip.transport) {
+      main.append(makeElement("p", "muted", "🚗 교통: " + trip.transport));
+    }
+
+    const actions = makeElement("div", "card-actions");
+    const editBtn = makeElement("button", "btn secondary", "수정");
+    editBtn.type = "button";
+    editBtn.addEventListener("click", () => openTripEditor(trip.id));
+
+    const deleteBtn = makeElement("button", "btn danger", "삭제");
+    deleteBtn.type = "button";
+    deleteBtn.addEventListener("click", () => {
+      if (!confirm(`"${trip.title}" 일정을 삭제할까?`)) return;
+      data.trips = data.trips.filter(item => item.id !== trip.id);
+      saveData("일정을 삭제했어.");
+    });
+
+    actions.append(editBtn, deleteBtn);
+    main.append(actions);
+    card.append(dateBox, main);
+    list.append(card);
+  });
+}
+
+function openTripEditor(id = "") {
+  $("tripForm").reset();
+  $("tripId").value = id;
+
+  const trip = data.trips.find(item => item.id === id);
+
+  $("tripDialogTitle").textContent = trip ? "일정 수정" : "새 일정 추가";
+  $("tripDate").value = trip?.date || "2027-01-30";
+  $("tripCity").value = trip?.city || "로스앤젤레스";
+  $("tripTitle").value = trip?.title || "";
+  $("tripDetails").value = trip?.details || "";
+  $("tripTransport").value = trip?.transport || "";
+  $("tripTime").value = trip?.time || "";
+
+  $("tripDialog").showModal();
+}
+
+$("addTripBtn").addEventListener("click", () => openTripEditor());
+
+$("tripForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const id = $("tripId").value || makeId();
+
+  const trip = {
+    id,
+    date: $("tripDate").value,
+    city: $("tripCity").value,
+    title: $("tripTitle").value.trim(),
+    details: $("tripDetails").value.trim(),
+    transport: $("tripTransport").value.trim(),
+    time: $("tripTime").value
+  };
+
+  if (!trip.date || !trip.title) {
+    showToast("날짜와 일정 제목을 입력해 줘.");
+    return;
   }
-);
 
+  const index = data.trips.findIndex(item => item.id === id);
 
-/* =========================================
-   초기 실행
-========================================= */
+  if (index >= 0) {
+    data.trips[index] = trip;
+  } else {
+    data.trips.push(trip);
+  }
 
-renderSchedule();
+  $("tripDialog").close();
+  saveData("일정을 저장했어!");
+});
 
-renderHotels("all");
+$("cityFilter").addEventListener("change", renderTrips);
+
+// 호텔 관리
+
+function renderHotels() {
+  const list = $("hotelList");
+  list.replaceChildren();
+
+  $("emptyHotels").hidden = data.hotels.length !== 0;
+
+  data.hotels.forEach(hotel => {
+    const card = makeElement("article", "hotel-card");
+    const content = makeElement("div", "hotel-content");
+
+    content.append(
+      makeElement("p", "muted", hotel.city || "지역 미정"),
+      makeElement("h3", "", hotel.name || "이름 미정")
+    );
+
+    if (hotel.address) {
+      content.append(makeElement("p", "", "📍 " + hotel.address));
+    }
+
+    if (hotel.dates) {
+      content.append(makeElement("p", "", "📅 " + hotel.dates));
+    }
+
+    if (hotel.price !== "") {
+      content.append(
+        makeElement("p", "hotel-price", "1박 $" + Number(hotel.price).toLocaleString())
+      );
+    }
+
+    if (hotel.notes) {
+      content.append(makeElement("p", "", hotel.notes));
+    }
+
+    if (hotel.link) {
+      try {
+        const url = new URL(hotel.link);
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          const link = makeElement("a", "", "호텔 사이트 / 예약 페이지 열기 ↗");
+          link.href = url.href;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          content.append(link);
+        }
+      } catch {
+        // 잘못된 URL은 링크로 표시하지 않음
+      }
+    }
+
+    const actions = makeElement("div", "card-actions");
+    const editBtn = makeElement("button", "btn secondary", "수정");
+    editBtn.type = "button";
+    editBtn.addEventListener("click", () => openHotelEditor(hotel.id));
+
+    const deleteBtn = makeElement("button", "btn danger", "삭제");
+    deleteBtn.type = "button";
+    deleteBtn.addEventListener("click", () => {
+      if (!confirm(`"${hotel.name}" 호텔 정보를 삭제할까?`)) return;
+      data.hotels = data.hotels.filter(item => item.id !== hotel.id);
+      saveData("호텔 정보를 삭제했어.");
+    });
+
+    actions.append(editBtn, deleteBtn);
+    card.append(content, actions);
+    list.append(card);
+  });
+}
+
+function openHotelEditor(id = "") {
+  $("hotelForm").reset();
+  $("hotelId").value = id;
+
+  const hotel = data.hotels.find(item => item.id === id);
+
+  $("hotelDialogTitle").textContent = hotel ? "호텔 수정" : "호텔 추가";
+  $("hotelCity").value = hotel?.city || "로스앤젤레스";
+  $("hotelName").value = hotel?.name || "";
+  $("hotelAddress").value = hotel?.address || "";
+  $("hotelPrice").value = hotel?.price ?? "";
+  $("hotelDates").value = hotel?.dates || "";
+  $("hotelLink").value = hotel?.link || "";
+  $("hotelNotes").value = hotel?.notes || "";
+
+  $("hotelDialog").showModal();
+}
+
+$("addHotelBtn").addEventListener("click", () => openHotelEditor());
+
+$("hotelForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const id = $("hotelId").value || makeId();
+  const link = $("hotelLink").value.trim();
+
+  if (link) {
+    try {
+      const url = new URL(link);
+      if (!["https:", "http:"].includes(url.protocol)) {
+        showToast("올바른 호텔 웹사이트 주소를 입력해 줘.");
+        return;
+      }
+    } catch {
+      showToast("호텔 웹사이트 주소를 다시 확인해 줘.");
+      return;
+    }
+  }
+
+  const hotel = {
+    id,
+    city: $("hotelCity").value,
+    name: $("hotelName").value.trim(),
+    address: $("hotelAddress").value.trim(),
+    price: $("hotelPrice").value,
+    dates: $("hotelDates").value.trim(),
+    link,
+    notes: $("hotelNotes").value.trim()
+  };
+
+  const index = data.hotels.findIndex(item => item.id === id);
+
+  if (index >= 0) {
+    data.hotels[index] = hotel;
+  } else {
+    data.hotels.push(hotel);
+  }
+
+  $("hotelDialog").close();
+  saveData("호텔 정보를 저장했어!");
+});
+
+// 여행 메모
+
+$("saveNotesBtn").addEventListener("click", () => {
+  data.notes = $("travelNotes").value;
+  saveData("여행 메모를 저장했어!");
+});
+
+// 대화상자 취소 버튼
+
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => {
+    $(button.dataset.close).close();
+  });
+});
+
+// 백업 파일 내보내기
+
+$("exportBtn").addEventListener("click", () => {
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: "application/json;charset=utf-8" }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "my-us-trip-backup.json";
+  link.click();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast("여행 일정 백업 파일을 만들었어!");
+});
+
+// 백업 파일 불러오기
+
+$("importBtn").addEventListener("click", () => {
+  $("importFile").click();
+});
+
+$("importFile").addEventListener("change", async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    const imported = JSON.parse(await file.text());
+
+    if (
+      !imported ||
+      !Array.isArray(imported.trips) ||
+      !Array.isArray(imported.hotels)
+    ) {
+      throw new Error("올바른 여행 백업 파일이 아니야.");
+    }
+
+    if (!confirm("현재 일정을 백업 파일의 내용으로 바꿀까?")) {
+      event.target.value = "";
+      return;
+    }
+
+    data = {
+      trips: imported.trips,
+      hotels: imported.hotels,
+      notes: typeof imported.notes === "string" ? imported.notes : ""
+    };
+
+    saveData("백업 파일을 불러왔어!");
+  } catch (error) {
+    console.error(error);
+    showToast("파일을 읽을 수 없어. 올바른 백업 파일인지 확인해 줘.");
+  }
+
+  event.target.value = "";
+});
+
+// 처음 화면 표시
+
+render();
