@@ -3,167 +3,578 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2027 미국 가족여행</title>
+
+  <title>2027 미국 가족여행 플래너</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="hero">
+
   <div class="hero-content">
-    <p class="eyebrow">2027 FAMILY TRIP</p>
+
+    <div class="eyebrow">
+      2027 FAMILY TRIP
+    </div>
+
     <h1>🇺🇸 미국 가족여행</h1>
-    <p>LA · Las Vegas · San Diego</p>
-    <p class="date">2027.01.30 — 2027.02.10</p>
+
+    <p>Los Angeles · Las Vegas · San Diego</p>
+
+    <div class="travel-date">
+      2027.01.30 — 2027.02.10
+    </div>
+
+    <div class="travel-count">
+      👨‍👩‍👧‍👦 가족여행 · 4명
+    </div>
+
   </div>
+
 </header>
 
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <nav class="nav">
-  <button class="nav-btn active" onclick="showPage('schedule', this)">📅 일정</button>
-  <button class="nav-btn" onclick="showPage('hotels', this)">🏨 호텔</button>
-  <button class="nav-btn" onclick="showPage('notes', this)">📝 메모</button>
+
+  <button
+    class="nav-btn active"
+    onclick="showPage('schedule', this)"
+  >
+    📅 일정
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('transport', this)"
+  >
+    🚗 교통
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('hotels', this)"
+  >
+    🏨 호텔
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('notes', this)"
+  >
+    📝 메모
+  </button>
+
 </nav>
+
 
 <main>
 
-  <!-- 일정 -->
-  <section id="schedule" class="page active">
-    <div class="section-title">
-      <div>
-        <h2>📅 여행 일정</h2>
-        <p>날짜를 눌러 일정을 수정할 수 있어.</p>
-      </div>
-      <button class="primary-btn" onclick="addTrip()">＋ 일정 추가</button>
+
+<!-- =========================
+     일정
+========================= -->
+
+<section id="schedule" class="page active">
+
+  <div class="section-title">
+
+    <div>
+      <h2>📅 여행 일정</h2>
+
+      <p>
+        날짜별 여행 일정을 확인하고 수정할 수 있어.
+      </p>
     </div>
 
-    <div id="trip-list"></div>
-  </section>
+    <button
+      class="primary-btn"
+      onclick="addTrip()"
+    >
+      ＋ 일정 추가
+    </button>
+
+  </div>
+
+  <div id="trip-list"></div>
+
+</section>
 
 
-  <!-- 호텔 -->
-  <section id="hotels" class="page">
 
-    <div class="section-title">
-      <div>
-        <h2>🏨 호텔 정보</h2>
-        <p>지역별 숙소를 정리해 놓았어.</p>
-      </div>
+<!-- =========================
+     교통
+========================= -->
 
-      <button class="primary-btn" onclick="addHotel()">＋ 호텔 추가</button>
+<section id="transport" class="page">
+
+  <div class="section-title">
+
+    <div>
+      <h2>🚗 교통</h2>
+
+      <p>
+        도시 간 이동과 관광지 이동 방법을 확인할 수 있어.
+      </p>
     </div>
 
-    <div id="hotel-list" class="hotel-grid"></div>
+    <button
+      class="primary-btn"
+      onclick="addTransport()"
+    >
+      ＋ 교통 추가
+    </button>
 
-  </section>
+  </div>
 
 
-  <!-- 메모 -->
-  <section id="notes" class="page">
+  <div id="transport-list"></div>
 
-    <div class="section-title">
-      <div>
-        <h2>📝 여행 메모</h2>
-        <p>준비할 것과 중요한 내용을 적어둘 수 있어.</p>
-      </div>
+</section>
+
+
+
+<!-- =========================
+     호텔
+========================= -->
+
+<section id="hotels" class="page">
+
+  <div class="section-title">
+
+    <div>
+      <h2>🏨 지역별 호텔 추천</h2>
+
+      <p>
+        여행 지역에 맞춰 호텔 후보를 비교해 볼 수 있어.
+      </p>
     </div>
 
-    <textarea
-      id="notes"
-      class="notes"
-      placeholder="여행 준비물, 예약 정보, 가족들과 상의할 내용 등을 적어보세요."
-      oninput="saveNotes()"
-    ></textarea>
+    <button
+      class="primary-btn"
+      onclick="addHotel()"
+    >
+      ＋ 호텔 추가
+    </button>
 
-    <div class="note-info">
-      💾 입력한 내용은 이 브라우저에 자동 저장돼.
+  </div>
+
+
+  <!-- 지역 필터 -->
+
+  <div class="city-filter">
+
+    <button
+      class="city-btn active"
+      onclick="filterHotels('전체', this)"
+    >
+      전체
+    </button>
+
+    <button
+      class="city-btn"
+      onclick="filterHotels('LA', this)"
+    >
+      🇺🇸 LA
+    </button>
+
+    <button
+      class="city-btn"
+      onclick="filterHotels('Las Vegas', this)"
+    >
+      🎰 Las Vegas
+    </button>
+
+    <button
+      class="city-btn"
+      onclick="filterHotels('San Diego', this)"
+    >
+      🌴 San Diego
+    </button>
+
+  </div>
+
+
+  <div id="hotel-list" class="hotel-grid"></div>
+
+</section>
+
+
+
+<!-- =========================
+     메모
+========================= -->
+
+<section id="notes" class="page">
+
+  <div class="section-title">
+
+    <div>
+      <h2>📝 여행 메모</h2>
+
+      <p>
+        준비물이나 예약 정보를 자유롭게 적어둘 수 있어.
+      </p>
     </div>
 
-  </section>
+  </div>
+
+
+  <textarea
+    id="notes"
+    class="notes"
+    placeholder="여행 준비물, 예약 정보, 가족들과 상의할 내용 등을 적어보세요."
+    oninput="saveNotes()"
+  ></textarea>
+
+
+  <div class="note-info">
+    💾 입력한 내용은 이 브라우저에 자동 저장돼.
+  </div>
+
+</section>
 
 </main>
 
 
-<!-- 일정 수정 창 -->
+
+<!-- =========================
+     일정 수정 MODAL
+========================= -->
+
 <div id="trip-modal" class="modal">
+
   <div class="modal-box">
 
     <div class="modal-header">
-      <h2 id="trip-modal-title">일정 수정</h2>
-      <button onclick="closeTripModal()">×</button>
+
+      <h2 id="trip-modal-title">
+        일정 수정
+      </h2>
+
+      <button onclick="closeTripModal()">
+        ×
+      </button>
+
     </div>
+
 
     <label>날짜</label>
-    <input type="date" id="trip-date">
+
+    <input
+      type="date"
+      id="trip-date"
+    >
+
 
     <label>지역</label>
-    <input type="text" id="trip-city" placeholder="예: LA">
+
+    <input
+      type="text"
+      id="trip-city"
+      placeholder="예: LA"
+    >
+
 
     <label>일정</label>
-    <input type="text" id="trip-title" placeholder="예: Universal Studios">
+
+    <input
+      type="text"
+      id="trip-title"
+      placeholder="예: Universal Studios"
+    >
+
 
     <label>상세 내용</label>
-    <textarea id="trip-details" placeholder="자세한 일정을 입력하세요"></textarea>
+
+    <textarea
+      id="trip-details"
+      placeholder="자세한 일정을 입력하세요."
+    ></textarea>
+
 
     <label>교통</label>
-    <input type="text" id="trip-transport" placeholder="예: Metro / Uber">
+
+    <input
+      type="text"
+      id="trip-transport"
+      placeholder="예: Metro / Uber"
+    >
+
 
     <label>시간</label>
-    <input type="text" id="trip-time" placeholder="예: 09:00 ~ 18:00">
+
+    <input
+      type="text"
+      id="trip-time"
+      placeholder="예: 09:00 ~ 18:00"
+    >
+
 
     <div class="modal-buttons">
-      <button class="delete-btn" onclick="deleteTrip()">삭제</button>
-      <button class="cancel-btn" onclick="closeTripModal()">취소</button>
-      <button class="primary-btn" onclick="saveTrip()">저장</button>
+
+      <button
+        class="delete-btn"
+        onclick="deleteTrip()"
+      >
+        삭제
+      </button>
+
+      <button
+        class="cancel-btn"
+        onclick="closeTripModal()"
+      >
+        취소
+      </button>
+
+      <button
+        class="primary-btn"
+        onclick="saveTrip()"
+      >
+        저장
+      </button>
+
     </div>
 
   </div>
+
 </div>
 
 
-<!-- 호텔 수정 창 -->
-<div id="hotel-modal" class="modal">
+
+<!-- =========================
+     교통 수정 MODAL
+========================= -->
+
+<div id="transport-modal" class="modal">
+
   <div class="modal-box">
 
     <div class="modal-header">
-      <h2 id="hotel-modal-title">호텔 수정</h2>
-      <button onclick="closeHotelModal()">×</button>
+
+      <h2 id="transport-modal-title">
+        교통 수정
+      </h2>
+
+      <button onclick="closeTransportModal()">
+        ×
+      </button>
+
     </div>
 
-    <label>지역</label>
-    <input type="text" id="hotel-city" placeholder="예: Los Angeles">
 
-    <label>호텔 이름</label>
-    <input type="text" id="hotel-name" placeholder="호텔 이름">
+    <label>날짜</label>
 
-    <label>주소</label>
-    <input type="text" id="hotel-address" placeholder="호텔 주소">
+    <input
+      type="date"
+      id="transport-date"
+    >
 
-    <label>가격</label>
-    <input type="text" id="hotel-price" placeholder="예: 1박 $150">
 
-    <label>숙박 날짜</label>
-    <input type="text" id="hotel-dates" placeholder="예: 1/30 ~ 2/3">
+    <label>출발지</label>
 
-    <label>예약 링크</label>
-    <input type="url" id="hotel-link" placeholder="https://">
+    <input
+      type="text"
+      id="transport-from"
+      placeholder="예: LAX 공항"
+    >
+
+
+    <label>도착지</label>
+
+    <input
+      type="text"
+      id="transport-to"
+      placeholder="예: LA 호텔"
+    >
+
+
+    <label>교통수단</label>
+
+    <input
+      type="text"
+      id="transport-method"
+      placeholder="예: Uber"
+    >
+
+
+    <label>예상 시간</label>
+
+    <input
+      type="text"
+      id="transport-time"
+      placeholder="예: 약 30~60분"
+    >
+
 
     <label>메모</label>
-    <textarea id="hotel-notes" placeholder="주차, 조식, 위치 등의 메모"></textarea>
+
+    <textarea
+      id="transport-notes"
+      placeholder="교통 관련 메모"
+    ></textarea>
+
 
     <div class="modal-buttons">
-      <button class="delete-btn" onclick="deleteHotel()">삭제</button>
-      <button class="cancel-btn" onclick="closeHotelModal()">취소</button>
-      <button class="primary-btn" onclick="saveHotel()">저장</button>
+
+      <button
+        class="delete-btn"
+        onclick="deleteTransport()"
+      >
+        삭제
+      </button>
+
+      <button
+        class="cancel-btn"
+        onclick="closeTransportModal()"
+      >
+        취소
+      </button>
+
+      <button
+        class="primary-btn"
+        onclick="saveTransport()"
+      >
+        저장
+      </button>
+
     </div>
 
   </div>
+
 </div>
+
+
+
+<!-- =========================
+     호텔 수정 MODAL
+========================= -->
+
+<div id="hotel-modal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2 id="hotel-modal-title">
+        호텔 수정
+      </h2>
+
+      <button onclick="closeHotelModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <label>지역</label>
+
+    <input
+      type="text"
+      id="hotel-city"
+      placeholder="예: LA"
+    >
+
+
+    <label>호텔 이름</label>
+
+    <input
+      type="text"
+      id="hotel-name"
+      placeholder="호텔 이름"
+    >
+
+
+    <label>주소</label>
+
+    <input
+      type="text"
+      id="hotel-address"
+      placeholder="호텔 주소"
+    >
+
+
+    <label>가격</label>
+
+    <input
+      type="text"
+      id="hotel-price"
+      placeholder="예: 날짜 선택 후 확인"
+    >
+
+
+    <label>숙박 날짜</label>
+
+    <input
+      type="text"
+      id="hotel-dates"
+      placeholder="예: 1/30 ~ 2/3"
+    >
+
+
+    <label>예약 링크</label>
+
+    <input
+      type="url"
+      id="hotel-link"
+      placeholder="https://"
+    >
+
+
+    <label>추천 이유</label>
+
+    <textarea
+      id="hotel-notes"
+      placeholder="위치, 교통, 가족여행 편의성 등을 적어주세요."
+    ></textarea>
+
+
+    <div class="modal-buttons">
+
+      <button
+        class="delete-btn"
+        onclick="deleteHotel()"
+      >
+        삭제
+      </button>
+
+      <button
+        class="cancel-btn"
+        onclick="closeHotelModal()"
+      >
+        취소
+      </button>
+
+      <button
+        class="primary-btn"
+        onclick="saveHotel()"
+      >
+        저장
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 
 <footer>
+
   <p>🇺🇸 2027 미국 가족여행 플래너</p>
-  <p>LA · Las Vegas · San Diego</p>
+
+  <p>
+    LA · Las Vegas · San Diego
+  </p>
+
 </footer>
+
 
 <script src="script.js"></script>
 
