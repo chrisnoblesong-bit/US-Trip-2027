@@ -1,165 +1,254 @@
 
-const STORAGE_KEY = "my-us-trip-planner-v1";
+/*
+  아래 두 값만 네 Supabase 프로젝트 값으로 교체해 줘.
+  service_role 키는 절대 넣지 마!
+*/
+const SUPABASE_URL = "여기에_프로젝트_URL";
+const SUPABASE_ANON_KEY = "여기에_anon_또는_publishable_키";
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+const $ = id => document.getElementById(id);
 
 const defaultData = {
   trips: [
-    { id: "t1", date: "2027-01-30", city: "로스앤젤레스", title: "LA 도착 및 그리피스 천문대", details: "LA 도착 → 호텔 체크인 → 그리피스 천문대", transport: "Uber", time: "" },
-    { id: "t2", date: "2027-01-31", city: "로스앤젤레스", title: "산타모니카 + 베니스 비치", details: "해변 산책 및 주변 관광", transport: "대중교통 + Uber", time: "" },
-    { id: "t3", date: "2027-02-01", city: "로스앤젤레스", title: "유니버설 스튜디오", details: "유니버설 스튜디오 할리우드 방문", transport: "Metro", time: "" },
-    { id: "t4", date: "2027-02-02", city: "로스앤젤레스", title: "할리우드 + 게티 센터", details: "할리우드 관광 및 게티 센터 방문", transport: "대중교통 + Uber", time: "" },
-    { id: "t5", date: "2027-02-03", city: "이동", title: "라스베이거스 이동", details: "포시즌 투어 출발. 출발 시간과 집결 장소 확인", transport: "투어 차량", time: "" },
-    { id: "t6", date: "2027-02-04", city: "라스베이거스", title: "라스베이거스 관광", details: "세부 일정 입력하기", transport: "도보 / Uber", time: "" },
-    { id: "t7", date: "2027-02-05", city: "라스베이거스", title: "라스베이거스 자유 일정", details: "관광 및 숙소 일정 확인", transport: "도보 / Uber", time: "" },
-    { id: "t8", date: "2027-02-06", city: "이동", title: "이동 일정", details: "출발지와 도착지를 입력해 줘", transport: "미정", time: "" },
-    { id: "t9", date: "2027-02-07", city: "샌디에이고", title: "샌디에이고 관광", details: "방문할 관광지를 입력해 줘", transport: "미정", time: "" },
-    { id: "t10", date: "2027-02-08", city: "샌디에이고", title: "샌디에이고 자유 일정", details: "방문할 관광지를 입력해 줘", transport: "미정", time: "" },
-    { id: "t11", date: "2027-02-09", city: "로스앤젤레스", title: "LA 복귀 및 마지막 숙박", details: "공항 이동에 편리한 숙소와 이동 시간 확인", transport: "미정", time: "" },
-    { id: "t12", date: "2027-02-10", city: "이동", title: "귀국 항공편", details: "항공편 시간과 공항 이동 시간 확인", transport: "Uber / Lyft", time: "" }
+    { id:"t1", date:"2027-01-30", city:"로스앤젤레스", title:"LA 도착 및 그리피스 천문대", details:"공항 도착 → 호텔 체크인 → 그리피스 천문대", transport:"Uber", time:"" },
+    { id:"t2", date:"2027-01-31", city:"로스앤젤레스", title:"산타모니카 + 베니스 비치", details:"해변 산책 및 주변 관광", transport:"대중교통 + Uber", time:"" },
+    { id:"t3", date:"2027-02-01", city:"로스앤젤레스", title:"유니버설 스튜디오", details:"유니버설 스튜디오 할리우드 방문", transport:"Metro", time:"" },
+    { id:"t4", date:"2027-02-02", city:"로스앤젤레스", title:"할리우드 + 게티 센터", details:"할리우드 관광 및 게티 센터 방문", transport:"대중교통 + Uber", time:"" },
+    { id:"t5", date:"2027-02-03", city:"이동", title:"라스베이거스 이동", details:"포시즌 투어 출발. 집결 장소 확인", transport:"투어 차량", time:"" },
+    { id:"t6", date:"2027-02-04", city:"라스베이거스", title:"라스베이거스 관광", details:"관광 계획 입력하기", transport:"도보 / Uber", time:"" },
+    { id:"t7", date:"2027-02-05", city:"라스베이거스", title:"라스베이거스 자유 일정", details:"관광 및 숙소 확인", transport:"도보 / Uber", time:"" },
+    { id:"t8", date:"2027-02-06", city:"이동", title:"도시 간 이동", details:"출발지와 도착지 확인", transport:"미정", time:"" },
+    { id:"t9", date:"2027-02-07", city:"샌디에이고", title:"샌디에이고 관광", details:"방문할 관광지 입력하기", transport:"미정", time:"" },
+    { id:"t10", date:"2027-02-08", city:"샌디에이고", title:"샌디에이고 자유 일정", details:"방문할 관광지 입력하기", transport:"미정", time:"" },
+    { id:"t11", date:"2027-02-09", city:"로스앤젤레스", title:"LA 복귀 및 마지막 숙박", details:"공항 이동이 편리한 숙소 확인", transport:"미정", time:"" },
+    { id:"t12", date:"2027-02-10", city:"이동", title:"귀국 항공편", details:"항공편 시간과 공항 이동 확인", transport:"Uber / Lyft", time:"" }
   ],
   hotels: [],
   notes: ""
 };
 
-let data = loadData();
-
-const $ = (id) => document.getElementById(id);
-
-function makeId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
-}
-
-function loadData() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed.trips) && Array.isArray(parsed.hotels)) {
-        return {
-          trips: parsed.trips,
-          hotels: parsed.hotels,
-          notes: typeof parsed.notes === "string" ? parsed.notes : ""
-        };
-      }
-    }
-  } catch (error) {
-    console.error("저장 데이터 읽기 오류:", error);
-  }
-
-  return JSON.parse(JSON.stringify(defaultData));
-}
-
-function saveData(message = "저장했어!") {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    render();
-    showToast(message);
-  } catch (error) {
-    console.error("저장 오류:", error);
-    showToast("저장에 실패했어. 브라우저 저장 공간을 확인해 줘.");
-  }
-}
-
+let data = { trips: [], hotels: [], notes: "" };
+let busy = false;
 let toastTimer;
 
-function showToast(message) {
-  const toast = $("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-
+function toast(message) {
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+  toastTimer = setTimeout(() => $("toast").classList.remove("show"), 3000);
 }
 
-function makeElement(tag, className, text) {
+function setBusy(value) {
+  busy = value;
+  document.querySelectorAll("#app button").forEach(button => {
+    button.disabled = value;
+  });
+}
+
+function element(tag, className, text) {
   const el = document.createElement(tag);
   if (className) el.className = className;
   if (text !== undefined) el.textContent = text;
   return el;
 }
 
-function formatDate(date) {
-  if (!date) return "날짜 미정";
-
-  const parts = date.split("-").map(Number);
-  return `${parts[1]}월 ${parts[2]}일`;
+function showApp(visible) {
+  $("app").hidden = !visible;
+  $("loginPanel").hidden = visible;
 }
 
-function render() {
-  renderTrips();
-  renderHotels();
-
-  $("travelNotes").value = data.notes;
+function newId() {
+  return crypto.randomUUID
+    ? crypto.randomUUID()
+    : Date.now().toString(36) + Math.random().toString(36).slice(2);
 }
 
+function formatDate(value) {
+  if (!value) return "날짜 미정";
+  const [, month, day] = value.split("-");
+  return `${month}월 ${day}일`;
+}
+
+async function checkResult(result) {
+  if (result.error) throw result.error;
+  return result.data;
+}
+
+/* 데이터베이스에서 일정, 호텔, 메모 불러오기 */
+async function loadData() {
+  const [trips, hotels, settings] = await Promise.all([
+    client.from("trip_plans").select("*"),
+    client.from("trip_hotels").select("*"),
+    client.from("trip_settings").select("*").eq("id", "main")
+  ]);
+
+  await Promise.all([
+    checkResult(trips),
+    checkResult(hotels),
+    checkResult(settings)
+  ]);
+
+  if (settings.data.length === 0) {
+    data = structuredClone(defaultData);
+    await saveData("기본 일정을 데이터베이스에 등록했어!");
+    return;
+  }
+
+  data = {
+    trips: trips.data,
+    hotels: hotels.data.map(h => ({
+      ...h,
+      price: h.price == null ? "" : String(h.price)
+    })),
+    notes: settings.data[0].notes || ""
+  };
+
+  render();
+}
+
+/*
+  저장 방식:
+  현재 목록을 upsert하고, 목록에서 삭제된 행은 DB에서도 삭제한다.
+*/
+async function saveData(message = "저장 완료!") {
+  if (busy) return;
+
+  setBusy(true);
+
+  try {
+    const trips = data.trips.map(t => ({
+      id: String(t.id),
+      date: t.date,
+      city: t.city,
+      title: t.title,
+      details: t.details || "",
+      transport: t.transport || "",
+      time: t.time || ""
+    }));
+
+    const hotels = data.hotels.map(h => ({
+      id: String(h.id),
+      city: h.city,
+      name: h.name,
+      address: h.address || "",
+      price: h.price === "" || h.price == null ? null : Number(h.price),
+      dates: h.dates || "",
+      link: h.link || "",
+      notes: h.notes || ""
+    }));
+
+    if (trips.length) {
+      await checkResult(
+        await client.from("trip_plans").upsert(trips)
+      );
+    }
+
+    if (hotels.length) {
+      await checkResult(
+        await client.from("trip_hotels").upsert(hotels)
+      );
+    }
+
+    for (const [table, items] of [
+      ["trip_plans", trips],
+      ["trip_hotels", hotels]
+    ]) {
+      const existing = await checkResult(
+        await client.from(table).select("id")
+      );
+
+      const keep = new Set(items.map(item => item.id));
+      const remove = existing
+        .map(item => item.id)
+        .filter(id => !keep.has(id));
+
+      if (remove.length) {
+        await checkResult(
+          await client.from(table).delete().in("id", remove)
+        );
+      }
+    }
+
+    await checkResult(
+      await client.from("trip_settings").upsert({
+        id: "main",
+        notes: data.notes || ""
+      })
+    );
+
+    render();
+    toast(message);
+  } catch (error) {
+    console.error(error);
+    toast("저장 실패: " + (error.message || "연결 설정을 확인해 줘."));
+  } finally {
+    setBusy(false);
+  }
+}
+
+/* 일정 화면 */
 function renderTrips() {
   const list = $("tripList");
-  const filter = $("cityFilter").value;
   list.replaceChildren();
 
+  const filter = $("cityFilter").value;
+
   const trips = [...data.trips]
-    .filter(trip => filter === "all" || trip.city === filter)
-    .sort((a, b) =>
-      (a.date || "").localeCompare(b.date || "") ||
-      (a.time || "").localeCompare(b.time || "")
+    .filter(t => filter === "all" || t.city === filter)
+    .sort((a, b) => a.date.localeCompare(b.date) ||
+      (a.time || "").localeCompare(b.time || ""));
+
+  if (!trips.length) {
+    list.append(element("p", "muted", "표시할 일정이 없어."));
+  }
+
+  for (const trip of trips) {
+    const card = element("article", "trip-card");
+
+    card.append(
+      element("p", "muted", formatDate(trip.date)),
+      element("h3", "", trip.title),
+      element("p", "muted", trip.city)
     );
 
-  $("tripCount").textContent =
-    `전체 ${data.trips.length}개 일정 · 현재 ${trips.length}개 표시`;
-
-  $("emptyTrips").hidden = trips.length !== 0;
-
-  trips.forEach(trip => {
-    const card = makeElement("article", "trip-card");
-    const dateBox = makeElement("div", "date-box");
-    const date = makeElement("strong", "", formatDate(trip.date));
-    const year = makeElement("span", "", trip.date ? trip.date.slice(0, 4) : "");
-    dateBox.append(date, year);
-
-    const main = makeElement("div", "card-main");
-    main.append(
-      makeElement("p", "muted", trip.city || "지역 미정"),
-      makeElement("h3", "", trip.title || "제목 없음")
-    );
-
-    if (trip.time) {
-      main.append(makeElement("p", "", "🕒 " + trip.time));
-    }
-
-    if (trip.details) {
-      main.append(makeElement("p", "", trip.details));
-    }
-
+    if (trip.time) card.append(element("p", "", "🕒 " + trip.time));
+    if (trip.details) card.append(element("p", "", trip.details));
     if (trip.transport) {
-      main.append(makeElement("p", "muted", "🚗 교통: " + trip.transport));
+      card.append(element("p", "muted", "🚗 " + trip.transport));
     }
 
-    const actions = makeElement("div", "card-actions");
-    const editBtn = makeElement("button", "btn secondary", "수정");
-    editBtn.type = "button";
-    editBtn.addEventListener("click", () => openTripEditor(trip.id));
+    const actions = element("div", "card-actions");
+    const edit = element("button", "btn secondary", "수정");
+    edit.type = "button";
+    edit.addEventListener("click", () => openTrip(trip.id));
 
-    const deleteBtn = makeElement("button", "btn danger", "삭제");
-    deleteBtn.type = "button";
-    deleteBtn.addEventListener("click", () => {
-      if (!confirm(`"${trip.title}" 일정을 삭제할까?`)) return;
-      data.trips = data.trips.filter(item => item.id !== trip.id);
-      saveData("일정을 삭제했어.");
+    const del = element("button", "btn danger", "삭제");
+    del.type = "button";
+    del.addEventListener("click", async () => {
+      if (busy || !confirm(`"${trip.title}" 일정을 삭제할까?`)) return;
+
+      const old = data.trips;
+      data.trips = old.filter(t => t.id !== trip.id);
+      await saveData("일정을 삭제했어!");
     });
 
-    actions.append(editBtn, deleteBtn);
-    main.append(actions);
-    card.append(dateBox, main);
+    actions.append(edit, del);
+    card.append(actions);
     list.append(card);
-  });
+  }
 }
 
-function openTripEditor(id = "") {
+function openTrip(id = "") {
   $("tripForm").reset();
+
+  const trip = data.trips.find(t => t.id === id);
+
   $("tripId").value = id;
-
-  const trip = data.trips.find(item => item.id === id);
-
-  $("tripDialogTitle").textContent = trip ? "일정 수정" : "새 일정 추가";
   $("tripDate").value = trip?.date || "2027-01-30";
   $("tripCity").value = trip?.city || "로스앤젤레스";
   $("tripTitle").value = trip?.title || "";
@@ -170,14 +259,15 @@ function openTripEditor(id = "") {
   $("tripDialog").showModal();
 }
 
-$("addTripBtn").addEventListener("click", () => openTripEditor());
+$("addTripBtn").addEventListener("click", () => openTrip());
+$("cityFilter").addEventListener("change", renderTrips);
 
-$("tripForm").addEventListener("submit", event => {
+$("tripForm").addEventListener("submit", async event => {
   event.preventDefault();
+  if (busy) return;
 
-  const id = $("tripId").value || makeId();
-
-  const trip = {
+  const id = $("tripId").value || newId();
+  const item = {
     id,
     date: $("tripDate").value,
     city: $("tripCity").value,
@@ -187,101 +277,79 @@ $("tripForm").addEventListener("submit", event => {
     time: $("tripTime").value
   };
 
-  if (!trip.date || !trip.title) {
-    showToast("날짜와 일정 제목을 입력해 줘.");
-    return;
-  }
+  if (!item.date || !item.title) return toast("날짜와 제목을 입력해 줘.");
 
-  const index = data.trips.findIndex(item => item.id === id);
-
-  if (index >= 0) {
-    data.trips[index] = trip;
-  } else {
-    data.trips.push(trip);
-  }
+  const index = data.trips.findIndex(t => t.id === id);
+  if (index < 0) data.trips.push(item);
+  else data.trips[index] = item;
 
   $("tripDialog").close();
-  saveData("일정을 저장했어!");
+  await saveData("일정을 저장했어!");
 });
 
-$("cityFilter").addEventListener("change", renderTrips);
-
-// 호텔 관리
-
+/* 호텔 화면 */
 function renderHotels() {
   const list = $("hotelList");
   list.replaceChildren();
 
-  $("emptyHotels").hidden = data.hotels.length !== 0;
+  if (!data.hotels.length) {
+    list.append(element("p", "muted", "등록된 호텔이 없어. 호텔 추가를 눌러 줘."));
+  }
 
-  data.hotels.forEach(hotel => {
-    const card = makeElement("article", "hotel-card");
-    const content = makeElement("div", "hotel-content");
-
-    content.append(
-      makeElement("p", "muted", hotel.city || "지역 미정"),
-      makeElement("h3", "", hotel.name || "이름 미정")
+  for (const hotel of data.hotels) {
+    const card = element("article", "hotel-card");
+    card.append(
+      element("p", "muted", hotel.city),
+      element("h3", "", hotel.name)
     );
 
-    if (hotel.address) {
-      content.append(makeElement("p", "", "📍 " + hotel.address));
+    if (hotel.address) card.append(element("p", "", "📍 " + hotel.address));
+    if (hotel.dates) card.append(element("p", "", "📅 " + hotel.dates));
+
+    if (hotel.price !== "" && hotel.price != null) {
+      card.append(element("p", "hotel-price", `1박 $${Number(hotel.price).toLocaleString()}`));
     }
 
-    if (hotel.dates) {
-      content.append(makeElement("p", "", "📅 " + hotel.dates));
-    }
-
-    if (hotel.price !== "") {
-      content.append(
-        makeElement("p", "hotel-price", "1박 $" + Number(hotel.price).toLocaleString())
-      );
-    }
-
-    if (hotel.notes) {
-      content.append(makeElement("p", "", hotel.notes));
-    }
+    if (hotel.notes) card.append(element("p", "", hotel.notes));
 
     if (hotel.link) {
       try {
         const url = new URL(hotel.link);
-        if (url.protocol === "https:" || url.protocol === "http:") {
-          const link = makeElement("a", "", "호텔 사이트 / 예약 페이지 열기 ↗");
+        if (["https:", "http:"].includes(url.protocol)) {
+          const link = element("a", "", "호텔 웹사이트 / 예약 링크 ↗");
           link.href = url.href;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
-          content.append(link);
+          card.append(link);
         }
-      } catch {
-        // 잘못된 URL은 링크로 표시하지 않음
-      }
+      } catch {}
     }
 
-    const actions = makeElement("div", "card-actions");
-    const editBtn = makeElement("button", "btn secondary", "수정");
-    editBtn.type = "button";
-    editBtn.addEventListener("click", () => openHotelEditor(hotel.id));
+    const actions = element("div", "card-actions");
+    const edit = element("button", "btn secondary", "수정");
+    edit.type = "button";
+    edit.addEventListener("click", () => openHotel(hotel.id));
 
-    const deleteBtn = makeElement("button", "btn danger", "삭제");
-    deleteBtn.type = "button";
-    deleteBtn.addEventListener("click", () => {
-      if (!confirm(`"${hotel.name}" 호텔 정보를 삭제할까?`)) return;
-      data.hotels = data.hotels.filter(item => item.id !== hotel.id);
-      saveData("호텔 정보를 삭제했어.");
+    const del = element("button", "btn danger", "삭제");
+    del.type = "button";
+    del.addEventListener("click", async () => {
+      if (busy || !confirm(`${hotel.name} 호텔 정보를 삭제할까?`)) return;
+      data.hotels = data.hotels.filter(h => h.id !== hotel.id);
+      await saveData("호텔 정보를 삭제했어!");
     });
 
-    actions.append(editBtn, deleteBtn);
-    card.append(content, actions);
+    actions.append(edit, del);
+    card.append(actions);
     list.append(card);
-  });
+  }
 }
 
-function openHotelEditor(id = "") {
+function openHotel(id = "") {
   $("hotelForm").reset();
+
+  const hotel = data.hotels.find(h => h.id === id);
+
   $("hotelId").value = id;
-
-  const hotel = data.hotels.find(item => item.id === id);
-
-  $("hotelDialogTitle").textContent = hotel ? "호텔 수정" : "호텔 추가";
   $("hotelCity").value = hotel?.city || "로스앤젤레스";
   $("hotelName").value = hotel?.name || "";
   $("hotelAddress").value = hotel?.address || "";
@@ -293,28 +361,26 @@ function openHotelEditor(id = "") {
   $("hotelDialog").showModal();
 }
 
-$("addHotelBtn").addEventListener("click", () => openHotelEditor());
+$("addHotelBtn").addEventListener("click", () => openHotel());
 
-$("hotelForm").addEventListener("submit", event => {
+$("hotelForm").addEventListener("submit", async event => {
   event.preventDefault();
+  if (busy) return;
 
-  const id = $("hotelId").value || makeId();
+  const id = $("hotelId").value || newId();
   const link = $("hotelLink").value.trim();
 
   if (link) {
     try {
-      const url = new URL(link);
-      if (!["https:", "http:"].includes(url.protocol)) {
-        showToast("올바른 호텔 웹사이트 주소를 입력해 줘.");
-        return;
+      if (!["http:", "https:"].includes(new URL(link).protocol)) {
+        return toast("호텔 링크를 확인해 줘.");
       }
     } catch {
-      showToast("호텔 웹사이트 주소를 다시 확인해 줘.");
-      return;
+      return toast("호텔 링크 주소를 확인해 줘.");
     }
   }
 
-  const hotel = {
+  const item = {
     id,
     city: $("hotelCity").value,
     name: $("hotelName").value.trim(),
@@ -325,56 +391,42 @@ $("hotelForm").addEventListener("submit", event => {
     notes: $("hotelNotes").value.trim()
   };
 
-  const index = data.hotels.findIndex(item => item.id === id);
-
-  if (index >= 0) {
-    data.hotels[index] = hotel;
-  } else {
-    data.hotels.push(hotel);
-  }
+  const index = data.hotels.findIndex(h => h.id === id);
+  if (index < 0) data.hotels.push(item);
+  else data.hotels[index] = item;
 
   $("hotelDialog").close();
-  saveData("호텔 정보를 저장했어!");
+  await saveData("호텔 정보를 저장했어!");
 });
 
-// 여행 메모
+function render() {
+  renderTrips();
+  renderHotels();
+  $("notes").value = data.notes || "";
+}
 
-$("saveNotesBtn").addEventListener("click", () => {
-  data.notes = $("travelNotes").value;
-  saveData("여행 메모를 저장했어!");
+/* 메모 */
+$("saveNotesBtn").addEventListener("click", async () => {
+  if (busy) return;
+  data.notes = $("notes").value;
+  await saveData("메모를 저장했어!");
 });
 
-// 대화상자 취소 버튼
-
-document.querySelectorAll("[data-close]").forEach(button => {
-  button.addEventListener("click", () => {
-    $(button.dataset.close).close();
-  });
-});
-
-// 백업 파일 내보내기
-
+/* 백업 다운로드 */
 $("exportBtn").addEventListener("click", () => {
-  const blob = new Blob(
-    [JSON.stringify(data, null, 2)],
-    { type: "application/json;charset=utf-8" }
-  );
-
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json"
+  });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "my-us-trip-backup.json";
-  link.click();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  showToast("여행 일정 백업 파일을 만들었어!");
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my-us-trip-backup.json";
+  a.click();
+  URL.revokeObjectURL(url);
 });
 
-// 백업 파일 불러오기
-
-$("importBtn").addEventListener("click", () => {
-  $("importFile").click();
-});
+/* 백업 복원 */
+$("importBtn").addEventListener("click", () => $("importFile").click());
 
 $("importFile").addEventListener("change", async event => {
   const file = event.target.files[0];
@@ -383,34 +435,88 @@ $("importFile").addEventListener("change", async event => {
   try {
     const imported = JSON.parse(await file.text());
 
-    if (
-      !imported ||
-      !Array.isArray(imported.trips) ||
-      !Array.isArray(imported.hotels)
-    ) {
-      throw new Error("올바른 여행 백업 파일이 아니야.");
+    if (!Array.isArray(imported.trips) ||
+        !Array.isArray(imported.hotels) ||
+        typeof imported.notes !== "string") {
+      throw new Error("백업 파일 형식이 올바르지 않아.");
     }
 
-    if (!confirm("현재 일정을 백업 파일의 내용으로 바꿀까?")) {
-      event.target.value = "";
-      return;
-    }
+    if (!confirm("현재 데이터가 백업 파일의 내용으로 바뀌어. 계속할까?")) return;
 
-    data = {
-      trips: imported.trips,
-      hotels: imported.hotels,
-      notes: typeof imported.notes === "string" ? imported.notes : ""
-    };
-
-    saveData("백업 파일을 불러왔어!");
+    data = imported;
+    await saveData("백업을 복원했어!");
   } catch (error) {
-    console.error(error);
-    showToast("파일을 읽을 수 없어. 올바른 백업 파일인지 확인해 줘.");
+    toast(error.message || "백업 파일을 읽지 못했어.");
+  } finally {
+    event.target.value = "";
   }
-
-  event.target.value = "";
 });
 
-// 처음 화면 표시
+/* 대화상자 취소 */
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => $(button.dataset.close).close());
+});
 
-render();
+/* 로그인과 로그아웃 */
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  $("loginMessage").textContent = "로그인 확인 중…";
+
+  try {
+    const { error } = await client.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+
+    if (error) throw error;
+
+    $("password").value = "";
+    await startApp();
+  } catch (error) {
+    $("loginMessage").textContent =
+      "로그인 실패: " + (error.message || "계정 정보를 확인해 줘.");
+  }
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+  const { error } = await client.auth.signOut();
+
+  if (error) return toast("로그아웃에 실패했어.");
+
+  showApp(false);
+  $("loginMessage").textContent = "로그아웃했어.";
+});
+
+async function startApp() {
+  try {
+    $("loginMessage").textContent = "";
+    await loadData();
+    showApp(true);
+    $("userLabel").textContent = "로그인됨 · 데이터베이스 연결 완료";
+  } catch (error) {
+    console.error(error);
+    showApp(false);
+    $("loginMessage").textContent =
+      "데이터를 불러오지 못했어. SQL 권한과 연결 키를 확인해 줏.";
+  }
+}
+
+/* 페이지를 열 때 기존 로그인 세션 확인 */
+async function initialize() {
+  showApp(false);
+
+  if (
+    SUPABASE_URL.includes("여기에_") ||
+    SUPABASE_ANON_KEY.includes("여기에_")
+  ) {
+    $("loginMessage").textContent =
+      "script.js 맨 위에 Supabase URL과 anon 키를 먼저 입력해 줘.";
+    return;
+  }
+
+  const { data: { session } } = await client.auth.getSession();
+
+  if (session) await startApp();
+}
+
+initialize();
