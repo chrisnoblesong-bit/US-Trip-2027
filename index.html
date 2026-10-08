@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇺🇸 2027 미국 가족여행</title>
+    <title>🇺🇸 US Trip 2027</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
@@ -14,291 +15,434 @@
     <button class="menu-button" onclick="toggleMenu()">☰</button>
 
     <nav id="mainNav">
+        <button onclick="showPage('home')">🏠 홈</button>
         <button onclick="showPage('schedule')">📅 일정</button>
         <button onclick="showPage('hotels')">🏨 호텔</button>
         <button onclick="showPage('transport')">🚗 교통</button>
         <button onclick="showPage('guide')">📚 여행 가이드</button>
         <button onclick="showPage('checklist')">✅ 체크리스트</button>
+        <button onclick="showPage('memo')">📝 메모</button>
     </nav>
 </header>
 
+
 <main>
 
-    <!-- 홈 -->
-    <section id="home" class="page active">
-        <div class="hero">
-            <div class="hero-content">
-                <p class="eyebrow">FAMILY TRIP</p>
-                <h1>🇺🇸 2027 미국 가족여행</h1>
-                <p>LA · Las Vegas · Grand Canyon · San Diego</p>
+<!-- ==================== 홈 ==================== -->
 
-                <button class="main-button" onclick="showPage('schedule')">
-                    여행 일정 보기 →
-                </button>
-            </div>
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">FAMILY TRIP</p>
+
+            <h1>🇺🇸 2027 미국 가족여행</h1>
+
+            <p>
+                LA · Las Vegas · Grand Canyon · San Diego
+            </p>
+
+            <button class="main-button" onclick="showPage('schedule')">
+                여행 일정 보기 →
+            </button>
+        </div>
+    </div>
+
+
+    <div class="quick-grid">
+
+        <div class="quick-card" onclick="showPage('schedule')">
+            <span>📅</span>
+            <h3>여행 일정</h3>
+            <p>1/30 ~ 2/10 전체 일정</p>
         </div>
 
-        <div class="quick-grid">
-            <div class="quick-card" onclick="showPage('schedule')">
-                <span>📅</span>
-                <h3>여행 일정</h3>
-                <p>1/30 ~ 2/10 전체 일정</p>
-            </div>
-
-            <div class="quick-card" onclick="showPage('hotels')">
-                <span>🏨</span>
-                <h3>호텔</h3>
-                <p>지역별 추천 호텔</p>
-            </div>
-
-            <div class="quick-card" onclick="showPage('transport')">
-                <span>🚆</span>
-                <h3>교통</h3>
-                <p>LA · 라스베이거스 · 샌디에이고</p>
-            </div>
-
-            <div class="quick-card" onclick="showPage('guide')">
-                <span>📚</span>
-                <h3>여행 가이드</h3>
-                <p>미국 여행에 필요한 정보</p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- 일정 -->
-    <section id="schedule" class="page">
-
-        <div class="page-header">
-            <div>
-                <p class="eyebrow">ITINERARY</p>
-                <h2>📅 여행 일정</h2>
-                <p>2027년 1월 30일 ~ 2월 10일</p>
-            </div>
-
-            <div class="header-buttons">
-                <button class="primary-button" onclick="toggleEditMode()">
-                    ✏️ 일정 수정
-                </button>
-
-                <button class="secondary-button" onclick="addSchedule()">
-                    ➕ 일정 추가
-                </button>
-            </div>
+        <div class="quick-card" onclick="showPage('hotels')">
+            <span>🏨</span>
+            <h3>호텔</h3>
+            <p>지역별 호텔 정보</p>
         </div>
 
-        <div id="editNotice" class="edit-notice">
-            수정 모드입니다. 내용을 수정한 뒤 <b>저장</b> 버튼을 눌러주세요.
+        <div class="quick-card" onclick="showPage('transport')">
+            <span>🚆</span>
+            <h3>교통</h3>
+            <p>미국 서부 이동 정보</p>
         </div>
 
-        <div id="scheduleContainer"></div>
-    </section>
-
-
-    <!-- 호텔 -->
-    <section id="hotels" class="page">
-
-        <div class="page-header">
-            <div>
-                <p class="eyebrow">HOTELS</p>
-                <h2>🏨 호텔 추천</h2>
-                <p>여행 지역별로 보기</p>
-            </div>
+        <div class="quick-card" onclick="showPage('memo')">
+            <span>📝</span>
+            <h3>여행 메모</h3>
+            <p>내가 직접 기록하기</p>
         </div>
 
-        <div class="filter-buttons">
-            <button onclick="filterHotels('all')" class="filter active">전체</button>
-            <button onclick="filterHotels('LA')" class="filter">🇺🇸 LA</button>
-            <button onclick="filterHotels('Las Vegas')" class="filter">🎰 Las Vegas</button>
-            <button onclick="filterHotels('San Diego')" class="filter">🌴 San Diego</button>
+    </div>
+
+</section>
+
+
+<!-- ==================== 일정 ==================== -->
+
+<section id="schedule" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">ITINERARY</p>
+            <h2>📅 여행 일정</h2>
+            <p>2027년 1월 30일 ~ 2월 10일</p>
         </div>
 
-        <div id="hotelContainer" class="card-grid"></div>
-    </section>
+        <div class="header-buttons">
 
+            <button
+                class="primary-button"
+                onclick="toggleEditMode()">
+                ✏️ 일정 수정
+            </button>
 
-    <!-- 교통 -->
-    <section id="transport" class="page">
-
-        <div class="page-header">
-            <div>
-                <p class="eyebrow">TRANSPORT</p>
-                <h2>🚗 교통</h2>
-                <p>여행 중 이용할 주요 교통수단</p>
-            </div>
-        </div>
-
-        <div class="card-grid">
-
-            <div class="info-card">
-                <div class="icon">✈️</div>
-                <h3>LA 공항 → 호텔</h3>
-                <p>공항 도착 후 Uber 또는 Lyft 이용</p>
-                <strong>추천: Uber</strong>
-            </div>
-
-            <div class="info-card">
-                <div class="icon">🚇</div>
-                <h3>LA 시내 관광</h3>
-                <p>Metro + 버스 + 필요할 때 Uber</p>
-                <strong>렌터카 없이 이동 가능</strong>
-            </div>
-
-            <div class="info-card">
-                <div class="icon">🚌</div>
-                <h3>LA → Las Vegas</h3>
-                <p>2/3 포시즌투어 출발</p>
-                <strong>투어 차량 이용</strong>
-            </div>
-
-            <div class="info-card">
-                <div class="icon">🚆</div>
-                <h3>LA ↔ San Diego</h3>
-                <p>Amtrak Pacific Surfliner 이용 가능</p>
-                <strong>약 2시간 30분 전후</strong>
-            </div>
-
-            <div class="info-card">
-                <div class="icon">🚕</div>
-                <h3>San Diego 시내</h3>
-                <p>버스 · 트롤리 · Uber/Lyft 조합</p>
-                <strong>관광지에 따라 선택</strong>
-            </div>
-
-            <div class="info-card">
-                <div class="icon">🚗</div>
-                <h3>렌터카</h3>
-                <p>이번 일정에서는 LA에서 렌터카 없이 여행</p>
-                <strong>대중교통 + Uber 중심</strong>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- 여행 가이드 -->
-    <section id="guide" class="page">
-
-        <div class="page-header">
-            <div>
-                <p class="eyebrow">TRAVEL GUIDE</p>
-                <h2>📚 미국 여행 가이드</h2>
-                <p>여행 전에 필요한 정보를 한곳에서 확인</p>
-            </div>
-        </div>
-
-        <div class="guide-search">
-            <input
-                type="text"
-                id="guideSearch"
-                placeholder="예: 팁, 교통, LA, 호텔..."
-                onkeyup="searchGuide()"
-            >
-        </div>
-
-        <div class="filter-buttons">
-            <button class="filter active" onclick="loadGuideCategory('all')">전체</button>
-            <button class="filter" onclick="loadGuideCategory('LA')">🇺🇸 LA</button>
-            <button class="filter" onclick="loadGuideCategory('San Diego')">🌴 San Diego</button>
-            <button class="filter" onclick="loadGuideCategory('Nevada')">🎰 Nevada</button>
-            <button class="filter" onclick="loadGuideCategory('travel')">✈️ 여행 준비</button>
-        </div>
-
-        <div id="guideContainer" class="guide-list"></div>
-
-        <div class="official-box">
-            <h3>🌎 공식 미국 여행 정보</h3>
-            <p>미국 관광청의 공식 여행 정보도 함께 확인하세요.</p>
-
-            <a
-                href="https://www.visittheusa.com/ko/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Visit The USA 공식 사이트 →
-            </a>
-        </div>
-
-    </section>
-
-
-    <!-- 체크리스트 -->
-    <section id="checklist" class="page">
-
-        <div class="page-header">
-            <div>
-                <p class="eyebrow">CHECKLIST</p>
-                <h2>✅ 여행 체크리스트</h2>
-                <p>체크한 내용은 자동으로 저장됩니다.</p>
-            </div>
-        </div>
-
-        <div class="checklist-box">
-
-            <label>
-                <input type="checkbox" data-check="passport">
-                여권 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="flight">
-                항공권 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="hotel">
-                호텔 예약 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="insurance">
-                여행자보험 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="sim">
-                유심 / eSIM 준비
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="money">
-                미국 달러 / 카드 준비
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="universal">
-                Universal Studios 예약 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="tour">
-                포시즌투어 예약 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="amtrak">
-                Amtrak 예약 확인
-            </label>
-
-            <label>
-                <input type="checkbox" data-check="luggage">
-                여행 짐 준비
-            </label>
+            <button
+                class="secondary-button"
+                onclick="addSchedule()">
+                ➕ 일정 추가
+            </button>
 
         </div>
 
-        <button class="secondary-button reset-button" onclick="resetChecklist()">
-            🔄 체크리스트 초기화
+    </div>
+
+
+    <div id="editNotice" class="edit-notice">
+        수정 모드입니다.
+        내용을 수정한 뒤 저장해주세요.
+    </div>
+
+
+    <div id="scheduleContainer"></div>
+
+</section>
+
+
+<!-- ==================== 호텔 ==================== -->
+
+<section id="hotels" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">HOTELS</p>
+            <h2>🏨 호텔 추천</h2>
+            <p>지역별 숙소 정보</p>
+        </div>
+
+    </div>
+
+
+    <div class="filter-buttons">
+
+        <button
+            class="filter active"
+            onclick="filterHotels('all')">
+            전체
         </button>
 
-    </section>
+        <button
+            class="filter"
+            onclick="filterHotels('LA')">
+            🇺🇸 LA
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterHotels('Las Vegas')">
+            🎰 Las Vegas
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterHotels('San Diego')">
+            🌴 San Diego
+        </button>
+
+    </div>
+
+
+    <div id="hotelContainer" class="card-grid"></div>
+
+</section>
+
+
+<!-- ==================== 교통 ==================== -->
+
+<section id="transport" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">TRANSPORT</p>
+            <h2>🚗 교통</h2>
+            <p>여행 중 이용할 주요 교통수단</p>
+        </div>
+
+    </div>
+
+
+    <div class="card-grid">
+
+        <div class="info-card">
+            <div class="icon">✈️</div>
+            <h3>LA 공항 → 호텔</h3>
+            <p>공항 도착 후 Uber 또는 Lyft 이용</p>
+            <strong>추천: Uber</strong>
+        </div>
+
+
+        <div class="info-card">
+            <div class="icon">🚇</div>
+            <h3>LA 시내 관광</h3>
+            <p>Metro + 버스 + 필요할 때 Uber</p>
+            <strong>렌터카 없이 이동 가능</strong>
+        </div>
+
+
+        <div class="info-card">
+            <div class="icon">🚌</div>
+            <h3>LA → Las Vegas</h3>
+            <p>2/3 포시즌투어 출발</p>
+            <strong>투어 차량</strong>
+        </div>
+
+
+        <div class="info-card">
+            <div class="icon">🚆</div>
+            <h3>LA ↔ San Diego</h3>
+            <p>Amtrak Pacific Surfliner</p>
+            <strong>기차 이동</strong>
+        </div>
+
+
+        <div class="info-card">
+            <div class="icon">🚕</div>
+            <h3>San Diego 시내</h3>
+            <p>버스 · 트롤리 · Uber/Lyft</p>
+            <strong>상황에 따라 선택</strong>
+        </div>
+
+
+        <div class="info-card">
+            <div class="icon">🚗</div>
+            <h3>렌터카</h3>
+            <p>이번 일정에서는 LA 렌터카 없이 여행</p>
+            <strong>대중교통 + Uber 중심</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================== 여행 가이드 ==================== -->
+
+<section id="guide" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">TRAVEL GUIDE</p>
+            <h2>📚 미국 여행 가이드</h2>
+            <p>여행에 필요한 정보를 확인하세요.</p>
+        </div>
+
+    </div>
+
+
+    <div class="guide-search">
+
+        <input
+            type="text"
+            id="guideSearch"
+            placeholder="예: LA, 교통, 팁, 호텔..."
+            onkeyup="searchGuide()">
+
+    </div>
+
+
+    <div class="filter-buttons">
+
+        <button
+            class="filter active"
+            onclick="loadGuideCategory('all')">
+            전체
+        </button>
+
+        <button
+            class="filter"
+            onclick="loadGuideCategory('LA')">
+            🇺🇸 LA
+        </button>
+
+        <button
+            class="filter"
+            onclick="loadGuideCategory('San Diego')">
+            🌴 San Diego
+        </button>
+
+        <button
+            class="filter"
+            onclick="loadGuideCategory('Nevada')">
+            🎰 Nevada
+        </button>
+
+        <button
+            class="filter"
+            onclick="loadGuideCategory('travel')">
+            ✈️ 여행 준비
+        </button>
+
+    </div>
+
+
+    <div id="guideContainer" class="guide-list"></div>
+
+
+    <div class="official-box">
+
+        <h3>🌎 공식 미국 여행 정보</h3>
+
+        <p>
+            미국 관광청의 공식 여행 정보도 확인할 수 있습니다.
+        </p>
+
+        <a
+            href="https://www.visittheusa.com/ko/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Visit The USA 공식 사이트 →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ==================== 체크리스트 ==================== -->
+
+<section id="checklist" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">CHECKLIST</p>
+            <h2>✅ 여행 체크리스트</h2>
+            <p>체크한 내용은 자동 저장됩니다.</p>
+        </div>
+
+    </div>
+
+
+    <div class="checklist-box">
+
+        <label>
+            <input type="checkbox" data-check="passport">
+            여권 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="flight">
+            항공권 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="hotel">
+            호텔 예약 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="insurance">
+            여행자보험 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="sim">
+            유심 / eSIM 준비
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="money">
+            미국 달러 / 카드 준비
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="universal">
+            Universal Studios 예약 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="tour">
+            포시즌투어 예약 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="amtrak">
+            Amtrak 예약 확인
+        </label>
+
+        <label>
+            <input type="checkbox" data-check="luggage">
+            여행 짐 준비
+        </label>
+
+    </div>
+
+
+    <button
+        class="secondary-button reset-button"
+        onclick="resetChecklist()">
+        🔄 체크리스트 초기화
+    </button>
+
+</section>
+
+
+<!-- ==================== 메모 ==================== -->
+
+<section id="memo" class="page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">TRAVEL MEMO</p>
+            <h2>📝 여행 메모</h2>
+            <p>여행 중 필요한 내용을 자유롭게 기록하세요.</p>
+        </div>
+
+        <div class="header-buttons">
+
+            <button
+                class="primary-button"
+                onclick="addMemo()">
+                ➕ 새 메모
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="memoContainer" class="memo-grid"></div>
+
+</section>
 
 </main>
 
 
 <footer>
+
     <p>🇺🇸 US Trip 2027</p>
-    <p>가족과 함께하는 미국 서부 여행</p>
+
+    <p>
+        가족과 함께하는 미국 서부 여행
+    </p>
+
 </footer>
 
 
