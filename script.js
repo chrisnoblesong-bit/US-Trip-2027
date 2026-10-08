@@ -1,12 +1,12 @@
 // ==========================================
 // 🇺🇸 US TRIP 2027
-// 메인 JavaScript
+// 전체 JavaScript
 // ==========================================
 
 
-// ------------------------------------------
-// 여행 일정
-// ------------------------------------------
+// ==========================================
+// 일정
+// ==========================================
 
 const defaultSchedule = [
     {
@@ -84,17 +84,23 @@ const defaultSchedule = [
 ];
 
 
-// 저장된 일정 불러오기
 let travelSchedule =
-    JSON.parse(localStorage.getItem("usTripSchedule")) ||
-    JSON.parse(JSON.stringify(defaultSchedule));
+    JSON.parse(
+        localStorage.getItem("usTripSchedule")
+    ) ||
+    JSON.parse(
+        JSON.stringify(defaultSchedule)
+    );
+
+let editMode = false;
 
 
-// ------------------------------------------
+// ==========================================
 // 호텔
-// ------------------------------------------
+// ==========================================
 
 const hotels = [
+
     {
         region: "LA",
         name: "Best Western Plus LA Midtown Hotel",
@@ -102,6 +108,7 @@ const hotels = [
         description: "LA 시내 관광과 이동을 고려하기 좋은 숙소 후보",
         point: "Koreatown 인근"
     },
+
     {
         region: "LA",
         name: "Koreatown 지역 호텔",
@@ -109,6 +116,7 @@ const hotels = [
         description: "한인 식당과 마트 이용이 편리한 지역",
         point: "한식 / 마트 접근성"
     },
+
     {
         region: "LA",
         name: "Downtown Los Angeles",
@@ -116,6 +124,7 @@ const hotels = [
         description: "Metro 이용을 중요하게 생각한다면 고려할 만한 지역",
         point: "대중교통 접근성"
     },
+
     {
         region: "Las Vegas",
         name: "Las Vegas Strip",
@@ -123,6 +132,7 @@ const hotels = [
         description: "관광과 호텔 시설을 중심으로 선택하기 좋은 지역",
         point: "스트립 중심"
     },
+
     {
         region: "San Diego",
         name: "Little Italy",
@@ -130,6 +140,7 @@ const hotels = [
         description: "식당과 관광지 접근성이 좋은 지역",
         point: "Amtrak Santa Fe Depot 접근"
     },
+
     {
         region: "San Diego",
         name: "Downtown San Diego",
@@ -137,12 +148,13 @@ const hotels = [
         description: "대중교통과 주요 관광지 접근성을 고려할 수 있는 지역",
         point: "교통 편리"
     }
+
 ];
 
 
-// ------------------------------------------
+// ==========================================
 // 여행 가이드
-// ------------------------------------------
+// ==========================================
 
 const travelGuides = [
 
@@ -155,7 +167,7 @@ const travelGuides = [
     {
         category: "LA",
         title: "Universal Studios Hollywood",
-        text: "오픈 시간에 맞춰 이동하면 주요 어트랙션을 효율적으로 이용할 수 있습니다. Harry Potter 구역도 일정에 포함할 수 있습니다."
+        text: "오픈 시간에 맞춰 이동하면 주요 어트랙션을 효율적으로 이용할 수 있습니다."
     },
 
     {
@@ -209,26 +221,28 @@ const travelGuides = [
 ];
 
 
-// ------------------------------------------
+// ==========================================
 // 페이지 이동
-// ------------------------------------------
+// ==========================================
 
 function showPage(pageId) {
 
-    const pages = document.querySelectorAll(".page");
+    const pages =
+        document.querySelectorAll(".page");
 
     pages.forEach(page => {
         page.classList.remove("active");
     });
 
-    const target = document.getElementById(pageId);
+    const target =
+        document.getElementById(pageId);
 
     if (target) {
         target.classList.add("active");
     }
 
-    // 모바일 메뉴 닫기
-    const nav = document.getElementById("mainNav");
+    const nav =
+        document.getElementById("mainNav");
 
     if (nav) {
         nav.classList.remove("open");
@@ -241,13 +255,14 @@ function showPage(pageId) {
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 모바일 메뉴
-// ------------------------------------------
+// ==========================================
 
 function toggleMenu() {
 
-    const nav = document.getElementById("mainNav");
+    const nav =
+        document.getElementById("mainNav");
 
     if (!nav) return;
 
@@ -255,23 +270,23 @@ function toggleMenu() {
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 렌더링
-// ------------------------------------------
-
-let editMode = false;
+// ==========================================
 
 function renderSchedule() {
 
-    const container = document.getElementById("scheduleContainer");
+    const container =
+        document.getElementById("scheduleContainer");
 
     if (!container) return;
 
     container.innerHTML = "";
 
-    travelSchedule.forEach((item, index) => {
+    travelSchedule.forEach((item,index) => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
         card.className =
             "schedule-card" +
@@ -280,30 +295,55 @@ function renderSchedule() {
         if (editMode) {
 
             card.innerHTML = `
+
                 <div class="schedule-top">
 
                     <input
                         class="schedule-input"
                         value="${escapeHTML(item.date)}"
-                        onchange="updateSchedule(${index}, 'date', this.value)"
+                        onchange="
+                            updateSchedule(
+                                ${index},
+                                'date',
+                                this.value
+                            )
+                        "
                     >
 
                     <input
                         class="schedule-input"
                         value="${escapeHTML(item.city)}"
-                        onchange="updateSchedule(${index}, 'city', this.value)"
+                        onchange="
+                            updateSchedule(
+                                ${index},
+                                'city',
+                                this.value
+                            )
+                        "
                     >
 
                     <input
                         class="schedule-input"
                         value="${escapeHTML(item.plan)}"
-                        onchange="updateSchedule(${index}, 'plan', this.value)"
+                        onchange="
+                            updateSchedule(
+                                ${index},
+                                'plan',
+                                this.value
+                            )
+                        "
                     >
 
                     <input
                         class="schedule-input"
                         value="${escapeHTML(item.transport)}"
-                        onchange="updateSchedule(${index}, 'transport', this.value)"
+                        onchange="
+                            updateSchedule(
+                                ${index},
+                                'transport',
+                                this.value
+                            )
+                        "
                     >
 
                 </div>
@@ -312,15 +352,13 @@ function renderSchedule() {
 
                     <button
                         class="save-button"
-                        onclick="saveSchedule()"
-                    >
+                        onclick="saveSchedule()">
                         💾 저장
                     </button>
 
                     <button
                         class="delete-button"
-                        onclick="deleteSchedule(${index})"
-                    >
+                        onclick="deleteSchedule(${index})">
                         🗑 삭제
                     </button>
 
@@ -330,6 +368,7 @@ function renderSchedule() {
         } else {
 
             card.innerHTML = `
+
                 <div class="schedule-top">
 
                     <div class="schedule-date">
@@ -357,29 +396,33 @@ function renderSchedule() {
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 수정 모드
-// ------------------------------------------
+// ==========================================
 
 function toggleEditMode() {
 
     editMode = !editMode;
 
-    const notice = document.getElementById("editNotice");
+    const notice =
+        document.getElementById("editNotice");
 
     if (notice) {
-        notice.classList.toggle("show", editMode);
+        notice.classList.toggle(
+            "show",
+            editMode
+        );
     }
 
     renderSchedule();
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 수정
-// ------------------------------------------
+// ==========================================
 
-function updateSchedule(index, field, value) {
+function updateSchedule(index,field,value) {
 
     if (!travelSchedule[index]) return;
 
@@ -387,22 +430,28 @@ function updateSchedule(index, field, value) {
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 추가
-// ------------------------------------------
+// ==========================================
 
 function addSchedule() {
 
     travelSchedule.push({
+
         date: "2027/02/11",
+
         city: "추가 일정",
+
         plan: "새로운 여행 일정을 입력하세요",
+
         transport: "교통수단 입력"
+
     });
 
     editMode = true;
 
-    const notice = document.getElementById("editNotice");
+    const notice =
+        document.getElementById("editNotice");
 
     if (notice) {
         notice.classList.add("show");
@@ -413,31 +462,38 @@ function addSchedule() {
     setTimeout(() => {
 
         const cards =
-            document.querySelectorAll(".schedule-card");
+            document.querySelectorAll(
+                ".schedule-card"
+            );
 
         if (cards.length > 0) {
 
-            cards[cards.length - 1].scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+            cards[cards.length - 1]
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
         }
 
-    }, 100);
+    },100);
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 삭제
-// ------------------------------------------
+// ==========================================
 
 function deleteSchedule(index) {
 
-    if (!confirm("이 일정을 삭제할까요?")) {
+    if (
+        !confirm(
+            "이 일정을 삭제할까요?"
+        )
+    ) {
         return;
     }
 
-    travelSchedule.splice(index, 1);
+    travelSchedule.splice(index,1);
 
     saveSchedule();
 
@@ -445,22 +501,25 @@ function deleteSchedule(index) {
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 일정 저장
-// ------------------------------------------
+// ==========================================
 
 function saveSchedule() {
 
     localStorage.setItem(
         "usTripSchedule",
-        JSON.stringify(travelSchedule)
+        JSON.stringify(
+            travelSchedule
+        )
     );
 
     alert("일정이 저장되었습니다.");
 
     editMode = false;
 
-    const notice = document.getElementById("editNotice");
+    const notice =
+        document.getElementById("editNotice");
 
     if (notice) {
         notice.classList.remove("show");
@@ -470,14 +529,16 @@ function saveSchedule() {
 }
 
 
-// ------------------------------------------
-// 호텔 렌더링
-// ------------------------------------------
+// ==========================================
+// 호텔
+// ==========================================
 
-function renderHotels(region = "all") {
+function renderHotels(region="all") {
 
     const container =
-        document.getElementById("hotelContainer");
+        document.getElementById(
+            "hotelContainer"
+        );
 
     if (!container) return;
 
@@ -486,32 +547,46 @@ function renderHotels(region = "all") {
     const filtered =
         region === "all"
             ? hotels
-            : hotels.filter(hotel => hotel.region === region);
+            : hotels.filter(
+                hotel =>
+                    hotel.region === region
+            );
 
     filtered.forEach(hotel => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
         card.className = "hotel-card";
 
         card.innerHTML = `
+
             <div class="hotel-region">
                 ${escapeHTML(hotel.region)}
             </div>
 
-            <h3>${escapeHTML(hotel.name)}</h3>
+            <h3>
+                ${escapeHTML(hotel.name)}
+            </h3>
 
             <p>
-                ${escapeHTML(hotel.description)}
+                ${escapeHTML(
+                    hotel.description
+                )}
             </p>
 
             <p class="hotel-location">
-                📍 ${escapeHTML(hotel.location)}
+                📍 ${escapeHTML(
+                    hotel.location
+                )}
             </p>
 
             <strong>
-                ⭐ ${escapeHTML(hotel.point)}
+                ⭐ ${escapeHTML(
+                    hotel.point
+                )}
             </strong>
+
         `;
 
         container.appendChild(card);
@@ -519,42 +594,63 @@ function renderHotels(region = "all") {
 }
 
 
-// ------------------------------------------
-// 호텔 필터
-// ------------------------------------------
-
 function filterHotels(region) {
 
-    document.querySelectorAll("#hotels .filter")
+    document
+        .querySelectorAll(
+            "#hotels .filter"
+        )
         .forEach(button => {
-            button.classList.remove("active");
+
+            button.classList.remove(
+                "active"
+            );
+
         });
 
     const buttons =
-        document.querySelectorAll("#hotels .filter");
+        document.querySelectorAll(
+            "#hotels .filter"
+        );
 
     buttons.forEach(button => {
 
         if (
-            (region === "all" && button.textContent.includes("전체")) ||
-            button.textContent.includes(region)
+            (
+                region === "all" &&
+                button.textContent.includes(
+                    "전체"
+                )
+            ) ||
+            button.textContent.includes(
+                region
+            )
         ) {
-            button.classList.add("active");
+
+            button.classList.add(
+                "active"
+            );
+
         }
+
     });
 
     renderHotels(region);
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 여행 가이드
-// ------------------------------------------
+// ==========================================
 
-function renderGuides(list = travelGuides) {
+function renderGuides(
+    list=travelGuides
+) {
 
     const container =
-        document.getElementById("guideContainer");
+        document.getElementById(
+            "guideContainer"
+        );
 
     if (!container) return;
 
@@ -563,10 +659,19 @@ function renderGuides(list = travelGuides) {
     if (list.length === 0) {
 
         container.innerHTML = `
+
             <div class="guide-card">
-                <h3>검색 결과가 없습니다.</h3>
-                <p>다른 검색어를 입력해 보세요.</p>
+
+                <h3>
+                    검색 결과가 없습니다.
+                </h3>
+
+                <p>
+                    다른 검색어를 입력해 보세요.
+                </p>
+
             </div>
+
         `;
 
         return;
@@ -574,18 +679,32 @@ function renderGuides(list = travelGuides) {
 
     list.forEach(guide => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className = "guide-card";
+        card.className =
+            "guide-card";
 
         card.innerHTML = `
+
             <div class="guide-category">
-                ${escapeHTML(guide.category)}
+                ${escapeHTML(
+                    guide.category
+                )}
             </div>
 
-            <h3>${escapeHTML(guide.title)}</h3>
+            <h3>
+                ${escapeHTML(
+                    guide.title
+                )}
+            </h3>
 
-            <p>${escapeHTML(guide.text)}</p>
+            <p>
+                ${escapeHTML(
+                    guide.text
+                )}
+            </p>
+
         `;
 
         container.appendChild(card);
@@ -593,45 +712,67 @@ function renderGuides(list = travelGuides) {
 }
 
 
-// ------------------------------------------
-// 가이드 카테고리
-// ------------------------------------------
-
 function loadGuideCategory(category) {
 
-    document.querySelectorAll("#guide .filter")
+    document
+        .querySelectorAll(
+            "#guide .filter"
+        )
         .forEach(button => {
-            button.classList.remove("active");
+
+            button.classList.remove(
+                "active"
+            );
+
         });
 
     const buttons =
-        document.querySelectorAll("#guide .filter");
+        document.querySelectorAll(
+            "#guide .filter"
+        );
 
     buttons.forEach(button => {
 
         if (
-            (category === "all" && button.textContent.includes("전체")) ||
-            button.textContent.includes(category)
+            (
+                category === "all" &&
+                button.textContent.includes(
+                    "전체"
+                )
+            ) ||
+            button.textContent.includes(
+                category
+            )
         ) {
-            button.classList.add("active");
+
+            button.classList.add(
+                "active"
+            );
+
         }
+
     });
 
     if (category === "all") {
 
-        renderGuides(travelGuides);
+        renderGuides(
+            travelGuides
+        );
 
     } else {
 
         renderGuides(
             travelGuides.filter(
-                guide => guide.category === category
+                guide =>
+                    guide.category === category
             )
         );
     }
 
     const search =
-        document.getElementById("guideSearch");
+        document.getElementById(
+            "guideSearch"
+        );
 
     if (search) {
         search.value = "";
@@ -639,44 +780,63 @@ function loadGuideCategory(category) {
 }
 
 
-// ------------------------------------------
-// 가이드 검색
-// ------------------------------------------
-
 function searchGuide() {
 
     const input =
-        document.getElementById("guideSearch");
+        document.getElementById(
+            "guideSearch"
+        );
 
     if (!input) return;
 
     const keyword =
-        input.value.trim().toLowerCase();
+        input.value
+            .trim()
+            .toLowerCase();
 
     if (!keyword) {
 
-        renderGuides(travelGuides);
+        renderGuides(
+            travelGuides
+        );
+
         return;
     }
 
     const result =
-        travelGuides.filter(guide => {
+        travelGuides.filter(
+            guide => {
 
-            return (
-                guide.title.toLowerCase().includes(keyword) ||
-                guide.text.toLowerCase().includes(keyword) ||
-                guide.category.toLowerCase().includes(keyword)
-            );
+                return (
 
-        });
+                    guide.title
+                        .toLowerCase()
+                        .includes(keyword)
+
+                    ||
+
+                    guide.text
+                        .toLowerCase()
+                        .includes(keyword)
+
+                    ||
+
+                    guide.category
+                        .toLowerCase()
+                        .includes(keyword)
+
+                );
+
+            }
+        );
 
     renderGuides(result);
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 체크리스트
-// ------------------------------------------
+// ==========================================
 
 function loadChecklist() {
 
@@ -688,31 +848,37 @@ function loadChecklist() {
     checks.forEach(check => {
 
         const key =
-            "check_" + check.dataset.check;
+            "check_" +
+            check.dataset.check;
 
         check.checked =
-            localStorage.getItem(key) === "true";
+            localStorage.getItem(
+                key
+            ) === "true";
 
-        check.addEventListener("change", () => {
+        check.addEventListener(
+            "change",
+            () => {
 
-            localStorage.setItem(
-                key,
-                check.checked
-            );
+                localStorage.setItem(
+                    key,
+                    check.checked
+                );
 
-        });
+            }
+        );
 
     });
 }
 
 
-// ------------------------------------------
-// 체크리스트 초기화
-// ------------------------------------------
-
 function resetChecklist() {
 
-    if (!confirm("체크리스트를 모두 초기화할까요?")) {
+    if (
+        !confirm(
+            "체크리스트를 모두 초기화할까요?"
+        )
+    ) {
         return;
     }
 
@@ -726,40 +892,332 @@ function resetChecklist() {
         check.checked = false;
 
         localStorage.removeItem(
-            "check_" + check.dataset.check
+            "check_" +
+            check.dataset.check
         );
 
     });
 }
 
 
-// ------------------------------------------
+// ==========================================
+// 📝 메모
+// ==========================================
+
+let memos =
+    JSON.parse(
+        localStorage.getItem(
+            "usTripMemos"
+        )
+    ) || [];
+
+
+// ==========================================
+// 메모 렌더링
+// ==========================================
+
+function renderMemos() {
+
+    const container =
+        document.getElementById(
+            "memoContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (memos.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="no-memo">
+
+                <div style="font-size:40px;">
+                    📝
+                </div>
+
+                <h3>
+                    아직 메모가 없습니다.
+                </h3>
+
+                <p>
+                    오른쪽 위의
+                    "➕ 새 메모" 버튼을 눌러
+                    첫 번째 메모를 만들어보세요.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    memos.forEach(
+        (memo,index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "memo-card";
+
+            card.innerHTML = `
+
+                <input
+                    class="memo-title"
+                    value="${escapeHTML(
+                        memo.title
+                    )}"
+                    placeholder="메모 제목"
+                    oninput="
+                        updateMemo(
+                            ${index},
+                            'title',
+                            this.value
+                        )
+                    "
+                >
+
+                <textarea
+                    class="memo-content"
+                    placeholder="메모 내용을 입력하세요..."
+                    oninput="
+                        updateMemo(
+                            ${index},
+                            'content',
+                            this.value
+                        )
+                    "
+                >${escapeHTML(
+                    memo.content
+                )}</textarea>
+
+
+                <div class="memo-actions">
+
+                    <button
+                        class="memo-save"
+                        onclick="
+                            saveMemos()
+                        ">
+                        💾 저장
+                    </button>
+
+                    <button
+                        class="memo-delete"
+                        onclick="
+                            deleteMemo(${index})
+                        ">
+                        🗑 삭제
+                    </button>
+
+                </div>
+
+
+                <div class="memo-date">
+
+                    마지막 저장:
+                    ${escapeHTML(
+                        memo.date || ""
+                    )}
+
+                </div>
+
+            `;
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+}
+
+
+// ==========================================
+// 새 메모
+// ==========================================
+
+function addMemo() {
+
+    memos.unshift({
+
+        title: "새 여행 메모",
+
+        content: "",
+
+        date:
+            new Date()
+                .toLocaleString(
+                    "ko-KR"
+                )
+
+    });
+
+    saveMemos(false);
+
+    renderMemos();
+
+    setTimeout(() => {
+
+        const firstTitle =
+            document.querySelector(
+                ".memo-title"
+            );
+
+        if (firstTitle) {
+
+            firstTitle.focus();
+
+            firstTitle.select();
+
+        }
+
+    },100);
+}
+
+
+// ==========================================
+// 메모 수정
+// ==========================================
+
+function updateMemo(
+    index,
+    field,
+    value
+) {
+
+    if (!memos[index]) return;
+
+    memos[index][field] = value;
+
+    localStorage.setItem(
+        "usTripMemos",
+        JSON.stringify(memos)
+    );
+}
+
+
+// ==========================================
+// 메모 저장
+// ==========================================
+
+function saveMemos(
+    showAlert=true
+) {
+
+    memos.forEach(
+        memo => {
+
+            memo.date =
+                new Date()
+                    .toLocaleString(
+                        "ko-KR"
+                    );
+
+        }
+    );
+
+    localStorage.setItem(
+        "usTripMemos",
+        JSON.stringify(
+            memos
+        )
+    );
+
+    if (showAlert) {
+
+        alert(
+            "메모가 저장되었습니다."
+        );
+
+        renderMemos();
+    }
+}
+
+
+// ==========================================
+// 메모 삭제
+// ==========================================
+
+function deleteMemo(index) {
+
+    if (
+        !confirm(
+            "이 메모를 삭제할까요?"
+        )
+    ) {
+        return;
+    }
+
+    memos.splice(
+        index,
+        1
+    );
+
+    saveMemos(false);
+
+    renderMemos();
+}
+
+
+// ==========================================
 // HTML 안전 처리
-// ------------------------------------------
+// ==========================================
 
 function escapeHTML(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
 
 
-// ------------------------------------------
-// 시작
-// ------------------------------------------
+// ==========================================
+// 페이지 시작
+// ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    renderSchedule();
+        renderSchedule();
 
-    renderHotels();
+        renderHotels();
 
-    renderGuides();
+        renderGuides();
 
-    loadChecklist();
+        loadChecklist();
 
-});
+        renderMemos();
+
+    }
+);
