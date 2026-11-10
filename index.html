@@ -1,891 +1,340 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>2027 미국 서부 가족여행</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+<title>2027 미국 가족 여행</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #f3f6fb;
-  color: #202938;
-  font-family: 'Noto Sans KR', sans-serif;
-  line-height: 1.7;
-}
-
-button, input, textarea, select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 15px;
-  font-weight: 700;
-}
-
-.hero {
-  background: linear-gradient(135deg, #102b50, #2876a8);
-  color: white;
-  padding: 45px 20px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: clamp(25px, 5vw, 38px);
-  margin: 0 0 10px;
-  overflow-wrap: anywhere;
-}
-
-.hero p {
-  margin: 5px 0;
-  color: #e5f2ff;
-}
-
-.container {
-  width: min(1100px, calc(100% - 30px));
-  margin: 25px auto 60px;
-}
-
-.summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-  margin-bottom: 25px;
-}
-
-.summary-card {
-  background: white;
-  border-radius: 15px;
-  padding: 18px;
-  box-shadow: 0 3px 12px #172b4d0d;
-}
-
-.summary-card strong {
-  display: block;
-  font-size: 22px;
-  color: #1766a1;
-}
-
-.summary-card span {
-  color: #697586;
-  font-size: 13px;
-}
-
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.tab {
-  background: #e4eaf2;
-  color: #344256;
-}
-
-.tab.active {
-  background: #1766a1;
-  color: white;
-}
-
-.panel {
-  display: none;
-}
-
-.panel.active {
-  display: block;
-}
-
-.section-title {
-  margin: 20px 0 15px;
-  font-size: 23px;
-}
-
-.card {
-  background: white;
-  padding: 22px;
-  border-radius: 16px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 12px #172b4d0d;
-  min-width: 0;
-}
-
-.day {
-  background: white;
-  border-radius: 16px;
-  padding: 22px;
-  margin-bottom: 16px;
-  box-shadow: 0 3px 12px #172b4d0d;
-  width: 100%;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.day-top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.day-title {
-  flex: 1 1 300px;
-  min-width: 0;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  line-height: 1.7;
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  flex-shrink: 0;
-}
-
-.edit-btn {
-  background: #e5f1ff;
-  color: #1766a1;
-}
-
-.delete-btn {
-  background: #fff0f0;
-  color: #c33;
-}
-
-.event {
-  padding: 12px 0;
-  border-top: 1px solid #edf0f4;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: keep-all;
-  line-height: 1.8;
-}
-
-.event strong {
-  color: #1766a1;
-}
-
-.hotel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  gap: 15px;
-}
-
-.hotel {
-  background: white;
-  border-radius: 15px;
-  padding: 19px;
-  box-shadow: 0 3px 12px #172b4d0d;
-  min-width: 0;
-}
-
-.hotel h3 {
-  margin: 0 0 7px;
-  overflow-wrap: anywhere;
-}
-
-.hotel .area {
-  color: #1766a1;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.hotel p {
-  font-size: 14px;
-  color: #566273;
-}
-
-.link-btn {
-  display: inline-block;
-  background: #1766a1;
-  color: white;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 9px;
-  margin: 4px 4px 0 0;
-  font-size: 13px;
-}
-
-.check-group {
-  margin-bottom: 20px;
-}
-
-.check-group h3 {
-  border-bottom: 1px solid #e8edf3;
-  padding-bottom: 8px;
-}
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 9px 0;
-  border-bottom: 1px solid #f0f2f5;
-}
-
-.check-item input {
-  width: 19px;
-  height: 19px;
-  margin-top: 4px;
-  flex-shrink: 0;
-}
-
-.check-item label {
-  overflow-wrap: anywhere;
-}
-
-.progress {
-  height: 12px;
-  background: #e7edf4;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 10px 0 20px;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: #24966b;
-  transition: width .2s;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d8e0e9;
-  border-radius: 10px;
-  margin: 5px 0 12px;
-  background: white;
-  color: #202938;
-}
-
-textarea {
-  min-height: 110px;
-  resize: vertical;
-}
-
-.primary-btn {
-  background: #1766a1;
-  color: white;
-}
-
-.gray-btn {
-  background: #e9edf2;
-  color: #344256;
-}
-
-.form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #101b2dcc;
-  z-index: 10;
-  padding: 18px;
-  overflow-y: auto;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-content {
-  background: white;
-  width: min(650px, 100%);
-  border-radius: 17px;
-  padding: 23px;
-  margin: auto;
-  min-width: 0;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.small-note {
-  color: #718096;
-  font-size: 13px;
-}
-
-@media (min-width: 701px) {
-  .day {
-    padding: 25px;
-  }
-
-  .day-title {
-    font-size: 19px;
-  }
-
-  .event {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 700px) {
-  .hero {
-    padding: 32px 15px;
-  }
-
-  .container {
-    width: calc(100% - 20px);
-  }
-
-  .day {
-    padding: 16px;
-  }
-
-  .day-top {
-    flex-direction: column;
-  }
-
-  .day-title {
-    width: 100%;
-    flex-basis: auto;
-  }
-
-  .day-top .button-row {
-    width: 100%;
-  }
-
-  .button-row button {
-    flex: 1;
-  }
-
-  .card {
-    padding: 17px;
-  }
+*{box-sizing:border-box}
+body{margin:0;background:#f3f5fa;color:#202b40;font-family:Arial,sans-serif}
+header{background:#172b4d;color:white;padding:25px 18px}
+header h1{margin:0 0 8px;font-size:25px}
+header p{margin:0;color:#cbd7e9}
+nav{display:flex;gap:8px;padding:12px;background:white;position:sticky;top:0;z-index:5;overflow-x:auto}
+nav button{white-space:nowrap;border:0;background:#edf1f7;padding:12px 17px;border-radius:9px;font-weight:bold}
+nav button.active{background:#2456a6;color:white}
+main{max-width:1050px;margin:22px auto;padding:0 14px}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:white;padding:19px;border-radius:14px;margin-bottom:15px;box-shadow:0 2px 10px #172b4d0c}
+h2{font-size:21px;margin-top:0}
+h3{margin:0 0 12px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #d5dce8;border-radius:8px;margin:6px 0 13px;font-size:15px}
+textarea{min-height:85px;resize:vertical}
+label{font-size:13px;font-weight:bold}
+button{cursor:pointer}
+.primary{background:#2456a6;color:white;border:0;padding:12px 17px;border-radius:9px;font-weight:bold}
+.danger{background:#fff0f0;color:#c43b3b;border:0;padding:9px 12px;border-radius:8px}
+.secondary{background:#edf1f7;color:#263b5c;border:0;padding:9px 12px;border-radius:8px}
+.hotel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.hotel img{width:100%;height:170px;object-fit:cover;border-radius:10px;background:#edf1f7}
+.hotel p{line-height:1.6;color:#56647a;overflow-wrap:anywhere}
+.hotel-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hotel-actions a{background:#2456a6;color:white;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px}
+.empty{color:#7d899c;text-align:center;padding:30px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.day{border-left:4px solid #3976c8}
+.day small{color:#718096}
+footer{text-align:center;color:#8993a4;padding:25px}
+@media(max-width:600px){
+ header h1{font-size:21px}
+ .row{grid-template-columns:1fr}
+ main{padding:0 10px}
+ .card{padding:15px}
 }
 </style>
 </head>
-
 <body>
 
-<header class="hero">
-  <h1>🇺🇸 2027 미국 서부 가족여행</h1>
-  <p>LOS ANGELES · LAS VEGAS · GRAND CANYON · SAN DIEGO</p>
-  <p>2027년 1월 30일 ~ 2월 10일</p>
+<header>
+<h1>🇺🇸 2027 미국 가족 여행</h1>
+<p>2027.01.30 ~ 2027.02.10 | LA · 라스베이거스 · 그랜드캐니언 · 샌디에이고</p>
 </header>
 
-<main class="container">
+<nav>
+<button class="active" onclick="showTab('schedule',this)">📅 여행 일정</button>
+<button onclick="showTab('hotels',this)">🏨 호텔 목록</button>
+<button onclick="showTab('memo',this)">📝 여행 메모</button>
+</nav>
 
-  <section class="summary">
-    <div class="summary-card">
-      <strong>12일</strong>
-      <span>여행 기간</span>
-    </div>
-    <div class="summary-card">
-      <strong>4명</strong>
-      <span>여행 인원</span>
-    </div>
-    <div class="summary-card">
-      <strong>1월 30일</strong>
-      <span>LA 도착</span>
-    </div>
-    <div class="summary-card">
-      <strong>2월 10일</strong>
-      <span>한국 귀국</span>
-    </div>
-  </section>
+<main>
 
-  <nav class="tabs">
-    <button class="tab active" data-tab="overview">여행 개요</button>
-    <button class="tab" data-tab="schedule">여행 일정</button>
-    <button class="tab" data-tab="hotels">호텔 추천</button>
-    <button class="tab" data-tab="checklist">체크리스트</button>
-    <button class="tab" data-tab="memo">여행 메모</button>
-  </nav>
+<section id="schedule" class="panel active">
+<div class="card">
+<h2>📅 여행 일정</h2>
+<p>일정을 자유롭게 추가하고 수정하거나 삭제할 수 있어.</p>
+<button class="primary" onclick="addDay()">＋ 일정 추가</button>
+</div>
+<div id="scheduleList"></div>
+</section>
 
-  <section id="overview" class="panel active">
-    <h2 class="section-title">여행 한눈에 보기</h2>
-    <div class="card">
-      <h3>✈️ 항공 일정</h3>
-      <p><strong>미국 도착:</strong> 2027년 1월 30일 오전 7시 20분, 로스앤젤레스</p>
-      <p><strong>한국 귀국:</strong> 2027년 2월 10일 오전 9시 50분 출발 예정</p>
-      <p class="small-note">항공편과 공항 이동 시간은 항공권에서 최종 확인해 줘.</p>
-    </div>
+<section id="hotels" class="panel">
+<div class="card">
+<h2>🏨 나의 호텔 목록</h2>
+<p>여행 중 이용할 호텔을 직접 추가하고 관리해 봐.</p>
+<button class="primary" onclick="openHotelForm()">＋ 호텔 추가하기</button>
+</div>
 
-    <div class="card">
-      <h3>🗺️ 여행 경로</h3>
-      <p>로스앤젤레스 → 라스베이거스 → 그랜드캐니언 → 샌디에이고 → 로스앤젤레스</p>
-    </div>
+<div id="hotelForm" class="card" style="display:none">
+<h2 id="formTitle">새 호텔 등록</h2>
+<input type="hidden" id="editId">
 
-    <div class="card">
-      <h3>🚗 교통 계획</h3>
-      <p>LA에서는 대중교통과 Uber/Lyft를 이용하는 방향으로 계획했어.</p>
-      <p>LA에서 샌디에이고로 이동할 때는 렌터카와 기차를 비교해 볼 수 있어.</p>
-      <p>그랜드캐니언 구간은 2박 3일 투어를 고려하는 일정이야.</p>
-    </div>
-  </section>
+<label>호텔 이름</label>
+<input id="hotelName" placeholder="예: Best Western Plus L.A. Midtown">
 
-  <section id="schedule" class="panel">
-    <div class="day-top" style="margin-bottom:15px;">
-      <h2 class="section-title" style="margin:0;">📅 여행 일정</h2>
-      <button class="primary-btn" onclick="openAddModal()">+ 일정 추가</button>
-    </div>
-    <div id="scheduleList"></div>
-    <button class="gray-btn" onclick="restoreSchedule()">원래 일정으로 복원</button>
-  </section>
+<label>도시 / 지역</label>
+<select id="hotelCity">
+<option>로스앤젤레스</option>
+<option>라스베이거스</option>
+<option>그랜드캐니언</option>
+<option>샌디에이고</option>
+<option>기타</option>
+</select>
 
-  <section id="hotels" class="panel">
-    <h2 class="section-title">🏨 호텔 추천 및 숙소 계획</h2>
-    <p class="small-note">아래는 숙소 후보를 정리하기 위한 참고 목록이야. 실제 가격과 객실 상황은 예약 사이트에서 확인해 줘.</p>
-    <div id="hotelList" class="hotel-grid"></div>
-  </section>
+<label>호텔 주소</label>
+<input id="hotelAddress" placeholder="호텔 주소">
 
-  <section id="checklist" class="panel">
-    <h2 class="section-title">🧳 여행 준비 체크리스트</h2>
-    <div class="card">
-      <strong id="checkProgress">0% 완료</strong>
-      <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
-      <div id="checkList"></div>
-    </div>
-  </section>
+<div class="row">
+<div>
+<label>체크인</label>
+<input type="date" id="checkin">
+</div>
+<div>
+<label>체크아웃</label>
+<input type="date" id="checkout">
+</div>
+</div>
 
-  <section id="memo" class="panel">
-    <h2 class="section-title">📝 여행 메모</h2>
-    <div class="card">
-      <p>여행 준비 중 필요한 내용을 자유롭게 적어 줘. 입력한 내용은 이 기기에 저장돼.</p>
-      <textarea id="memoText" placeholder="예: 호텔 예약번호, 투어 비용, 준비할 물건 등"></textarea>
-      <button class="primary-btn" onclick="saveMemo()">메모 저장</button>
-      <span id="memoStatus" class="small-note"></span>
-    </div>
-  </section>
+<div class="row">
+<div>
+<label>1박 가격 (원)</label>
+<input type="number" id="hotelPrice" placeholder="150000">
+</div>
+<div>
+<label>총 숙박비 (원)</label>
+<input type="number" id="totalPrice" placeholder="300000">
+</div>
+</div>
+
+<label>호텔 사진 URL</label>
+<input id="hotelImage" placeholder="https://...">
+
+<label>예약 사이트 링크</label>
+<input id="hotelLink" placeholder="https://...">
+
+<label>호텔 설명 및 특징</label>
+<textarea id="hotelDescription" placeholder="객실, 위치, 교통, 조식, 장점 등을 작성해 줘."></textarea>
+
+<label>추가 메모</label>
+<textarea id="hotelMemo" placeholder="예약번호, 요청사항 등"></textarea>
+
+<div class="hotel-actions">
+<button class="primary" onclick="saveHotel()">저장하기</button>
+<button class="secondary" onclick="closeHotelForm()">취소</button>
+</div>
+</div>
+
+<div id="hotelList" class="hotel-grid"></div>
+</section>
+
+<section id="memo" class="panel">
+<div class="card">
+<h2>📝 여행 메모</h2>
+<textarea id="generalMemo" placeholder="준비물, 예약 정보, 여행 중 필요한 내용 등을 작성해 줘."></textarea>
+<button class="primary" onclick="saveMemo()">메모 저장</button>
+<p id="memoStatus"></p>
+</div>
+</section>
 
 </main>
 
-<div class="modal" id="scheduleModal">
-  <div class="modal-content">
-    <h2 id="modalTitle">일정 수정</h2>
-    <label>날짜</label>
-    <input id="editDate" placeholder="예: 1월 30일 (토)">
-    <label>일정 제목</label>
-    <input id="editTitle" placeholder="예: LA 도착 및 할리우드 관광">
-    <label>일정 상세 내용</label>
-    <textarea id="editDetails" placeholder="시간과 장소를 줄마다 입력해 줘."></textarea>
-    <div class="form-actions">
-      <button class="primary-btn" onclick="saveSchedule()">저장</button>
-      <button class="gray-btn" onclick="closeModal()">취소</button>
-    </div>
-  </div>
-</div>
+<footer>2027 USA FAMILY TRIP</footer>
 
 <script>
-const defaultSchedule = [
-  {
-    date: "1월 30일 (토)",
-    title: "LA 입국 및 할리우드 관광",
-    details: "07:20 LA 공항 도착\n호텔 이동 및 짐 보관\n할리우드 거리 관광\n그리피스 천문대 야경"
-  },
-  {
-    date: "1월 31일 (일)",
-    title: "산타모니카 & 베니스 비치",
-    details: "산타모니카 피어 관광\n해변 산책\n베니스 비치 구경\nLA 숙소 복귀"
-  },
-  {
-    date: "2월 1일 (월)",
-    title: "유니버설 스튜디오 할리우드",
-    details: "유니버설 스튜디오 입장\n해리 포터 마법 세계\n쥬라기 월드 등 주요 어트랙션\n저녁 숙소 복귀"
-  },
-  {
-    date: "2월 2일 (화)",
-    title: "할리우드 & 게티 센터",
-    details: "할리우드 주요 명소 관광\n게티 센터 방문\n저녁 자유 일정"
-  },
-  {
-    date: "2월 3일 (수)",
-    title: "LA 출발 및 라스베이거스 이동",
-    details: "LA에서 출발\n라스베이거스 이동\n호텔 체크인\n라스베이거스 야경 관광"
-  },
-  {
-    date: "2월 4일 (목)",
-    title: "그랜드캐니언 투어",
-    details: "그랜드캐니언 투어 일정\n현지 투어 안내에 따라 이동\n숙소 체크인"
-  },
-  {
-    date: "2월 5일 (금)",
-    title: "그랜드캐니언 투어 종료",
-    details: "투어 일정 진행\n라스베이거스 또는 LA 방향 이동\n이동 일정 확인"
-  },
-  {
-    date: "2월 6일 (토)",
-    title: "샌디에이고 이동 & 리틀이탈리아",
-    details: "샌디에이고 이동\n리틀이탈리아 관광\n항구 주변 산책\n호텔 체크인"
-  },
-  {
-    date: "2월 7일 (일)",
-    title: "라호야 관광",
-    details: "라호야 코브 방문\n해안 산책\n샌디에이고 자유 일정"
-  },
-  {
-    date: "2월 8일 (월)",
-    title: "샌디에이고에서 LA 이동",
-    details: "체크아웃\nLA 이동\n호텔 체크인\n저녁 자유 일정"
-  },
-  {
-    date: "2월 9일 (화)",
-    title: "LA 마지막 관광 및 쇼핑",
-    details: "LA 마지막 관광\n기념품 쇼핑\n짐 정리\n다음 날 공항 이동 준비"
-  },
-  {
-    date: "2월 10일 (수)",
-    title: "한국 귀국",
-    details: "공항 이동\n항공편 출발 시간 확인: 09:50\n한국 귀국"
-  }
-];
-
-const hotels = [
-  {
-    city: "로스앤젤레스",
-    name: "Best Western Plus LA Midtown Hotel",
-    area: "LA 미드타운",
-    description: "여행 초반 LA 관광을 위한 숙소 후보야. 할리우드와 산타모니카 등 여러 관광지로 이동할 때 교통편을 함께 확인하면 좋아.",
-    tip: "대중교통과 차량 호출 서비스의 이동 시간을 비교해 봐."
-  },
-  {
-    city: "로스앤젤레스",
-    name: "The LINE Hotel",
-    area: "코리아타운",
-    description: "코리아타운에 위치한 호텔 후보야. 한식당과 편의시설을 이용하기 편리한 지역을 찾을 때 비교해 볼 수 있어.",
-    tip: "객실 크기와 가족 인원에 맞는 객실 유형을 확인해."
-  },
-  {
-    city: "라스베이거스",
-    name: "New York-New York Hotel",
-    area: "라스베이거스 스트립",
-    description: "스트립 중심부 관광을 계획할 때 살펴볼 만한 호텔이야. 주변 호텔과 관광지를 둘러보기 좋아.",
-    tip: "리조트 피와 주차비 등 추가 요금을 확인해."
-  },
-  {
-    city: "라스베이거스",
-    name: "Excalibur Hotel",
-    area: "라스베이거스 스트립",
-    description: "스트립 남쪽에 위치한 숙소 후보야. 다른 호텔들과 가격과 객실 조건을 비교해 봐.",
-    tip: "가족 4명이 사용할 수 있는 객실인지 확인해."
-  },
-  {
-    city: "그랜드캐니언",
-    name: "투어 제공 숙소",
-    area: "투어 일정에 따라 결정",
-    description: "2박 3일 그랜드캐니언 투어에 포함되는 숙소를 우선 확인하는 것이 좋아.",
-    tip: "투어 상품에 숙박비가 포함되는지, 객실 배정은 어떻게 되는지 확인해."
-  },
-  {
-    city: "샌디에이고",
-    name: "Little Italy 주변 호텔",
-    area: "리틀이탈리아",
-    description: "식당과 항구 주변 관광을 계획할 때 비교하기 좋은 숙박 지역이야.",
-    tip: "샌디에이고 숙박은 최대 2박 계획을 기준으로 비교해."
-  },
-  {
-    city: "샌디에이고",
-    name: "Downtown San Diego 호텔",
-    area: "다운타운",
-    description: "항구와 도심 관광을 함께 계획할 때 살펴볼 수 있는 지역이야.",
-    tip: "주차비와 대중교통 접근성을 함께 확인해."
-  },
-  {
-    city: "로스앤젤레스",
-    name: "LAX 주변 호텔",
-    area: "공항 주변",
-    description: "귀국 전날 공항 이동을 고려해 비교할 수 있는 숙소 유형이야.",
-    tip: "공항 셔틀 운행 여부와 첫 운행 시간을 확인해."
-  }
-];
-
-const checklistData = {
-  "여권 및 서류": [
-    "여권 유효기간 확인",
-    "항공권 예약 내역 확인",
-    "ESTA 승인 여부 확인",
-    "여행자 보험 확인",
-    "호텔 예약 내역 저장",
-    "그랜드캐니언 투어 예약 확인"
-  ],
-  "전자기기": [
-    "휴대폰 및 충전기",
-    "보조배터리",
-    "미국용 어댑터",
-    "이어폰",
-    "각종 케이블"
-  ],
-  "의류 및 생활용품": [
-    "겨울 외투",
-    "긴팔 옷과 바지",
-    "편한 운동화",
-    "세면도구",
-    "상비 생활용품",
-    "여행용 가방"
-  ],
-  "출발 전 확인": [
-    "공항 이동 방법 확인",
-    "환전 및 결제 수단 확인",
-    "로밍 또는 eSIM 준비",
-    "여행 일정표 저장",
-    "가족 연락처 공유"
-  ]
+const getData=(key, fallback)=>{
+try{return JSON.parse(localStorage.getItem(key)) ?? fallback}
+catch{return fallback}
 };
 
-let schedule = JSON.parse(localStorage.getItem("usTripScheduleV2")) || structuredClone(defaultSchedule);
-let editingIndex = -1;
+let hotels=getData("usaHotels",[]);
+let days=getData("usaDays",[
+{date:"2027-01-30",title:"LA 입국 및 할리우드",memo:"07:20 LA 도착 · 호텔 체크인 · 할리우드 거리 · 그리피스 천문대"},
+{date:"2027-01-31",title:"산타모니카 & 베니스",memo:"산타모니카 해변과 베니스 비치"},
+{date:"2027-02-01",title:"유니버설 스튜디오",memo:"해리포터 및 주요 어트랙션"},
+{date:"2027-02-02",title:"할리우드 & 게티",memo:"할리우드 관광 및 게티 센터"},
+{date:"2027-02-03",title:"그랜드캐니언 투어",memo:"LA 출발 · 라스베이거스 경유"},
+{date:"2027-02-04",title:"그랜드캐니언",memo:"그랜드캐니언 관광"},
+{date:"2027-02-05",title:"투어 종료",memo:"LA 또는 샌디에이고 이동"},
+{date:"2027-02-06",title:"샌디에이고",memo:"리틀이탈리 · 항구"},
+{date:"2027-02-07",title:"라호야",memo:"라호야 해변 관광"},
+{date:"2027-02-08",title:"LA 이동",memo:"샌디에이고에서 LA 이동"},
+{date:"2027-02-09",title:"LA 마지막 여행",memo:"쇼핑 및 자유 일정"},
+{date:"2027-02-10",title:"한국 귀국",memo:"09:50 출발"}
+]);
 
-function saveScheduleData() {
-  localStorage.setItem("usTripScheduleV2", JSON.stringify(schedule));
+function persist(){
+localStorage.setItem("usaHotels",JSON.stringify(hotels));
+localStorage.setItem("usaDays",JSON.stringify(days));
 }
 
-function renderSchedule() {
-  const list = document.getElementById("scheduleList");
-  list.innerHTML = "";
-
-  schedule.forEach((item, index) => {
-    const card = document.createElement("article");
-    card.className = "day";
-
-    const top = document.createElement("div");
-    top.className = "day-top";
-
-    const title = document.createElement("div");
-    title.className = "day-title";
-    title.textContent = item.date + " — " + item.title;
-
-    const buttons = document.createElement("div");
-    buttons.className = "button-row";
-
-    const edit = document.createElement("button");
-    edit.className = "edit-btn";
-    edit.textContent = "수정";
-    edit.onclick = () => openEditModal(index);
-
-    const del = document.createElement("button");
-    del.className = "delete-btn";
-    del.textContent = "삭제";
-    del.onclick = () => deleteSchedule(index);
-
-    buttons.append(edit, del);
-    top.append(title, buttons);
-
-    const details = document.createElement("div");
-    item.details.split("\n").forEach(line => {
-      const row = document.createElement("div");
-      row.className = "event";
-      row.textContent = line;
-      details.appendChild(row);
-    });
-
-    card.append(top, details);
-    list.appendChild(card);
-  });
+function showTab(id,btn){
+document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+btn.classList.add("active");
 }
 
-function openAddModal() {
-  editingIndex = -1;
-  document.getElementById("modalTitle").textContent = "새 일정 추가";
-  document.getElementById("editDate").value = "";
-  document.getElementById("editTitle").value = "";
-  document.getElementById("editDetails").value = "";
-  document.getElementById("scheduleModal").classList.add("show");
+function renderHotels(){
+const list=document.getElementById("hotelList");
+if(!hotels.length){
+list.innerHTML='<div class="card empty">아직 등록된 호텔이 없어.<br>＋ 호텔 추가하기를 눌러 등록해 줘.</div>';
+return;
+}
+list.innerHTML=hotels.map(h=>`
+<div class="card hotel">
+${h.image?`<img src="${esc(h.image)}" alt="호텔 사진" onerror="this.style.display='none'">`:""}
+<h3>${esc(h.name)}</h3>
+<p>📍 ${esc(h.city)}<br>
+${esc(h.address)}<br>
+🗓️ ${esc(h.checkin||"-")} ~ ${esc(h.checkout||"-")}<br>
+💰 1박: ${money(h.price)}<br>
+💳 총 숙박비: ${money(h.total)}</p>
+<p>${esc(h.description).replace(/\n/g,"<br>")}</p>
+${h.memo?`<p>📝 ${esc(h.memo).replace(/\n/g,"<br>")}</p>`:""}
+<div class="hotel-actions">
+${h.link?`<a href="${safeUrl(h.link)}" target="_blank" rel="noopener noreferrer">예약 사이트</a>`:""}
+<button class="secondary" onclick="editHotel('${h.id}')">수정</button>
+<button class="danger" onclick="deleteHotel('${h.id}')">삭제</button>
+</div>
+</div>`).join("");
 }
 
-function openEditModal(index) {
-  editingIndex = index;
-  const item = schedule[index];
-
-  document.getElementById("modalTitle").textContent = "일정 수정";
-  document.getElementById("editDate").value = item.date;
-  document.getElementById("editTitle").value = item.title;
-  document.getElementById("editDetails").value = item.details;
-  document.getElementById("scheduleModal").classList.add("show");
+function esc(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
 }
-
-function closeModal() {
-  document.getElementById("scheduleModal").classList.remove("show");
+function safeUrl(value){
+try{
+const u=new URL(value);
+return ["http:","https:"].includes(u.protocol)?esc(u.href):"#";
+}catch{return "#"}
 }
-
-function saveSchedule() {
-  const date = document.getElementById("editDate").value.trim();
-  const title = document.getElementById("editTitle").value.trim();
-  const details = document.getElementById("editDetails").value.trim();
-
-  if (!date || !title || !details) {
-    alert("날짜, 제목, 상세 내용을 모두 입력해 줘.");
-    return;
-  }
-
-  const newItem = { date, title, details };
-
-  if (editingIndex === -1) {
-    schedule.push(newItem);
-  } else {
-    schedule[editingIndex] = newItem;
-  }
-
-  saveScheduleData();
-  renderSchedule();
-  closeModal();
+function money(value){
+return value?Number(value).toLocaleString("ko-KR")+"원":"미입력";
 }
-
-function deleteSchedule(index) {
-  if (!confirm("이 일정을 삭제할까?")) return;
-
-  schedule.splice(index, 1);
-  saveScheduleData();
-  renderSchedule();
+function openHotelForm(){
+document.getElementById("hotelForm").style.display="block";
+document.getElementById("formTitle").textContent="새 호텔 등록";
+document.getElementById("editId").value="";
+["hotelName","hotelAddress","checkin","checkout","hotelPrice","totalPrice","hotelImage","hotelLink","hotelDescription","hotelMemo"].forEach(id=>document.getElementById(id).value="");
+document.getElementById("hotelCity").selectedIndex=0;
+document.getElementById("hotelForm").scrollIntoView({behavior:"smooth"});
 }
-
-function restoreSchedule() {
-  if (!confirm("일정을 처음 상태로 되돌릴까? 현재 수정한 일정은 사라져.")) return;
-
-  schedule = structuredClone(defaultSchedule);
-  saveScheduleData();
-  renderSchedule();
+function closeHotelForm(){
+document.getElementById("hotelForm").style.display="none";
 }
-
-function renderHotels() {
-  const list = document.getElementById("hotelList");
-  list.innerHTML = "";
-
-  hotels.forEach(hotel => {
-    const card = document.createElement("article");
-    card.className = "hotel";
-
-    const heading = document.createElement("h3");
-    heading.textContent = hotel.name;
-
-    const area = document.createElement("div");
-    area.className = "area";
-    area.textContent = hotel.city + " · " + hotel.area;
-
-    const description = document.createElement("p");
-    description.textContent = hotel.description;
-
-    const tip = document.createElement("p");
-    tip.textContent = "💡 " + hotel.tip;
-
-    const map = document.createElement("a");
-    map.className = "link-btn";
-    map.target = "_blank";
-    map.rel = "noopener";
-    map.href = "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent(hotel.name + " " + hotel.city + " USA");
-    map.textContent = "지도에서 보기";
-
-    const search = document.createElement("a");
-    search.className = "link-btn";
-    search.target = "_blank";
-    search.rel = "noopener";
-    search.href = "https://www.google.com/search?q=" +
-      encodeURIComponent(hotel.name + " " + hotel.city + " hotel");
-    search.textContent = "호텔 정보 검색";
-
-    card.append(heading, area, description, tip, map, search);
-    list.appendChild(card);
-  });
-}
-
-function renderChecklist() {
-  const list = document.getElementById("checkList");
-  list.innerHTML = "";
-
-  let total = 0;
-  let checked = 0;
-
-  Object.entries(checklistData).forEach(([group, items]) => {
-    const section = document.createElement("div");
-    section.className = "check-group";
-
-    const heading = document.createElement("h3");
-    heading.textContent = group;
-    section.appendChild(heading);
-
-    items.forEach((item, index) => {
-      total++;
-
-      const key = "tripCheck_" + group + "_" + index;
-      const row = document.createElement("div");
-      row.className = "check-item";
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = key;
-      checkbox.checked = localStorage.getItem(key) === "true";
-
-      if (checkbox.checked) checked++;
-
-      const label = document.createElement("label");
-      label.htmlFor = key;
-      label.textContent = item;
-
-      checkbox.addEventListener("change", () => {
-        localStorage.setItem(key, checkbox.checked);
-        renderChecklist();
-      });
-
-      row.append(checkbox, label);
-      section.appendChild(row);
-    });
-
-    list.appendChild(section);
-  });
-
-  const percent = total ? Math.round(checked / total * 100) : 0;
-  document.getElementById("checkProgress").textContent =
-    `${checked} / ${total}개 완료 · ${percent}%`;
-
-  document.getElementById("progressBar").style.width = percent + "%";
-}
-
-function saveMemo() {
-  localStorage.setItem(
-    "usTripMemoV2",
-    document.getElementById("memoText").value
-  );
-
-  document.getElementById("memoStatus").textContent = " 저장 완료!";
-}
-
-function setupTabs() {
-  document.querySelectorAll(".tab").forEach(button => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-      document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
-
-      button.classList.add("active");
-      document.getElementById(button.dataset.tab).classList.add("active");
-    });
-  });
-}
-
-document.getElementById("memoText").value =
-  localStorage.getItem("usTripMemoV2") || "";
-
-setupTabs();
-renderSchedule();
+function saveHotel(){
+const name=document.getElementById("hotelName").value.trim();
+if(!name){alert("호텔 이름을 입력해 줘.");return}
+const id=document.getElementById("editId").value||String(Date.now());
+const old=hotels.find(h=>h.id===id);
+const h={
+id,name,
+city:document.getElementById("hotelCity").value,
+address:document.getElementById("hotelAddress").value,
+checkin:document.getElementById("checkin").value,
+checkout:document.getElementById("checkout").value,
+price:document.getElementById("hotelPrice").value,
+total:document.getElementById("totalPrice").value,
+image:document.getElementById("hotelImage").value,
+link:document.getElementById("hotelLink").value,
+description:document.getElementById("hotelDescription").value,
+memo:document.getElementById("hotelMemo").value
+};
+if(old)hotels=hotels.map(x=>x.id===id?h:x);
+else hotels.push(h);
+persist();
 renderHotels();
-renderChecklist();
+closeHotelForm();
+alert("호텔이 저장되었어!");
+}
+function editHotel(id){
+const h=hotels.find(x=>x.id===id);
+if(!h)return;
+openHotelForm();
+document.getElementById("formTitle").textContent="호텔 정보 수정";
+document.getElementById("editId").value=h.id;
+const fields={
+hotelName:"name",hotelAddress:"address",checkin:"checkin",
+checkout:"checkout",hotelPrice:"price",totalPrice:"total",
+hotelImage:"image",hotelLink:"link",
+hotelDescription:"description",hotelMemo:"memo"
+};
+Object.entries(fields).forEach(([input,key])=>{
+document.getElementById(input).value=h[key]||"";
+});
+document.getElementById("hotelCity").value=h.city;
+}
+function deleteHotel(id){
+if(!confirm("이 호텔을 삭제할까?"))return;
+hotels=hotels.filter(h=>h.id!==id);
+persist();
+renderHotels();
+}
+function renderDays(){
+const list=document.getElementById("scheduleList");
+list.innerHTML=days.map((d,i)=>`
+<div class="card day">
+<small>${esc(d.date)}</small>
+<h3>${esc(d.title)}</h3>
+<textarea id="daymemo${i}" aria-label="일정 내용">${esc(d.memo)}</textarea>
+<div class="hotel-actions">
+<button class="primary" onclick="saveDay(${i})">일정 저장</button>
+<button class="secondary" onclick="editDay(${i})">제목 수정</button>
+<button class="danger" onclick="deleteDay(${i})">삭제</button>
+</div>
+</div>`).join("");
+}
+function saveDay(i){
+days[i].memo=document.getElementById("daymemo"+i).value;
+persist();
+alert("일정을 저장했어!");
+}
+function editDay(i){
+const title=prompt("일정 제목",days[i].title);
+if(title===null)return;
+const date=prompt("날짜 (YYYY-MM-DD)",days[i].date);
+if(date===null)return;
+days[i].title=title;
+days[i].date=date;
+persist();
+renderDays();
+}
+function addDay(){
+const date=prompt("날짜 (YYYY-MM-DD)");
+if(!date)return;
+const title=prompt("일정 제목");
+if(!title)return;
+days.push({date,title,memo:""});
+days.sort((a,b)=>a.date.localeCompare(b.date));
+persist();
+renderDays();
+}
+function deleteDay(i){
+if(!confirm("이 일정을 삭제할까?"))return;
+days.splice(i,1);
+persist();
+renderDays();
+}
+function saveMemo(){
+localStorage.setItem("usaGeneralMemo",document.getElementById("generalMemo").value);
+document.getElementById("memoStatus").textContent="저장 완료!";
+}
+document.getElementById("generalMemo").value=localStorage.getItem("usaGeneralMemo")||"";
+renderHotels();
+renderDays();
 </script>
-
 </body>
 </html>
