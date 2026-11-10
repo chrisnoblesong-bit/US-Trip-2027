@@ -1,452 +1,604 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇺🇸 US Trip 2027</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US TRIP 2027</title>
+<style>
+:root{
+ --navy:#101b2b;--blue:#245b83;--bg:#f4f5f6;
+ --white:#fff;--muted:#78838d;--line:#e5e8eb;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:#182432;
+ font-family:Arial,"Apple SD Gothic Neo",sans-serif;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hero{
+ background:linear-gradient(120deg,#101b2b,#245b83);
+ color:white;padding:55px 7%;
+}
+.hero small{letter-spacing:3px;color:#bcd8e9}
+.hero h1{font-size:48px;margin:18px 0 10px}
+.hero p{color:#d5e3ed}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.stat{
+ padding:15px 20px;background:#ffffff16;
+ border:1px solid #ffffff33;border-radius:12px;
+}
+.stat b{display:block;font-size:22px}
+.stat span{font-size:11px;color:#d5e3ed}
+.container{max-width:1150px;margin:auto;padding:25px 18px 60px}
+h2{font-size:25px}
+.subtitle{color:var(--muted);font-size:13px}
+.panel{
+ background:white;border:1px solid var(--line);
+ border-radius:15px;padding:20px;margin:20px 0;
+}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.btn{
+ border:0;border-radius:9px;padding:10px 14px;
+ background:var(--navy);color:white;font-size:13px;
+}
+.btn.light{background:#e9eff3;color:var(--navy)}
+.btn.red{background:#a83b3b}
+.btn.small{padding:7px 10px;font-size:11px}
+.filter{
+ border:1px solid var(--line);background:white;
+ padding:9px 15px;border-radius:30px;font-size:12px;
+}
+.filter.active{background:var(--navy);color:white}
+.days{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:14px;
+}
+.day{
+ background:white;border:1px solid var(--line);
+ border-radius:14px;overflow:hidden;
+}
+.day[hidden]{display:none}
+.dayhead{
+ padding:18px;border-bottom:1px solid var(--line);
+ display:flex;justify-content:space-between;gap:10px;
+}
+.dayhead h3{font-size:17px;margin:7px 0}
+.daynum{font-size:11px;color:var(--blue);font-weight:bold}
+.date{font-size:12px;color:var(--muted)}
+.region{
+ background:#e4eff5;color:#245b83;
+ border-radius:7px;padding:6px 9px;
+ height:max-content;font-size:10px;
+}
+.event{display:flex;gap:13px;padding:12px 18px;border-bottom:1px solid #edf0f2}
+.time{min-width:85px;color:var(--blue);font-size:12px;font-weight:bold}
+.event b{font-size:13px}
+.event p{font-size:12px;color:var(--muted);margin:5px 0;line-height:1.5}
+.daybottom{
+ padding:12px 18px;background:#fafbfc;
+ display:flex;justify-content:space-between;gap:8px;
+ align-items:center;flex-wrap:wrap;
+}
+.hotel-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:12px;
+}
+.hotel{
+ border:1px solid var(--line);border-radius:12px;
+ padding:15px;background:white;
+ display:flex;flex-direction:column;gap:8px;
+}
+.hotel h3{font-size:15px;margin:0}
+.hotel p{font-size:12px;color:var(--muted);line-height:1.5;margin:0;flex:1}
+.hotel a{color:var(--blue);font-size:12px;font-weight:bold;text-decoration:none}
+.tag{
+ background:#e8f0f4;color:#245b83;padding:5px 8px;
+ border-radius:6px;font-size:10px;width:max-content;
+}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{
+ padding:12px;background:#f6f8f9;border-radius:9px;
+ display:flex;gap:9px;font-size:13px;
+}
+.check input{accent-color:#245b83}
+.check.done span{text-decoration:line-through;color:#999}
+textarea,input,select{
+ border:1px solid var(--line);border-radius:8px;
+ padding:11px;width:100%;background:white;
+}
+textarea{min-height:120px;resize:vertical}
+.modal{
+ display:none;position:fixed;inset:0;background:#0009;
+ z-index:10;align-items:center;justify-content:center;padding:15px;
+}
+.modal.open{display:flex}
+.modalbox{
+ width:min(600px,100%);max-height:90vh;overflow:auto;
+ background:white;padding:22px;border-radius:15px;
+}
+.field{margin:12px 0}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}
+.field textarea{min-height:180px;font-size:12px}
+.modalbuttons{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+footer{text-align:center;padding:30px;color:#89939b;font-size:11px}
+@media(max-width:750px){
+ .hero h1{font-size:36px}
+ .days{grid-template-columns:1fr}
+ .hotel-grid{grid-template-columns:1fr 1fr}
+ .checklist{grid-template-columns:1fr}
+}
+@media(max-width:430px){
+ .hotel-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
-
 <body>
 
-<header>
-    <div class="logo">🇺🇸 US Trip 2027</div>
-
-    <button class="menu-button" onclick="toggleMenu()">☰</button>
-
-    <nav id="mainNav">
-        <button onclick="showPage('home')">🏠 홈</button>
-        <button onclick="showPage('schedule')">📅 일정</button>
-        <button onclick="showPage('hotels')">🏨 호텔</button>
-        <button onclick="showPage('transport')">🚗 교통</button>
-        <button onclick="showPage('guide')">📚 여행 가이드</button>
-        <button onclick="showPage('checklist')">✅ 체크리스트</button>
-        <button onclick="showPage('memo')">📝 메모</button>
-    </nav>
+<header class="hero">
+ <small>FAMILY TRAVEL JOURNAL · 2027</small>
+ <h1>WEST COAST<br>FAMILY TRIP.</h1>
+ <p>LOS ANGELES · LAS VEGAS · GRAND CANYON · SAN DIEGO</p>
+ <div class="stats">
+  <div class="stat"><b>12 DAYS</b><span>JAN 30 – FEB 10</span></div>
+  <div class="stat"><b>4 PEOPLE</b><span>FAMILY TRIP</span></div>
+  <div class="stat"><b>2027</b><span>UNITED STATES</span></div>
+ </div>
 </header>
 
+<main class="container">
 
-<main>
-
-<!-- ==================== 홈 ==================== -->
-
-<section id="home" class="page active">
-
-    <div class="hero">
-        <div class="hero-content">
-            <p class="eyebrow">FAMILY TRIP</p>
-
-            <h1>🇺🇸 2027 미국 가족여행</h1>
-
-            <p>
-                LA · Las Vegas · Grand Canyon · San Diego
-            </p>
-
-            <button class="main-button" onclick="showPage('schedule')">
-                여행 일정 보기 →
-            </button>
-        </div>
-    </div>
-
-
-    <div class="quick-grid">
-
-        <div class="quick-card" onclick="showPage('schedule')">
-            <span>📅</span>
-            <h3>여행 일정</h3>
-            <p>1/30 ~ 2/10 전체 일정</p>
-        </div>
-
-        <div class="quick-card" onclick="showPage('hotels')">
-            <span>🏨</span>
-            <h3>호텔</h3>
-            <p>지역별 호텔 정보</p>
-        </div>
-
-        <div class="quick-card" onclick="showPage('transport')">
-            <span>🚆</span>
-            <h3>교통</h3>
-            <p>미국 서부 이동 정보</p>
-        </div>
-
-        <div class="quick-card" onclick="showPage('memo')">
-            <span>📝</span>
-            <h3>여행 메모</h3>
-            <p>내가 직접 기록하기</p>
-        </div>
-
-    </div>
-
+<section class="panel">
+ <h2>🇺🇸 여행 정보</h2>
+ <p>여행 기간: 2027년 1월 30일 ~ 2월 10일</p>
+ <p>인원: 4명</p>
+ <p>출국: 로스앤젤레스 국제공항 (LAX)</p>
+ <p>주요 이동: Uber · Amtrak · 투어 차량</p>
 </section>
 
+<section>
+ <h2>📅 여행 일정 관리</h2>
+ <p class="subtitle">일정을 추가하거나 수정하고 삭제할 수 있습니다.</p>
 
-<!-- ==================== 일정 ==================== -->
+ <div class="toolbar">
+  <button class="btn" onclick="openEditor()">＋ 일정 추가</button>
+  <button class="btn light" onclick="resetDays()">원래 일정 복원</button>
+  <button class="btn red" onclick="deleteAllDays()">전체 일정 삭제</button>
+ </div>
 
-<section id="schedule" class="page">
+ <div class="toolbar" id="dayFilters">
+  <button class="filter active" data-filter="ALL">전체</button>
+  <button class="filter" data-filter="LA">로스앤젤레스</button>
+  <button class="filter" data-filter="TOUR">라스베이거스·그랜드캐니언</button>
+  <button class="filter" data-filter="SD">샌디에이고</button>
+ </div>
 
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">ITINERARY</p>
-            <h2>📅 여행 일정</h2>
-            <p>2027년 1월 30일 ~ 2월 10일</p>
-        </div>
-
-        <div class="header-buttons">
-
-            <button
-                class="primary-button"
-                onclick="toggleEditMode()">
-                ✏️ 일정 수정
-            </button>
-
-            <button
-                class="secondary-button"
-                onclick="addSchedule()">
-                ➕ 일정 추가
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div id="editNotice" class="edit-notice">
-        수정 모드입니다.
-        내용을 수정한 뒤 저장해주세요.
-    </div>
-
-
-    <div id="scheduleContainer"></div>
-
+ <div class="days" id="days"></div>
 </section>
 
-
-<!-- ==================== 호텔 ==================== -->
-
-<section id="hotels" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">HOTELS</p>
-            <h2>🏨 호텔 추천</h2>
-            <p>지역별 숙소 정보</p>
-        </div>
-
-    </div>
-
-
-    <div class="filter-buttons">
-
-        <button
-            class="filter active"
-            onclick="filterHotels('all')">
-            전체
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterHotels('LA')">
-            🇺🇸 LA
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterHotels('Las Vegas')">
-            🎰 Las Vegas
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterHotels('San Diego')">
-            🌴 San Diego
-        </button>
-
-    </div>
-
-
-    <div id="hotelContainer" class="card-grid"></div>
-
+<section class="panel" id="hotels">
+ <h2>🏨 지역별 호텔 추천</h2>
+ <p class="subtitle">호텔 이름을 누르면 해당 호텔 홈페이지로 이동합니다.</p>
+ <div class="toolbar" id="hotelFilters">
+  <button class="filter active" data-hotel="ALL">전체 호텔</button>
+  <button class="filter" data-hotel="LA">LA</button>
+  <button class="filter" data-hotel="VEGAS">라스베이거스</button>
+  <button class="filter" data-hotel="GC">그랜드캐니언</button>
+  <button class="filter" data-hotel="SD">샌디에이고</button>
+ </div>
+ <div class="hotel-grid" id="hotelGrid"></div>
 </section>
 
-
-<!-- ==================== 교통 ==================== -->
-
-<section id="transport" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">TRANSPORT</p>
-            <h2>🚗 교통</h2>
-            <p>여행 중 이용할 주요 교통수단</p>
-        </div>
-
-    </div>
-
-
-    <div class="card-grid">
-
-        <div class="info-card">
-            <div class="icon">✈️</div>
-            <h3>LA 공항 → 호텔</h3>
-            <p>공항 도착 후 Uber 또는 Lyft 이용</p>
-            <strong>추천: Uber</strong>
-        </div>
-
-
-        <div class="info-card">
-            <div class="icon">🚇</div>
-            <h3>LA 시내 관광</h3>
-            <p>Metro + 버스 + 필요할 때 Uber</p>
-            <strong>렌터카 없이 이동 가능</strong>
-        </div>
-
-
-        <div class="info-card">
-            <div class="icon">🚌</div>
-            <h3>LA → Las Vegas</h3>
-            <p>2/3 포시즌투어 출발</p>
-            <strong>투어 차량</strong>
-        </div>
-
-
-        <div class="info-card">
-            <div class="icon">🚆</div>
-            <h3>LA ↔ San Diego</h3>
-            <p>Amtrak Pacific Surfliner</p>
-            <strong>기차 이동</strong>
-        </div>
-
-
-        <div class="info-card">
-            <div class="icon">🚕</div>
-            <h3>San Diego 시내</h3>
-            <p>버스 · 트롤리 · Uber/Lyft</p>
-            <strong>상황에 따라 선택</strong>
-        </div>
-
-
-        <div class="info-card">
-            <div class="icon">🚗</div>
-            <h3>렌터카</h3>
-            <p>이번 일정에서는 LA 렌터카 없이 여행</p>
-            <strong>대중교통 + Uber 중심</strong>
-        </div>
-
-    </div>
-
+<section class="panel">
+ <h2>✅ 예약 체크리스트</h2>
+ <p class="subtitle" id="progress">0 / 10 완료</p>
+ <div class="checklist" id="checks">
+  <label class="check"><input type="checkbox" data-id="1"><span>게티 센터 예약</span></label>
+  <label class="check"><input type="checkbox" data-id="2"><span>Amtrak 2월 6일 예매</span></label>
+  <label class="check"><input type="checkbox" data-id="3"><span>Amtrak 2월 8일 예매</span></label>
+  <label class="check"><input type="checkbox" data-id="4"><span>포시즌투어 예약 확인</span></label>
+  <label class="check"><input type="checkbox" data-id="5"><span>유니버설 티켓 확인</span></label>
+  <label class="check"><input type="checkbox" data-id="6"><span>LA 호텔 예약 확인</span></label>
+  <label class="check"><input type="checkbox" data-id="7"><span>샌디에이고 호텔 예약 확인</span></label>
+  <label class="check"><input type="checkbox" data-id="8"><span>Uber 앱 준비</span></label>
+  <label class="check"><input type="checkbox" data-id="9"><span>PRONTO 앱 준비</span></label>
+  <label class="check"><input type="checkbox" data-id="10"><span>항공권 및 여권 확인</span></label>
+ </div>
 </section>
 
-
-<!-- ==================== 여행 가이드 ==================== -->
-
-<section id="guide" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">TRAVEL GUIDE</p>
-            <h2>📚 미국 여행 가이드</h2>
-            <p>여행에 필요한 정보를 확인하세요.</p>
-        </div>
-
-    </div>
-
-
-    <div class="guide-search">
-
-        <input
-            type="text"
-            id="guideSearch"
-            placeholder="예: LA, 교통, 팁, 호텔..."
-            onkeyup="searchGuide()">
-
-    </div>
-
-
-    <div class="filter-buttons">
-
-        <button
-            class="filter active"
-            onclick="loadGuideCategory('all')">
-            전체
-        </button>
-
-        <button
-            class="filter"
-            onclick="loadGuideCategory('LA')">
-            🇺🇸 LA
-        </button>
-
-        <button
-            class="filter"
-            onclick="loadGuideCategory('San Diego')">
-            🌴 San Diego
-        </button>
-
-        <button
-            class="filter"
-            onclick="loadGuideCategory('Nevada')">
-            🎰 Nevada
-        </button>
-
-        <button
-            class="filter"
-            onclick="loadGuideCategory('travel')">
-            ✈️ 여행 준비
-        </button>
-
-    </div>
-
-
-    <div id="guideContainer" class="guide-list"></div>
-
-
-    <div class="official-box">
-
-        <h3>🌎 공식 미국 여행 정보</h3>
-
-        <p>
-            미국 관광청의 공식 여행 정보도 확인할 수 있습니다.
-        </p>
-
-        <a
-            href="https://www.visittheusa.com/ko/"
-            target="_blank"
-            rel="noopener noreferrer">
-            Visit The USA 공식 사이트 →
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ==================== 체크리스트 ==================== -->
-
-<section id="checklist" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">CHECKLIST</p>
-            <h2>✅ 여행 체크리스트</h2>
-            <p>체크한 내용은 자동 저장됩니다.</p>
-        </div>
-
-    </div>
-
-
-    <div class="checklist-box">
-
-        <label>
-            <input type="checkbox" data-check="passport">
-            여권 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="flight">
-            항공권 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="hotel">
-            호텔 예약 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="insurance">
-            여행자보험 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="sim">
-            유심 / eSIM 준비
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="money">
-            미국 달러 / 카드 준비
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="universal">
-            Universal Studios 예약 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="tour">
-            포시즌투어 예약 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="amtrak">
-            Amtrak 예약 확인
-        </label>
-
-        <label>
-            <input type="checkbox" data-check="luggage">
-            여행 짐 준비
-        </label>
-
-    </div>
-
-
-    <button
-        class="secondary-button reset-button"
-        onclick="resetChecklist()">
-        🔄 체크리스트 초기화
-    </button>
-
-</section>
-
-
-<!-- ==================== 메모 ==================== -->
-
-<section id="memo" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <p class="eyebrow">TRAVEL MEMO</p>
-            <h2>📝 여행 메모</h2>
-            <p>여행 중 필요한 내용을 자유롭게 기록하세요.</p>
-        </div>
-
-        <div class="header-buttons">
-
-            <button
-                class="primary-button"
-                onclick="addMemo()">
-                ➕ 새 메모
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div id="memoContainer" class="memo-grid"></div>
-
+<section class="panel">
+ <h2>📝 여행 메모</h2>
+ <textarea id="memo" placeholder="예약번호, 맛집, 준비물 등을 적어주세요."></textarea>
+ <div class="toolbar">
+  <button class="btn" onclick="saveMemo()">메모 저장</button>
+  <button class="btn red" onclick="clearMemo()">메모 삭제</button>
+ </div>
 </section>
 
 </main>
 
+<div class="modal" id="editor">
+ <div class="modalbox">
+  <h2 id="editorTitle">일정 추가</h2>
+
+  <div class="field">
+   <label>날짜</label>
+   <input id="fDate" placeholder="예: 2월 11일 (목)">
+  </div>
+
+  <div class="field">
+   <label>일정 제목</label>
+   <input id="fTitle" placeholder="예: 산타모니카 관광">
+  </div>
+
+  <div class="field">
+   <label>지역</label>
+   <select id="fRegion">
+    <option value="LA">로스앤젤레스</option>
+    <option value="TOUR">라스베이거스·그랜드캐니언</option>
+    <option value="SD">샌디에이고</option>
+   </select>
+  </div>
+
+  <div class="field">
+   <label>숙소</label>
+   <input id="fHotel" placeholder="숙소 이름">
+  </div>
+
+  <div class="field">
+   <label>교통 정보</label>
+   <input id="fTransport" placeholder="Uber, Amtrak 등">
+  </div>
+
+  <div class="field">
+   <label>시간별 일정</label>
+   <p class="subtitle">한 줄에 하나씩 작성하세요. 시간 | 장소 | 설명</p>
+   <textarea id="fEvents" placeholder="09:00 | 아침 식사 | 호텔 주변에서 식사&#10;10:00 | 관광 | 관광지 방문"></textarea>
+  </div>
+
+  <div class="modalbuttons">
+   <button class="btn" onclick="saveDay()">저장</button>
+   <button class="btn light" onclick="closeEditor()">취소</button>
+  </div>
+ </div>
+</div>
+
+<script>
+const originalDays = [
+{date:"1월 30일 (토)",title:"LA 입국 · 할리우드 · 그리피스 천문대",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
+["07:20","LAX 도착","입국 심사 및 수하물 수령"],
+["10:40","호텔 도착","짐 보관"],
+["11:00","점심","한인타운 또는 미드타운"],
+["13:00","할리우드 거리","Walk of Fame, 차이니즈 시어터, 돌비 극장"],
+["16:30","그리피스 천문대 이동","Uber 이동"],
+["17:00","그리피스 천문대","LA 전경, 일몰 및 야경"],
+["19:30","저녁 식사","호텔 복귀"]
+]},
+{date:"1월 31일 (일)",title:"게티 센터 · 산타모니카 · 베니스 비치",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
+["09:30","게티 센터","정원 및 미술관 관람"],
+["12:30","산타모니카 피어","부두 및 점심"],
+["15:30","베니스 비치","해변 산책 및 일몰"],
+["18:30","저녁","호텔 복귀"]
+]},
+{date:"2월 1일 (월)",title:"유니버설 스튜디오",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Metro 또는 Uber",events:[
+["10:00","유니버설 스튜디오","해리포터, 닌텐도 월드, 스튜디오 투어"],
+["18:00","시티워크","쇼핑 및 저녁"]
+]},
+{date:"2월 2일 (화)",title:"LA 다운타운",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
+["10:30","그랜드 센트럴 마켓","점심 및 로컬 음식"],
+["12:00","엔젤스 플라이트","케이블카 체험"],
+["13:00","다운타운 산책","디즈니 콘서트홀, 더 브로드 등"],
+["오후","호텔 복귀","투어 준비"]
+]},
+{date:"2월 3일 (수)",title:"LA 출발 · 라스베이거스",region:"TOUR",hotel:"투어 제공 숙소",transport:"포시즌투어 차량",events:[
+["오전","LA 출발","라스베이거스 이동"],
+["오후","라스베이거스","관광 및 숙박"]
+]},
+{date:"2월 4일 (목)",title:"그랜드캐니언 투어",region:"TOUR",hotel:"투어 제공 숙소",transport:"포시즌투어 차량",events:[
+["종일","그랜드캐니언","그랜드캐니언 및 주변 명소 관광"]
+]},
+{date:"2월 5일 (금)",title:"LA 복귀",region:"TOUR",hotel:"Best Western Plus L.A. Midtown",transport:"포시즌투어 차량",events:[
+["오전","투어 종료","LA 이동"],
+["오후","호텔 체크인","짐 정리 및 휴식"]
+]},
+{date:"2월 6일 (토)",title:"LA → 샌디에이고",region:"SD",hotel:"Best Western Plus Bayside Inn",transport:"Amtrak",events:[
+["오전","LA 유니온역","Uber 이동"],
+["10:00","Amtrak 출발","Pacific Surfliner"],
+["13:00","샌디에이고 도착","Santa Fe Depot"],
+["14:00","리틀 이탈리아","거리 및 음식점"],
+["17:00","샌디에이고 항구","USS 미드웨이 외관 및 산책"]
+]},
+{date:"2월 7일 (일)",title:"라호야 코브 · 올드타운",region:"SD",hotel:"Best Western Plus Bayside Inn",transport:"Uber",events:[
+["10:00","라호야 코브","해안 및 바다사자 관찰"],
+["13:00","올드타운","역사 공원 및 점심"],
+["16:30","호텔 복귀","휴식"]
+]},
+{date:"2월 8일 (월)",title:"샌디에이고 → LA",region:"SD",hotel:"Best Western Plus L.A. Midtown",transport:"Amtrak",events:[
+["오전","호텔 체크아웃","발보아 파크 또는 씨포트 빌리지"],
+["오후","Amtrak","LA 유니온역 이동"],
+["16:00","LA 호텔","체크인 및 휴식"]
+]},
+{date:"2월 9일 (화)",title:"미라클 마일 · 쇼핑",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber 및 도보",events:[
+["10:00","LACMA","Urban Light"],
+["11:00","파머스 마켓","점심"],
+["12:00","더 그로브","쇼핑"],
+["13:30","Trader Joe's","기념품"],
+["14:30","Target · TJ Maxx","쇼핑"],
+["16:00","호텔 복귀","짐 정리"]
+]},
+{date:"2월 10일 (수)",title:"LA 출국 · 한국 귀국",region:"LA",hotel:"귀국",transport:"Uber",events:[
+["출발 3~4시간 전","LAX 이동","항공편과 교통 확인"],
+["09:50","한국행 비행기","출국"]
+]}
+];
+
+let days = [];
+let editing = -1;
+
+function uid(){
+ return "d" + Date.now() + Math.random().toString(16).slice(2);
+}
+function copyOriginal(){
+ return originalDays.map(d=>({...d,id:uid(),events:d.events.map(e=>[...e])}));
+}
+function loadDays(){
+ try{
+  const saved=localStorage.getItem("usTripDays2027");
+  days=saved?JSON.parse(saved):copyOriginal();
+  if(!Array.isArray(days))days=copyOriginal();
+ }catch(e){days=copyOriginal()}
+}
+function saveDays(){
+ localStorage.setItem("usTripDays2027",JSON.stringify(days));
+}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function regionText(r){
+ return r==="LA"?"LOS ANGELES":r==="SD"?"SAN DIEGO":"ROAD TRIP";
+}
+function renderDays(){
+ const root=document.getElementById("days");
+ root.innerHTML="";
+ days.forEach((d,i)=>{
+  const card=document.createElement("article");
+  card.className="day";
+  card.dataset.region=d.region;
+  card.innerHTML=`
+   <div class="dayhead">
+    <div>
+     <div class="daynum">DAY ${String(i+1).padStart(2,"0")}</div>
+     <h3>${esc(d.title)}</h3>
+     <div class="date">${esc(d.date)}</div>
+    </div>
+    <span class="region">${regionText(d.region)}</span>
+   </div>
+   <div>
+    ${(d.events||[]).map(e=>`
+     <div class="event">
+      <div class="time">${esc(e[0])}</div>
+      <div><b>${esc(e[1])}</b><p>${esc(e[2])}</p></div>
+     </div>`).join("")}
+   </div>
+   <div class="daybottom">
+    <span class="subtitle">🏨 ${esc(d.hotel||"숙소 미정")}</span>
+    <div>
+     <button class="btn small" onclick="openEditor(${i})">수정</button>
+     <button class="btn small red" onclick="deleteDay(${i})">삭제</button>
+     <button class="btn small light" onclick="dayMemo('${d.id}')">메모</button>
+    </div>
+   </div>
+   <p class="subtitle" style="padding:0 18px">🚗 ${esc(d.transport||"미정")}</p>`;
+  root.appendChild(card);
+ });
+ applyDayFilter();
+}
+let activeDayFilter="ALL";
+function applyDayFilter(){
+ document.querySelectorAll(".day").forEach(card=>{
+  card.hidden=activeDayFilter!=="ALL"&&card.dataset.region!==activeDayFilter;
+ });
+}
+document.querySelectorAll("[data-filter]").forEach(btn=>{
+ btn.onclick=()=>{
+  activeDayFilter=btn.dataset.filter;
+  document.querySelectorAll("#dayFilters .filter").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  applyDayFilter();
+ };
+});
+
+function openEditor(index=-1){
+ editing=index;
+ const d=index<0?{
+  date:"",title:"",region:"LA",hotel:"",transport:"",events:[]
+ }:days[index];
+ document.getElementById("editorTitle").textContent=index<0?"새 일정 추가":"일정 수정";
+ document.getElementById("fDate").value=d.date;
+ document.getElementById("fTitle").value=d.title;
+ document.getElementById("fRegion").value=d.region;
+ document.getElementById("fHotel").value=d.hotel||"";
+ document.getElementById("fTransport").value=d.transport||"";
+ document.getElementById("fEvents").value=(d.events||[]).map(e=>e.join(" | ")).join("\n");
+ document.getElementById("editor").classList.add("open");
+}
+function closeEditor(){
+ document.getElementById("editor").classList.remove("open");
+}
+function saveDay(){
+ const date=document.getElementById("fDate").value.trim();
+ const title=document.getElementById("fTitle").value.trim();
+ if(!date||!title){alert("날짜와 제목을 입력하세요.");return}
+ const events=document.getElementById("fEvents").value.split("\n")
+ .map(x=>x.trim()).filter(Boolean).map(line=>{
+  const a=line.split("|").map(x=>x.trim());
+  return [a[0]||"시간 미정",a[1]||"일정",a.slice(2).join(" | ")];
+ });
+ const old=editing<0?{}:days[editing];
+ const item={
+  id:old.id||uid(),date,title,
+  region:document.getElementById("fRegion").value,
+  hotel:document.getElementById("fHotel").value,
+  transport:document.getElementById("fTransport").value,
+  events
+ };
+ if(editing<0)days.push(item);
+ else days[editing]=item;
+ saveDays();renderDays();closeEditor();
+}
+function deleteDay(i){
+ if(!confirm("이 일정을 삭제할까요?"))return;
+ days.splice(i,1);saveDays();renderDays();
+}
+function deleteAllDays(){
+ if(!confirm("정말 모든 일정을 삭제할까요?"))return;
+ days=[];saveDays();renderDays();
+}
+function resetDays(){
+ if(!confirm("원래 제공된 12일 일정으로 복원할까요? 현재 수정사항은 사라집니다."))return;
+ days=copyOriginal();saveDays();renderDays();
+}
+function dayMemo(id){
+ const key="tripNote_"+id;
+ const old=localStorage.getItem(key)||"";
+ const value=prompt("이 날짜의 메모를 입력하세요.",old);
+ if(value!==null)localStorage.setItem(key,value);
+}
+
+const hotels=[
+// LOS ANGELES
+["LA","Best Western Plus L.A. Midtown","현재 계획한 숙소 · 미드타운","https://www.bestwestern.com/"],
+["LA","The LINE LA","코리아타운 중심 · 식당과 교통 편리","https://www.thelinehotel.com/los-angeles/"],
+["LA","Hotel Normandie","코리아타운 · 부티크 호텔","https://www.hotelnormandiela.com/"],
+["LA","Kins Hotel","코리아타운 · 객실 구성 확인","https://www.thekinshotel.com/"],
+["LA","Hometel Suites","코리아타운 · 스위트형 객실","https://www.hometelsuites.com/"],
+["LA","Oxford Palace Hotel","코리아타운 · 한식당 접근","https://www.oxfordhotel.com/"],
+["LA","Miyako Hotel Los Angeles","리틀 도쿄 · 다운타운 접근","https://www.miyakohotels.com/los-angeles/"],
+["LA","The Wayfarer Downtown LA","다운타운 · 공용 공간과 객실","https://www.wayfarerdtla.com/"],
+["LA","Hotel Figueroa","다운타운 · 부티크 스타일","https://www.hotelfigueroa.com/"],
+["LA","Omni Los Angeles Hotel","다운타운 · 문화시설 접근","https://www.omnihotels.com/hotels/los-angeles"],
+["LA","Freehand Los Angeles","다운타운 · 다양한 객실 형태","https://freehandhotels.com/los-angeles/"],
+["LA","The Biltmore Los Angeles","다운타운 · 역사적인 호텔","https://www.millenniumhotels.com/en/los-angeles/millennium-biltmore-los-angeles/"],
+
+// LAS VEGAS
+["VEGAS","Marriott's Grand Chateau","스트립 인근 · 빌라형 객실","https://www.marriott.com/en-us/hotels/lasvg-marriotts-grand-chateau/overview/"],
+["VEGAS","Vdara Hotel & Spa","비게임형 · 스위트 호텔","https://vdara.mgmresorts.com/"],
+["VEGAS","Four Seasons Hotel Las Vegas","조용한 고급 호텔","https://www.fourseasons.com/lasvegas/"],
+["VEGAS","Residence Inn Las Vegas Convention Center","주방형 스위트 객실","https://www.marriott.com/"],
+["VEGAS","Home2 Suites Las Vegas Strip South","스위트형 · 가족 숙박 후보","https://www.hilton.com/"],
+["VEGAS","Hyatt Place Las Vegas","기본 시설 중심의 호텔","https://www.hyatt.com/"],
+["VEGAS","Embassy Suites Las Vegas","스위트형 객실 · 조식 조건 확인","https://www.hilton.com/"],
+["VEGAS","Hilton Garden Inn Las Vegas Strip South","스트립 남쪽 지역","https://www.hilton.com/"],
+["VEGAS","The Venetian Resort","넓은 스위트형 객실","https://www.venetianlasvegas.com/"],
+["VEGAS","Wynn Las Vegas","고급 리조트 · 스트립 북쪽","https://www.wynnlasvegas.com/"],
+["VEGAS","Treasure Island","스트립 중심부","https://treasureisland.com/"],
+["VEGAS","Park MGM","스트립 남쪽 · 리조트 호텔","https://parkmgm.mgmresorts.com/"],
+
+// GRAND CANYON
+["GC","The Squire at Grand Canyon","투사얀 · 사우스림 입구 인근","https://www.thesquiregrandcanyon.com/"],
+["GC","Grand Canyon Plaza Hotel","투사얀 · 공원 남쪽 입구 근처","https://www.grandcanyonplaza.com/"],
+["GC","The Grand Hotel at the Grand Canyon","투사얀 · 사우스림 접근","https://www.grandcanyon.com/"],
+["GC","Holiday Inn Express Grand Canyon","투사얀 · 조식 여부 확인","https://www.ihg.com/"],
+["GC","Red Feather Lodge","투사얀 · 실속형 숙박 후보","https://www.redfeatherlodge.com/"],
+["GC","Grand Canyon Inn","밸리 지역 · 차량 이동 필요","https://www.grandcanyoninn.com/"],
+["GC","Grand Canyon Railway Hotel","윌리엄스 · 기차역 근처","https://www.thetrain.com/"],
+["GC","Best Western Plus Inn of Williams","윌리엄스 지역","https://www.bestwestern.com/"],
+["GC","Comfort Inn Near Grand Canyon","윌리엄스 · 차량 이동 필요","https://www.choicehotels.com/"],
+["GC","Hampton Inn Williams","윌리엄스 지역 · 체인 호텔","https://www.hilton.com/"],
+["GC","El Tovar Hotel","그랜드캐니언 사우스림 내부","https://www.grandcanyonlodges.com/"],
+["GC","Yavapai Lodge","사우스림 내부 · 공원 숙소","https://www.visitgrandcanyon.com/"],
+
+// SAN DIEGO
+["SD","Best Western Plus Bayside Inn","현재 계획한 숙소 · 리틀 이탈리아 인근","https://www.baysideinn.com/"],
+["SD","Carté Hotel San Diego","리틀 이탈리아 인근","https://www.cartehotel.com/"],
+["SD","Courtyard San Diego Downtown Little Italy","리틀 이탈리아 · 도보 관광","https://www.marriott.com/"],
+["SD","Hampton Inn San Diego Downtown","다운타운 · 항구 접근","https://www.hilton.com/"],
+["SD","Harborview Inn & Suites","다운타운 북쪽 · 실속형 후보","https://www.harborviewinnsandiego.com/"],
+["SD","Hilton Garden Inn San Diego Downtown/Bayside","베이사이드 · 다운타운","https://www.hilton.com/"],
+["SD","Homewood Suites San Diego Downtown/Bayside","주방형 스위트 객실","https://www.hilton.com/"],
+["SD","La Pensione Hotel","리틀 이탈리아 중심","https://www.lapensionehotel.com/"],
+["SD","Residence Inn San Diego Downtown","스위트형 객실","https://www.marriott.com/"],
+["SD","The Sofia Hotel","다운타운 · 주요 관광지 접근","https://www.thesofiahotel.com/"],
+["SD","Urban Boutique Hotel","리틀 이탈리아 · 부티크","https://www.urbanboutiquehotel.com/"],
+["SD","Wyndham San Diego Bayside","항구 앞 · 해안 전망 후보","https://www.wyndhamhotels.com/"],
+["SD","Embassy Suites San Diego Bay Downtown","항구 인근 · 스위트형","https://www.hilton.com/"],
+["SD","SpringHill Suites San Diego Downtown/Bayfront","베이프런트 · 스위트형","https://www.marriott.com/"],
+["SD","The Bristol Hotel San Diego","다운타운 · 부티크 호텔","https://www.thebristolsandiego.com/"],
+["SD","The DEXTRO Little Italy","리틀 이탈리아 인근","https://www.thedextro.com/"]
+];
+
+function hotelRegion(r){
+ return {LA:"로스앤젤레스",VEGAS:"라스베이거스",GC:"그랜드캐니언",SD:"샌디에이고"}[r];
+}
+function renderHotels(filter="ALL"){
+ const root=document.getElementById("hotelGrid");
+ root.innerHTML="";
+ hotels.filter(h=>filter==="ALL"||h[0]===filter).forEach(h=>{
+  const el=document.createElement("article");
+  el.className="hotel";
+  el.innerHTML=`
+   <span class="tag">${hotelRegion(h[0])}</span>
+   <h3>${esc(h[1])}</h3>
+   <p>${esc(h[2])}</p>
+   <a href="${h[3]}" target="_blank" rel="noopener noreferrer">호텔 홈페이지 열기 ↗</a>`;
+  root.appendChild(el);
+ });
+}
+document.querySelectorAll("[data-hotel]").forEach(btn=>{
+ btn.onclick=()=>{
+  document.querySelectorAll("[data-hotel]").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderHotels(btn.dataset.hotel);
+ };
+});
+
+function loadChecks(){
+ const saved=JSON.parse(localStorage.getItem("tripChecks")||"{}");
+ document.querySelectorAll("#checks input").forEach(c=>{
+  c.checked=!!saved[c.dataset.id];
+  c.closest(".check").classList.toggle("done",c.checked);
+  c.onchange=()=>{
+   const obj=JSON.parse(localStorage.getItem("tripChecks")||"{}");
+   obj[c.dataset.id]=c.checked;
+   localStorage.setItem("tripChecks",JSON.stringify(obj));
+   c.closest(".check").classList.toggle("done",c.checked);
+   updateProgress();
+  };
+ });
+ updateProgress();
+}
+function updateProgress(){
+ const all=[...document.querySelectorAll("#checks input")];
+ const n=all.filter(x=>x.checked).length;
+ document.getElementById("progress").textContent=`${n} / ${all.length} 완료`;
+}
+function saveMemo(){
+ localStorage.setItem("tripMemo",document.getElementById("memo").value);
+ alert("메모 저장 완료!");
+}
+function clearMemo(){
+ if(confirm("메모를 삭제할까요?")){
+  document.getElementById("memo").value="";
+  localStorage.removeItem("tripMemo");
+ }
+}
+function loadMemo(){
+ document.getElementById("memo").value=localStorage.getItem("tripMemo")||"";
+}
+
+loadDays();
+renderDays();
+renderHotels();
+loadChecks();
+loadMemo();
+</script>
 
 <footer>
-
-    <p>🇺🇸 US Trip 2027</p>
-
-    <p>
-        가족과 함께하는 미국 서부 여행
-    </p>
-
+ WEST COAST FAMILY TRIP · 2027<br>
+ Your journey, your memories.
 </footer>
-
-
-<script src="script.js"></script>
-
 </body>
 </html>
