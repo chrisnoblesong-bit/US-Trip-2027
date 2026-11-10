@@ -3,602 +3,1422 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>US TRIP 2027</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2027 미국 서부 가족여행</title>
+
 <style>
-:root{
- --navy:#101b2b;--blue:#245b83;--bg:#f4f5f6;
- --white:#fff;--muted:#78838d;--line:#e5e8eb;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --navy:#14243a;
+  --blue:#2864dc;
+  --light:#f3f6fb;
+  --gray:#68758a;
+  --border:#e5eaf2;
+  --white:#ffffff;
 }
-*{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:#182432;
- font-family:Arial,"Apple SD Gothic Neo",sans-serif;
+
+* {
+  box-sizing:border-box;
 }
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.hero{
- background:linear-gradient(120deg,#101b2b,#245b83);
- color:white;padding:55px 7%;
+
+body {
+  margin:0;
+  background:var(--light);
+  color:#202b3c;
+  font-family:'Noto Sans KR',Arial,sans-serif;
+  word-break:keep-all;
 }
-.hero small{letter-spacing:3px;color:#bcd8e9}
-.hero h1{font-size:48px;margin:18px 0 10px}
-.hero p{color:#d5e3ed}
-.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.stat{
- padding:15px 20px;background:#ffffff16;
- border:1px solid #ffffff33;border-radius:12px;
+
+button,input,textarea,select {
+  font-family:inherit;
+  font-size:14px;
 }
-.stat b{display:block;font-size:22px}
-.stat span{font-size:11px;color:#d5e3ed}
-.container{max-width:1150px;margin:auto;padding:25px 18px 60px}
-h2{font-size:25px}
-.subtitle{color:var(--muted);font-size:13px}
-.panel{
- background:white;border:1px solid var(--line);
- border-radius:15px;padding:20px;margin:20px 0;
+
+button {
+  cursor:pointer;
 }
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-.btn{
- border:0;border-radius:9px;padding:10px 14px;
- background:var(--navy);color:white;font-size:13px;
+
+header {
+  background:linear-gradient(130deg,#14243a,#2456a2);
+  color:white;
+  padding:38px 20px;
 }
-.btn.light{background:#e9eff3;color:var(--navy)}
-.btn.red{background:#a83b3b}
-.btn.small{padding:7px 10px;font-size:11px}
-.filter{
- border:1px solid var(--line);background:white;
- padding:9px 15px;border-radius:30px;font-size:12px;
+
+.header-inner {
+  max-width:1100px;
+  margin:auto;
 }
-.filter.active{background:var(--navy);color:white}
-.days{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:14px;
+
+header h1 {
+  font-size:30px;
+  margin:0 0 12px;
+  font-weight:800;
 }
-.day{
- background:white;border:1px solid var(--line);
- border-radius:14px;overflow:hidden;
+
+header p {
+  margin:5px 0;
+  color:#dce8ff;
+  font-size:14px;
 }
-.day[hidden]{display:none}
-.dayhead{
- padding:18px;border-bottom:1px solid var(--line);
- display:flex;justify-content:space-between;gap:10px;
+
+.container {
+  max-width:1100px;
+  margin:25px auto;
+  padding:0 16px;
 }
-.dayhead h3{font-size:17px;margin:7px 0}
-.daynum{font-size:11px;color:var(--blue);font-weight:bold}
-.date{font-size:12px;color:var(--muted)}
-.region{
- background:#e4eff5;color:#245b83;
- border-radius:7px;padding:6px 9px;
- height:max-content;font-size:10px;
+
+.nav {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
 }
-.event{display:flex;gap:13px;padding:12px 18px;border-bottom:1px solid #edf0f2}
-.time{min-width:85px;color:var(--blue);font-size:12px;font-weight:bold}
-.event b{font-size:13px}
-.event p{font-size:12px;color:var(--muted);margin:5px 0;line-height:1.5}
-.daybottom{
- padding:12px 18px;background:#fafbfc;
- display:flex;justify-content:space-between;gap:8px;
- align-items:center;flex-wrap:wrap;
+
+.nav button {
+  border:1px solid var(--border);
+  background:white;
+  color:#34445b;
+  border-radius:10px;
+  padding:11px 17px;
+  font-weight:700;
 }
-.hotel-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
- gap:12px;
+
+.nav button.active {
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
 }
-.hotel{
- border:1px solid var(--line);border-radius:12px;
- padding:15px;background:white;
- display:flex;flex-direction:column;gap:8px;
+
+.section {
+  display:none;
 }
-.hotel h3{font-size:15px;margin:0}
-.hotel p{font-size:12px;color:var(--muted);line-height:1.5;margin:0;flex:1}
-.hotel a{color:var(--blue);font-size:12px;font-weight:bold;text-decoration:none}
-.tag{
- background:#e8f0f4;color:#245b83;padding:5px 8px;
- border-radius:6px;font-size:10px;width:max-content;
+
+.section.active {
+  display:block;
 }
-.checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.check{
- padding:12px;background:#f6f8f9;border-radius:9px;
- display:flex;gap:9px;font-size:13px;
+
+.card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 3px 12px rgba(20,36,58,.035);
 }
-.check input{accent-color:#245b83}
-.check.done span{text-decoration:line-through;color:#999}
-textarea,input,select{
- border:1px solid var(--line);border-radius:8px;
- padding:11px;width:100%;background:white;
+
+h2 {
+  font-size:21px;
+  margin:0 0 16px;
 }
-textarea{min-height:120px;resize:vertical}
-.modal{
- display:none;position:fixed;inset:0;background:#0009;
- z-index:10;align-items:center;justify-content:center;padding:15px;
+
+h3 {
+  font-size:17px;
+  margin:0 0 10px;
 }
-.modal.open{display:flex}
-.modalbox{
- width:min(600px,100%);max-height:90vh;overflow:auto;
- background:white;padding:22px;border-radius:15px;
+
+.muted {
+  color:var(--gray);
+  font-size:13px;
+  line-height:1.7;
 }
-.field{margin:12px 0}
-.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}
-.field textarea{min-height:180px;font-size:12px}
-.modalbuttons{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
-footer{text-align:center;padding:30px;color:#89939b;font-size:11px}
-@media(max-width:750px){
- .hero h1{font-size:36px}
- .days{grid-template-columns:1fr}
- .hotel-grid{grid-template-columns:1fr 1fr}
- .checklist{grid-template-columns:1fr}
+
+.info-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:18px;
 }
-@media(max-width:430px){
- .hotel-grid{grid-template-columns:1fr}
+
+.info-box {
+  background:#f4f7fc;
+  padding:16px;
+  border-radius:12px;
+}
+
+.info-box strong {
+  display:block;
+  font-size:18px;
+  margin-top:6px;
+}
+
+.day {
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:17px;
+  margin-bottom:13px;
+  background:white;
+}
+
+.day-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.day-title {
+  font-size:17px;
+  font-weight:800;
+}
+
+.day-date {
+  color:var(--blue);
+  font-weight:700;
+  font-size:13px;
+  margin-right:7px;
+}
+
+.event {
+  padding:10px 12px;
+  border-left:3px solid #8baef3;
+  background:#f7f9fd;
+  border-radius:0 9px 9px 0;
+  margin:8px 0;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.event b {
+  color:#2456a2;
+  margin-right:8px;
+}
+
+.btn {
+  border:0;
+  border-radius:9px;
+  padding:9px 13px;
+  background:var(--blue);
+  color:white;
+  font-weight:700;
+  font-size:13px;
+}
+
+.btn.gray {
+  background:#edf1f7;
+  color:#34445b;
+}
+
+.btn.red {
+  background:#fff0f0;
+  color:#c43b3b;
+}
+
+.btn.small {
+  padding:7px 10px;
+  font-size:12px;
+}
+
+.button-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+input,textarea,select {
+  width:100%;
+  padding:12px;
+  border:1px solid #dce3ee;
+  border-radius:9px;
+  background:white;
+  color:#202b3c;
+  outline:none;
+}
+
+input:focus,textarea:focus,select:focus {
+  border-color:var(--blue);
+}
+
+textarea {
+  min-height:110px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.field {
+  margin-bottom:12px;
+}
+
+.field label {
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.hotel-filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:17px;
+}
+
+.hotel-filters button {
+  border:1px solid var(--border);
+  background:white;
+  padding:9px 13px;
+  border-radius:20px;
+  font-weight:700;
+  color:#42516a;
+}
+
+.hotel-filters button.active {
+  background:var(--navy);
+  color:white;
+}
+
+.hotel-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.hotel {
+  border:1px solid var(--border);
+  background:white;
+  border-radius:14px;
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.hotel h3 {
+  font-size:16px;
+  line-height:1.5;
+}
+
+.hotel .location {
+  color:#2864dc;
+  font-size:12px;
+  font-weight:700;
+}
+
+.hotel p {
+  font-size:13px;
+  line-height:1.7;
+  margin:0;
+  color:#58667b;
+}
+
+.hotel .hotel-info {
+  background:#f5f7fb;
+  padding:10px;
+  border-radius:9px;
+  font-size:12px;
+  line-height:1.7;
+  color:#526078;
+}
+
+.hotel .button-row {
+  margin-top:auto;
+}
+
+.check-item {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:13px 10px;
+  border-bottom:1px solid #edf0f5;
+  font-size:14px;
+  line-height:1.6;
+  cursor:pointer;
+}
+
+.check-item:last-child {
+  border-bottom:0;
+}
+
+.check-item input {
+  width:19px;
+  height:19px;
+  min-width:19px;
+  margin:1px 0 0;
+  accent-color:var(--blue);
+  cursor:pointer;
+}
+
+.check-item span {
+  display:block;
+  flex:1;
+}
+
+.check-item input:checked + span {
+  text-decoration:line-through;
+  color:#9aa3b2;
+}
+
+.progress {
+  height:9px;
+  background:#edf0f5;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+
+.progress div {
+  height:100%;
+  background:#2864dc;
+  width:0%;
+  transition:.2s;
+}
+
+.note-date {
+  font-weight:700;
+  margin-bottom:9px;
+}
+
+footer {
+  text-align:center;
+  color:#8994a5;
+  font-size:12px;
+  padding:30px 10px;
+}
+
+@media(max-width:700px) {
+  header h1 {
+    font-size:24px;
+  }
+  .info-grid {
+    grid-template-columns:1fr;
+  }
+  .hotel-grid {
+    grid-template-columns:1fr;
+  }
+  .form-grid {
+    grid-template-columns:1fr;
+  }
+  .card {
+    padding:16px;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<header class="hero">
- <small>FAMILY TRAVEL JOURNAL · 2027</small>
- <h1>WEST COAST<br>FAMILY TRIP.</h1>
- <p>LOS ANGELES · LAS VEGAS · GRAND CANYON · SAN DIEGO</p>
- <div class="stats">
-  <div class="stat"><b>12 DAYS</b><span>JAN 30 – FEB 10</span></div>
-  <div class="stat"><b>4 PEOPLE</b><span>FAMILY TRIP</span></div>
-  <div class="stat"><b>2027</b><span>UNITED STATES</span></div>
- </div>
+<header>
+  <div class="header-inner">
+    <h1>🇺🇸 2027 미국 서부 가족여행</h1>
+    <p>LOS ANGELES · LAS VEGAS · GRAND CANYON · SAN DIEGO</p>
+    <p>2027년 1월 30일 ~ 2월 10일 | 가족 4명</p>
+  </div>
 </header>
 
-<main class="container">
+<div class="container">
 
-<section class="panel">
- <h2>🇺🇸 여행 정보</h2>
- <p>여행 기간: 2027년 1월 30일 ~ 2월 10일</p>
- <p>인원: 4명</p>
- <p>출국: 로스앤젤레스 국제공항 (LAX)</p>
- <p>주요 이동: Uber · Amtrak · 투어 차량</p>
-</section>
-
-<section>
- <h2>📅 여행 일정 관리</h2>
- <p class="subtitle">일정을 추가하거나 수정하고 삭제할 수 있습니다.</p>
-
- <div class="toolbar">
-  <button class="btn" onclick="openEditor()">＋ 일정 추가</button>
-  <button class="btn light" onclick="resetDays()">원래 일정 복원</button>
-  <button class="btn red" onclick="deleteAllDays()">전체 일정 삭제</button>
- </div>
-
- <div class="toolbar" id="dayFilters">
-  <button class="filter active" data-filter="ALL">전체</button>
-  <button class="filter" data-filter="LA">로스앤젤레스</button>
-  <button class="filter" data-filter="TOUR">라스베이거스·그랜드캐니언</button>
-  <button class="filter" data-filter="SD">샌디에이고</button>
- </div>
-
- <div class="days" id="days"></div>
-</section>
-
-<section class="panel" id="hotels">
- <h2>🏨 지역별 호텔 추천</h2>
- <p class="subtitle">호텔 이름을 누르면 해당 호텔 홈페이지로 이동합니다.</p>
- <div class="toolbar" id="hotelFilters">
-  <button class="filter active" data-hotel="ALL">전체 호텔</button>
-  <button class="filter" data-hotel="LA">LA</button>
-  <button class="filter" data-hotel="VEGAS">라스베이거스</button>
-  <button class="filter" data-hotel="GC">그랜드캐니언</button>
-  <button class="filter" data-hotel="SD">샌디에이고</button>
- </div>
- <div class="hotel-grid" id="hotelGrid"></div>
-</section>
-
-<section class="panel">
- <h2>✅ 예약 체크리스트</h2>
- <p class="subtitle" id="progress">0 / 10 완료</p>
- <div class="checklist" id="checks">
-  <label class="check"><input type="checkbox" data-id="1"><span>게티 센터 예약</span></label>
-  <label class="check"><input type="checkbox" data-id="2"><span>Amtrak 2월 6일 예매</span></label>
-  <label class="check"><input type="checkbox" data-id="3"><span>Amtrak 2월 8일 예매</span></label>
-  <label class="check"><input type="checkbox" data-id="4"><span>포시즌투어 예약 확인</span></label>
-  <label class="check"><input type="checkbox" data-id="5"><span>유니버설 티켓 확인</span></label>
-  <label class="check"><input type="checkbox" data-id="6"><span>LA 호텔 예약 확인</span></label>
-  <label class="check"><input type="checkbox" data-id="7"><span>샌디에이고 호텔 예약 확인</span></label>
-  <label class="check"><input type="checkbox" data-id="8"><span>Uber 앱 준비</span></label>
-  <label class="check"><input type="checkbox" data-id="9"><span>PRONTO 앱 준비</span></label>
-  <label class="check"><input type="checkbox" data-id="10"><span>항공권 및 여권 확인</span></label>
- </div>
-</section>
-
-<section class="panel">
- <h2>📝 여행 메모</h2>
- <textarea id="memo" placeholder="예약번호, 맛집, 준비물 등을 적어주세요."></textarea>
- <div class="toolbar">
-  <button class="btn" onclick="saveMemo()">메모 저장</button>
-  <button class="btn red" onclick="clearMemo()">메모 삭제</button>
- </div>
-</section>
-
-</main>
-
-<div class="modal" id="editor">
- <div class="modalbox">
-  <h2 id="editorTitle">일정 추가</h2>
-
-  <div class="field">
-   <label>날짜</label>
-   <input id="fDate" placeholder="예: 2월 11일 (목)">
-  </div>
-
-  <div class="field">
-   <label>일정 제목</label>
-   <input id="fTitle" placeholder="예: 산타모니카 관광">
-  </div>
-
-  <div class="field">
-   <label>지역</label>
-   <select id="fRegion">
-    <option value="LA">로스앤젤레스</option>
-    <option value="TOUR">라스베이거스·그랜드캐니언</option>
-    <option value="SD">샌디에이고</option>
-   </select>
-  </div>
-
-  <div class="field">
-   <label>숙소</label>
-   <input id="fHotel" placeholder="숙소 이름">
-  </div>
-
-  <div class="field">
-   <label>교통 정보</label>
-   <input id="fTransport" placeholder="Uber, Amtrak 등">
-  </div>
-
-  <div class="field">
-   <label>시간별 일정</label>
-   <p class="subtitle">한 줄에 하나씩 작성하세요. 시간 | 장소 | 설명</p>
-   <textarea id="fEvents" placeholder="09:00 | 아침 식사 | 호텔 주변에서 식사&#10;10:00 | 관광 | 관광지 방문"></textarea>
-  </div>
-
-  <div class="modalbuttons">
-   <button class="btn" onclick="saveDay()">저장</button>
-   <button class="btn light" onclick="closeEditor()">취소</button>
-  </div>
- </div>
+<div class="nav">
+  <button class="active" onclick="showSection('home',this)">🏠 여행 개요</button>
+  <button onclick="showSection('schedule',this)">📅 여행 일정</button>
+  <button onclick="showSection('hotels',this)">🏨 호텔 추천</button>
+  <button onclick="showSection('checklist',this)">☑️ 체크리스트</button>
+  <button onclick="showSection('memo',this)">📝 여행 메모</button>
 </div>
 
+<!-- 여행 개요 -->
+<section id="home" class="section active">
+
+<div class="card">
+  <h2>✈️ 여행 기본 정보</h2>
+  <div class="info-grid">
+    <div class="info-box">
+      <span class="muted">여행 기간</span>
+      <strong>12일</strong>
+    </div>
+    <div class="info-box">
+      <span class="muted">여행 인원</span>
+      <strong>4명</strong>
+    </div>
+    <div class="info-box">
+      <span class="muted">방문 지역</span>
+      <strong>미국 서부</strong>
+    </div>
+  </div>
+
+  <p><b>출국 도착:</b> 2027년 1월 30일 오전 7:20, LAX</p>
+  <p><b>귀국 출발:</b> 2027년 2월 10일 오전 9:50, LAX</p>
+  <p><b>여행 방식:</b> 대중교통, 우버·리프트, 투어, 기차 이용</p>
+  <p class="muted">귀국 당일에는 항공편 출발 시간보다 충분히 일찍 공항에 도착하도록 이동 계획을 세워야 해.</p>
+</div>
+
+<div class="card">
+  <h2>🗺️ 여행 지역</h2>
+  <div class="info-grid">
+    <div class="info-box">
+      <strong>Los Angeles</strong>
+      <span class="muted">1월 30일 ~ 2월 3일</span>
+    </div>
+    <div class="info-box">
+      <strong>Las Vegas</strong>
+      <span class="muted">그랜드캐니언 투어</span>
+    </div>
+    <div class="info-box">
+      <strong>San Diego</strong>
+      <span class="muted">2월 6일 ~ 2월 8일</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>⭐ 주요 관광지</h2>
+  <ul>
+    <li>할리우드 거리와 그리피스 천문대</li>
+    <li>산타모니카 해변과 베니스 비치</li>
+    <li>유니버설 스튜디오 할리우드</li>
+    <li>게티 센터와 LA 다운타운</li>
+    <li>라스베이거스와 그랜드캐니언</li>
+    <li>샌디에이고 리틀 이탈리와 항구</li>
+    <li>라호야 코브와 올드타운</li>
+    <li>그로브와 파머스 마켓 쇼핑</li>
+  </ul>
+</div>
+
+</section>
+
+<!-- 일정 -->
+<section id="schedule" class="section">
+  <div class="card">
+    <h2>📅 여행 일정 관리</h2>
+    <p class="muted">일정은 자유롭게 추가, 수정, 삭제할 수 있어. 수정한 내용은 이 브라우저에 자동 저장돼.</p>
+    <div class="button-row">
+      <button class="btn" onclick="addDay()">＋ 새 날짜 추가</button>
+      <button class="btn gray" onclick="restoreSchedule()">원래 일정 복원</button>
+    </div>
+  </div>
+  <div id="scheduleList"></div>
+</section>
+
+<!-- 호텔 -->
+<section id="hotels" class="section">
+  <div class="card">
+    <h2>🏨 지역별 호텔 추천</h2>
+    <p class="muted">가족 4명 여행을 고려해 여러 가격대와 위치의 숙소를 모았어. 실제 객실 인원, 침대 구성, 세금 및 예약 가능 여부는 예약 전에 확인해야 해.</p>
+  </div>
+
+  <div class="hotel-filters">
+    <button class="active" onclick="filterHotels('all',this)">전체 호텔</button>
+    <button onclick="filterHotels('LA',this)">로스앤젤레스</button>
+    <button onclick="filterHotels('Vegas',this)">라스베이거스</button>
+    <button onclick="filterHotels('Grand Canyon',this)">그랜드캐니언</button>
+    <button onclick="filterHotels('SD',this)">샌디에이고</button>
+  </div>
+
+  <div id="hotelList" class="hotel-grid"></div>
+</section>
+
+<!-- 체크리스트 -->
+<section id="checklist" class="section">
+  <div class="card">
+    <h2>☑️ 여행 준비 체크리스트</h2>
+    <p class="muted">체크한 항목은 자동으로 저장돼. 글씨가 깨지지 않도록 UTF-8 인코딩을 적용했어.</p>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p id="progressText" class="muted">완료 0 / 0</p>
+    <button class="btn gray small" onclick="resetChecklist()">체크 초기화</button>
+  </div>
+
+  <div class="card">
+    <h3>✈️ 항공 및 여행 서류</h3>
+    <div id="checkTravel"></div>
+  </div>
+
+  <div class="card">
+    <h3>💳 결제 및 준비물</h3>
+    <div id="checkItems"></div>
+  </div>
+
+  <div class="card">
+    <h3>🏨 예약 및 교통</h3>
+    <div id="checkBooking"></div>
+  </div>
+</section>
+
+<!-- 메모 -->
+<section id="memo" class="section">
+  <div class="card">
+    <h2>📝 여행 메모</h2>
+    <p class="muted">여행 중 기억할 내용, 예약 번호, 준비할 물건 등을 기록해 봐. 자동 저장돼.</p>
+    <textarea id="travelMemo" placeholder="여기에 여행 메모를 입력해 주세요." oninput="saveMemo()"></textarea>
+    <p class="muted" id="memoStatus">자동 저장 준비 완료</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  2027 US WEST COAST FAMILY TRIP · 여행 계획 관리 페이지
+</footer>
+
 <script>
-const originalDays = [
-{date:"1월 30일 (토)",title:"LA 입국 · 할리우드 · 그리피스 천문대",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
-["07:20","LAX 도착","입국 심사 및 수하물 수령"],
-["10:40","호텔 도착","짐 보관"],
-["11:00","점심","한인타운 또는 미드타운"],
-["13:00","할리우드 거리","Walk of Fame, 차이니즈 시어터, 돌비 극장"],
-["16:30","그리피스 천문대 이동","Uber 이동"],
-["17:00","그리피스 천문대","LA 전경, 일몰 및 야경"],
-["19:30","저녁 식사","호텔 복귀"]
-]},
-{date:"1월 31일 (일)",title:"게티 센터 · 산타모니카 · 베니스 비치",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
-["09:30","게티 센터","정원 및 미술관 관람"],
-["12:30","산타모니카 피어","부두 및 점심"],
-["15:30","베니스 비치","해변 산책 및 일몰"],
-["18:30","저녁","호텔 복귀"]
-]},
-{date:"2월 1일 (월)",title:"유니버설 스튜디오",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Metro 또는 Uber",events:[
-["10:00","유니버설 스튜디오","해리포터, 닌텐도 월드, 스튜디오 투어"],
-["18:00","시티워크","쇼핑 및 저녁"]
-]},
-{date:"2월 2일 (화)",title:"LA 다운타운",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber",events:[
-["10:30","그랜드 센트럴 마켓","점심 및 로컬 음식"],
-["12:00","엔젤스 플라이트","케이블카 체험"],
-["13:00","다운타운 산책","디즈니 콘서트홀, 더 브로드 등"],
-["오후","호텔 복귀","투어 준비"]
-]},
-{date:"2월 3일 (수)",title:"LA 출발 · 라스베이거스",region:"TOUR",hotel:"투어 제공 숙소",transport:"포시즌투어 차량",events:[
-["오전","LA 출발","라스베이거스 이동"],
-["오후","라스베이거스","관광 및 숙박"]
-]},
-{date:"2월 4일 (목)",title:"그랜드캐니언 투어",region:"TOUR",hotel:"투어 제공 숙소",transport:"포시즌투어 차량",events:[
-["종일","그랜드캐니언","그랜드캐니언 및 주변 명소 관광"]
-]},
-{date:"2월 5일 (금)",title:"LA 복귀",region:"TOUR",hotel:"Best Western Plus L.A. Midtown",transport:"포시즌투어 차량",events:[
-["오전","투어 종료","LA 이동"],
-["오후","호텔 체크인","짐 정리 및 휴식"]
-]},
-{date:"2월 6일 (토)",title:"LA → 샌디에이고",region:"SD",hotel:"Best Western Plus Bayside Inn",transport:"Amtrak",events:[
-["오전","LA 유니온역","Uber 이동"],
-["10:00","Amtrak 출발","Pacific Surfliner"],
-["13:00","샌디에이고 도착","Santa Fe Depot"],
-["14:00","리틀 이탈리아","거리 및 음식점"],
-["17:00","샌디에이고 항구","USS 미드웨이 외관 및 산책"]
-]},
-{date:"2월 7일 (일)",title:"라호야 코브 · 올드타운",region:"SD",hotel:"Best Western Plus Bayside Inn",transport:"Uber",events:[
-["10:00","라호야 코브","해안 및 바다사자 관찰"],
-["13:00","올드타운","역사 공원 및 점심"],
-["16:30","호텔 복귀","휴식"]
-]},
-{date:"2월 8일 (월)",title:"샌디에이고 → LA",region:"SD",hotel:"Best Western Plus L.A. Midtown",transport:"Amtrak",events:[
-["오전","호텔 체크아웃","발보아 파크 또는 씨포트 빌리지"],
-["오후","Amtrak","LA 유니온역 이동"],
-["16:00","LA 호텔","체크인 및 휴식"]
-]},
-{date:"2월 9일 (화)",title:"미라클 마일 · 쇼핑",region:"LA",hotel:"Best Western Plus L.A. Midtown",transport:"Uber 및 도보",events:[
-["10:00","LACMA","Urban Light"],
-["11:00","파머스 마켓","점심"],
-["12:00","더 그로브","쇼핑"],
-["13:30","Trader Joe's","기념품"],
-["14:30","Target · TJ Maxx","쇼핑"],
-["16:00","호텔 복귀","짐 정리"]
-]},
-{date:"2월 10일 (수)",title:"LA 출국 · 한국 귀국",region:"LA",hotel:"귀국",transport:"Uber",events:[
-["출발 3~4시간 전","LAX 이동","항공편과 교통 확인"],
-["09:50","한국행 비행기","출국"]
-]}
+const defaultSchedule = [
+{
+ date:"1월 30일 (토)",
+ title:"LA 도착 및 할리우드",
+ events:[
+ ["07:20","LAX 공항 도착","입국 수속 및 수하물 찾기"],
+ ["오전","숙소 이동","Best Western Plus L.A. Midtown 이동 및 짐 보관"],
+ ["오후","할리우드 거리","할리우드 명예의 거리와 주변 관광"],
+ ["저녁","그리피스 천문대","LA 야경 감상"]
+ ]
+},
+{
+ date:"1월 31일 (일)",
+ title:"게티 센터 · 산타모니카 · 베니스",
+ events:[
+ ["오전","게티 센터","미술 작품과 아름다운 정원 감상"],
+ ["오후","산타모니카","해변과 산타모니카 피어"],
+ ["오후","베니스 비치","해변 산책 및 주변 구경"],
+ ["저녁","숙소 복귀","저녁 식사 및 휴식"]
+ ]
+},
+{
+ date:"2월 1일 (월)",
+ title:"유니버설 스튜디오",
+ events:[
+ ["오전","유니버설 스튜디오 할리우드","테마파크 입장"],
+ ["오후","해리포터 구역","위저딩 월드 오브 해리포터"],
+ ["오후","어트랙션","주요 놀이기구와 공연"],
+ ["저녁","숙소 복귀","교통 상황 확인 후 이동"]
+ ]
+},
+{
+ date:"2월 2일 (화)",
+ title:"LA 시내 관광",
+ events:[
+ ["오전","LA 다운타운","도심 관광"],
+ ["오후","주변 관광","일정에 따라 자유롭게 관광"],
+ ["저녁","저녁 식사","다음 날 투어 준비"]
+ ]
+},
+{
+ date:"2월 3일 (수)",
+ title:"라스베이거스 이동",
+ events:[
+ ["오전","투어 출발","LA에서 라스베이거스 방향 이동"],
+ ["오후","라스베이거스","호텔 및 주변 관광"],
+ ["저녁","라스베이거스 야경","스트립 주변 구경"]
+ ]
+},
+{
+ date:"2월 4일 (목)",
+ title:"그랜드캐니언 투어",
+ events:[
+ ["오전","그랜드캐니언","투어 일정에 따라 이동 및 관광"],
+ ["오후","그랜드캐니언","주요 전망 지점 방문"],
+ ["저녁","투어 숙소","숙박 및 휴식"]
+ ]
+},
+{
+ date:"2월 5일 (금)",
+ title:"투어 종료 및 LA 복귀",
+ events:[
+ ["오전","투어 일정","라스베이거스 또는 주변 관광"],
+ ["오후","LA 방향 이동","투어 일정에 따라 복귀"],
+ ["저녁","LA 도착","휴식"]
+ ]
+},
+{
+ date:"2월 6일 (토)",
+ title:"LA에서 샌디에이고 이동",
+ events:[
+ ["오전","기차역 이동","Amtrak 이용 준비"],
+ ["오후","샌디에이고 도착","숙소 이동 및 체크인"],
+ ["저녁","리틀 이탈리","식사 및 주변 산책"],
+ ["저녁","항구","샌디에이고 항구 구경"]
+ ]
+},
+{
+ date:"2월 7일 (일)",
+ title:"라호야 코브 · 올드타운",
+ events:[
+ ["오전","라호야 코브","해안 경관 감상"],
+ ["오후","올드타운","역사적인 거리와 상점 구경"],
+ ["저녁","샌디에이고","저녁 식사 및 휴식"]
+ ]
+},
+{
+ date:"2월 8일 (월)",
+ title:"샌디에이고에서 LA 이동",
+ events:[
+ ["오전","샌디에이고","체크아웃 및 이동 준비"],
+ ["오후","LA 이동","기차 또는 다른 교통편 이용"],
+ ["저녁","LA 숙소","체크인 및 휴식"]
+ ]
+},
+{
+ date:"2월 9일 (화)",
+ title:"LA 쇼핑 및 마지막 관광",
+ events:[
+ ["오전","LACMA 주변","미술관 및 주변 관광"],
+ ["오후","파머스 마켓","식사 및 쇼핑"],
+ ["오후","더 그로브","쇼핑과 산책"],
+ ["저녁","Trader Joe's · Target · TJ Maxx","마지막 쇼핑 및 짐 정리"]
+ ]
+},
+{
+ date:"2월 10일 (수)",
+ title:"한국 귀국",
+ events:[
+ ["새벽","LAX 공항 이동","항공편에 맞춰 충분히 일찍 출발"],
+ ["09:50","한국행 비행기","출국 수속 및 탑승"]
+ ]
+}
 ];
 
-let days = [];
-let editing = -1;
+const hotels = [
+{
+ area:"LA",
+ name:"Best Western Plus L.A. Midtown",
+ location:"Mid-Wilshire · 로스앤젤레스",
+ description:"LA 중심부의 미드윌셔 지역에 위치한 호텔. 대중교통과 차량을 이용해 할리우드, 다운타운 등으로 이동할 때 고려할 만한 숙소야.",
+ advantage:"도심 관광과 여러 지역 이동을 함께 고려할 수 있는 위치.",
+ family:"가족 4명이라면 객실 최대 투숙 인원과 침대 구성을 먼저 확인해.",
+ map:"Best Western Plus LA Midtown Los Angeles"
+},
+{
+ area:"LA",
+ name:"The LINE Hotel",
+ location:"Koreatown · 로스앤젤레스",
+ description:"한인타운 중심부에 있는 호텔로 주변에 한식당과 카페, 상점이 많아. 한국 음식을 찾거나 한인타운을 이용하기 편리한 편이야.",
+ advantage:"한인타운 식당과 상점 접근성이 장점.",
+ family:"객실 크기와 4인 투숙 가능 여부를 확인해야 해.",
+ map:"The LINE Hotel Los Angeles"
+},
+{
+ area:"LA",
+ name:"Hotel Normandie",
+ location:"Koreatown · 로스앤젤레스",
+ description:"한인타운에 있는 역사적인 분위기의 호텔이야. 주변 식당과 대중교통을 이용하기에 편리한 위치를 찾는 사람에게 적합해.",
+ advantage:"한인타운과 가까운 위치.",
+ family:"객실별 침대 수와 엘리베이터 및 주차 조건을 확인해.",
+ map:"Hotel Normandie Los Angeles"
+},
+{
+ area:"LA",
+ name:"H Hotel Los Angeles",
+ location:"LAX 주변 · 로스앤젤레스",
+ description:"공항 주변에서 숙박하려는 여행객이 고려할 수 있는 호텔이야. 비행 전후 공항 접근성을 중요하게 생각할 때 살펴봐.",
+ advantage:"LAX 인근 숙소를 원하는 경우 후보.",
+ family:"관광지와 거리가 있으므로 여행 마지막 날이나 첫날 숙박에 더 적합할 수 있어.",
+ map:"H Hotel Los Angeles Curio Collection"
+},
+{
+ area:"LA",
+ name:"Sheraton Grand Los Angeles",
+ location:"Downtown LA · 로스앤젤레스",
+ description:"LA 다운타운 중심부에 있는 대형 호텔이야. 도심 관광과 쇼핑, 주변 식당을 함께 이용하려는 여행객에게 적합해.",
+ advantage:"다운타운 중심부 위치.",
+ family:"4인 객실의 침대 구성을 확인하고 추가 요금도 살펴봐.",
+ map:"Sheraton Grand Los Angeles"
+},
+{
+ area:"LA",
+ name:"The Westin Bonaventure",
+ location:"Downtown LA · 로스앤젤레스",
+ description:"다운타운의 대표적인 고층 호텔 중 하나야. 도심의 건물과 야경을 즐기고 싶은 사람에게 추천할 만해.",
+ advantage:"다운타운 관광과 도심 숙박에 적합.",
+ family:"객실 타입과 주차, 조식 비용을 확인해.",
+ map:"The Westin Bonaventure Los Angeles"
+},
+{
+ area:"LA",
+ name:"Freehand Los Angeles",
+ location:"Downtown LA · 로스앤젤레스",
+ description:"개성 있는 인테리어와 공용 공간이 특징인 숙소야. 객실 종류가 다양해 여행 스타일에 맞춰 비교해 볼 수 있어.",
+ advantage:"독특한 분위기와 공용 공간.",
+ family:"일반 객실과 다인실은 조건이 다르므로 가족 전용 객실인지 확인해.",
+ map:"Freehand Los Angeles"
+},
+{
+ area:"LA",
+ name:"The Hollywood Roosevelt",
+ location:"Hollywood · 로스앤젤레스",
+ description:"할리우드 명예의 거리 인근에 있는 역사적인 호텔이야. 할리우드 관광을 중심으로 여행한다면 위치가 매력적이야.",
+ advantage:"할리우드 주요 관광지와 가까움.",
+ family:"주변이 번화가이므로 객실 위치와 소음 관련 후기를 확인해.",
+ map:"The Hollywood Roosevelt Hotel"
+},
+{
+ area:"LA",
+ name:"Loews Hollywood Hotel",
+ location:"Hollywood · 로스앤젤레스",
+ description:"할리우드 중심부의 호텔로 쇼핑몰과 관광 명소에 접근하기 편리해. 할리우드에서 시간을 많이 보낼 계획이라면 후보로 고려할 만해.",
+ advantage:"관광과 쇼핑을 한곳에서 즐기기 좋은 위치.",
+ family:"4인 객실의 실제 침대 구성을 확인해.",
+ map:"Loews Hollywood Hotel"
+},
+{
+ area:"LA",
+ name:"Hilton Los Angeles/Universal City",
+ location:"Universal City · 로스앤젤레스",
+ description:"유니버설 스튜디오 할리우드 근처에 있는 호텔이야. 테마파크 방문을 중심으로 숙박지를 찾는다면 편리한 후보야.",
+ advantage:"유니버설 스튜디오와 가까운 위치.",
+ family:"테마파크 방문일과 숙박 날짜를 맞춰 가격을 비교해.",
+ map:"Hilton Los Angeles Universal City"
+},
+{
+ area:"LA",
+ name:"BLVD Hotel & Studios",
+ location:"Studio City · 로스앤젤레스",
+ description:"유니버설 스튜디오 인근에서 숙박을 찾을 때 비교해 볼 만한 호텔이야.",
+ advantage:"유니버설 시티 주변 관광에 활용 가능.",
+ family:"객실 크기, 침대 구성, 주차 요금을 확인해.",
+ map:"BLVD Hotel and Studios Universal City"
+},
+{
+ area:"LA",
+ name:"Hyatt Regency Los Angeles International Airport",
+ location:"LAX 주변 · 로스앤젤레스",
+ description:"공항 인근에 있는 대형 호텔이야. 비행기 이용 전후 공항 근처에서 숙박하려는 경우 고려할 수 있어.",
+ advantage:"공항 이동이 중요한 여행객에게 적합.",
+ family:"시내 관광에는 이동 시간이 길 수 있어.",
+ map:"Hyatt Regency Los Angeles International Airport"
+},
 
-function uid(){
- return "d" + Date.now() + Math.random().toString(16).slice(2);
-}
-function copyOriginal(){
- return originalDays.map(d=>({...d,id:uid(),events:d.events.map(e=>[...e])}));
-}
-function loadDays(){
- try{
-  const saved=localStorage.getItem("usTripDays2027");
-  days=saved?JSON.parse(saved):copyOriginal();
-  if(!Array.isArray(days))days=copyOriginal();
- }catch(e){days=copyOriginal()}
-}
-function saveDays(){
- localStorage.setItem("usTripDays2027",JSON.stringify(days));
-}
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
-}
-function regionText(r){
- return r==="LA"?"LOS ANGELES":r==="SD"?"SAN DIEGO":"ROAD TRIP";
-}
-function renderDays(){
- const root=document.getElementById("days");
- root.innerHTML="";
- days.forEach((d,i)=>{
-  const card=document.createElement("article");
-  card.className="day";
-  card.dataset.region=d.region;
-  card.innerHTML=`
-   <div class="dayhead">
-    <div>
-     <div class="daynum">DAY ${String(i+1).padStart(2,"0")}</div>
-     <h3>${esc(d.title)}</h3>
-     <div class="date">${esc(d.date)}</div>
-    </div>
-    <span class="region">${regionText(d.region)}</span>
-   </div>
-   <div>
-    ${(d.events||[]).map(e=>`
-     <div class="event">
-      <div class="time">${esc(e[0])}</div>
-      <div><b>${esc(e[1])}</b><p>${esc(e[2])}</p></div>
-     </div>`).join("")}
-   </div>
-   <div class="daybottom">
-    <span class="subtitle">🏨 ${esc(d.hotel||"숙소 미정")}</span>
-    <div>
-     <button class="btn small" onclick="openEditor(${i})">수정</button>
-     <button class="btn small red" onclick="deleteDay(${i})">삭제</button>
-     <button class="btn small light" onclick="dayMemo('${d.id}')">메모</button>
-    </div>
-   </div>
-   <p class="subtitle" style="padding:0 18px">🚗 ${esc(d.transport||"미정")}</p>`;
-  root.appendChild(card);
- });
- applyDayFilter();
-}
-let activeDayFilter="ALL";
-function applyDayFilter(){
- document.querySelectorAll(".day").forEach(card=>{
-  card.hidden=activeDayFilter!=="ALL"&&card.dataset.region!==activeDayFilter;
- });
-}
-document.querySelectorAll("[data-filter]").forEach(btn=>{
- btn.onclick=()=>{
-  activeDayFilter=btn.dataset.filter;
-  document.querySelectorAll("#dayFilters .filter").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  applyDayFilter();
- };
-});
+{
+ area:"Vegas",
+ name:"Excalibur Hotel & Casino",
+ location:"Las Vegas Strip · 라스베이거스",
+ description:"성 모양의 외관이 특징인 스트립 남쪽 호텔이야. 비교적 다양한 객실 타입을 살펴볼 수 있는 대형 리조트야.",
+ advantage:"스트립 남쪽 관광과 이동에 활용하기 좋은 위치.",
+ family:"리조트 요금과 세금, 4인 객실 조건을 확인해.",
+ map:"Excalibur Hotel Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Luxor Hotel & Casino",
+ location:"Las Vegas Strip · 라스베이거스",
+ description:"피라미드 모양의 독특한 건축물이 특징인 호텔이야. 라스베이거스의 유명한 랜드마크 중 하나야.",
+ advantage:"독특한 건물과 스트립 남쪽 위치.",
+ family:"객실 위치에 따라 이동 동선이 다를 수 있어.",
+ map:"Luxor Hotel Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"MGM Grand",
+ location:"Las Vegas Strip · 라스베이거스",
+ description:"대형 객실과 다양한 시설을 갖춘 대표적인 라스베이거스 리조트야. 여러 편의시설을 이용하려는 여행객이 비교할 만해.",
+ advantage:"대형 리조트 시설과 교통 접근성.",
+ family:"리조트 피와 주차, 추가 인원 비용을 확인해.",
+ map:"MGM Grand Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"New York-New York Hotel",
+ location:"Las Vegas Strip · 라스베이거스",
+ description:"뉴욕의 도시 풍경을 재현한 테마형 호텔이야. 주변에 볼거리와 식당이 많아 라스베이거스 분위기를 즐기기 좋아.",
+ advantage:"테마형 외관과 관광 중심지.",
+ family:"객실 위치와 소음, 침대 구성을 확인해.",
+ map:"New York New York Hotel Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Park MGM",
+ location:"Las Vegas Strip · 라스베이거스",
+ description:"스트립 남쪽에 위치한 호텔이야. 주변 관광지와 공연장에 접근하기 편리한 편이야.",
+ advantage:"주변 공연장과 관광지 접근성.",
+ family:"객실별 최대 인원과 리조트 피를 확인해.",
+ map:"Park MGM Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Flamingo Las Vegas",
+ location:"Central Strip · 라스베이거스",
+ description:"스트립 중앙부에 위치한 오래된 대표 호텔이야. 라스베이거스 주요 관광지를 도보로 둘러보려는 여행객이 고려할 수 있어.",
+ advantage:"스트립 중앙부의 편리한 위치.",
+ family:"객실 리모델링 여부와 객실 타입을 확인해.",
+ map:"Flamingo Las Vegas Hotel"
+},
+{
+ area:"Vegas",
+ name:"The LINQ Hotel",
+ location:"Central Strip · 라스베이거스",
+ description:"스트립 중앙의 LINQ 산책로와 가까운 호텔이야. 주변에 식당과 상점이 많아 관광하기 편리해.",
+ advantage:"LINQ 산책로와 하이롤러 주변.",
+ family:"객실 크기와 침대 구성을 확인해.",
+ map:"The LINQ Hotel Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Horseshoe Las Vegas",
+ location:"Central Strip · 라스베이거스",
+ description:"스트립 중앙에 있는 대형 호텔이야. 주변 관광지와 식당을 이용하기 좋은 위치에 있어.",
+ advantage:"중앙부 위치와 주변 관광 접근성.",
+ family:"객실 타입별 최대 투숙 인원을 확인해.",
+ map:"Horseshoe Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Treasure Island",
+ location:"North Central Strip · 라스베이거스",
+ description:"스트립 북쪽과 중앙 사이에 위치한 호텔이야. 주변 대형 호텔과 관광 명소를 둘러보기 편리해.",
+ advantage:"스트립 관광과 주변 리조트 방문.",
+ family:"리조트 요금과 객실 조건을 비교해.",
+ map:"Treasure Island Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"The STRAT Hotel",
+ location:"North Strip · 라스베이거스",
+ description:"라스베이거스 스트립 북쪽의 높은 전망 타워로 유명한 호텔이야. 전망을 중요하게 생각한다면 후보로 살펴볼 만해.",
+ advantage:"전망 타워와 독특한 랜드마크.",
+ family:"스트립 중앙부까지 이동하는 교통편을 확인해.",
+ map:"The STRAT Hotel Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Circus Circus",
+ location:"North Strip · 라스베이거스",
+ description:"서커스 테마로 유명한 호텔이야. 다양한 엔터테인먼트 시설을 갖추고 있어.",
+ advantage:"테마형 시설과 가족 여행 후보.",
+ family:"객실 건물과 시설별 위치, 최근 객실 후기를 확인해.",
+ map:"Circus Circus Las Vegas"
+},
+{
+ area:"Vegas",
+ name:"Vdara Hotel & Spa",
+ location:"CityCenter · 라스베이거스",
+ description:"객실에 간이 주방이 있는 타입을 포함해 다양한 스위트형 객실을 갖춘 호텔이야.",
+ advantage:"스위트형 객실을 찾을 때 비교할 만함.",
+ family:"4인 숙박에 적합한 객실 타입과 추가 비용을 확인해.",
+ map:"Vdara Hotel Las Vegas"
+},
 
-function openEditor(index=-1){
- editing=index;
- const d=index<0?{
-  date:"",title:"",region:"LA",hotel:"",transport:"",events:[]
- }:days[index];
- document.getElementById("editorTitle").textContent=index<0?"새 일정 추가":"일정 수정";
- document.getElementById("fDate").value=d.date;
- document.getElementById("fTitle").value=d.title;
- document.getElementById("fRegion").value=d.region;
- document.getElementById("fHotel").value=d.hotel||"";
- document.getElementById("fTransport").value=d.transport||"";
- document.getElementById("fEvents").value=(d.events||[]).map(e=>e.join(" | ")).join("\n");
- document.getElementById("editor").classList.add("open");
-}
-function closeEditor(){
- document.getElementById("editor").classList.remove("open");
-}
-function saveDay(){
- const date=document.getElementById("fDate").value.trim();
- const title=document.getElementById("fTitle").value.trim();
- if(!date||!title){alert("날짜와 제목을 입력하세요.");return}
- const events=document.getElementById("fEvents").value.split("\n")
- .map(x=>x.trim()).filter(Boolean).map(line=>{
-  const a=line.split("|").map(x=>x.trim());
-  return [a[0]||"시간 미정",a[1]||"일정",a.slice(2).join(" | ")];
- });
- const old=editing<0?{}:days[editing];
- const item={
-  id:old.id||uid(),date,title,
-  region:document.getElementById("fRegion").value,
-  hotel:document.getElementById("fHotel").value,
-  transport:document.getElementById("fTransport").value,
-  events
- };
- if(editing<0)days.push(item);
- else days[editing]=item;
- saveDays();renderDays();closeEditor();
-}
-function deleteDay(i){
- if(!confirm("이 일정을 삭제할까요?"))return;
- days.splice(i,1);saveDays();renderDays();
-}
-function deleteAllDays(){
- if(!confirm("정말 모든 일정을 삭제할까요?"))return;
- days=[];saveDays();renderDays();
-}
-function resetDays(){
- if(!confirm("원래 제공된 12일 일정으로 복원할까요? 현재 수정사항은 사라집니다."))return;
- days=copyOriginal();saveDays();renderDays();
-}
-function dayMemo(id){
- const key="tripNote_"+id;
- const old=localStorage.getItem(key)||"";
- const value=prompt("이 날짜의 메모를 입력하세요.",old);
- if(value!==null)localStorage.setItem(key,value);
-}
+{
+ area:"Grand Canyon",
+ name:"Yavapai Lodge",
+ location:"Grand Canyon South Rim · 그랜드캐니언",
+ description:"그랜드캐니언 국립공원 안에 위치한 숙소야. 사우스림을 가까이에서 관광하고 싶은 여행객에게 좋은 후보야.",
+ advantage:"국립공원 내부 숙박이라는 장점.",
+ family:"객실 타입과 식당까지의 거리, 예약 조건을 확인해.",
+ map:"Yavapai Lodge Grand Canyon"
+},
+{
+ area:"Grand Canyon",
+ name:"Maswik Lodge",
+ location:"Grand Canyon South Rim · 그랜드캐니언",
+ description:"그랜드캐니언 사우스림 내부에 위치한 숙소야. 자연 경관을 중심으로 여행하려는 사람에게 적합해.",
+ advantage:"사우스림 관광에 유리한 위치.",
+ family:"예약 가능 여부와 객실 구성을 일찍 확인해.",
+ map:"Maswik Lodge Grand Canyon"
+},
+{
+ area:"Grand Canyon",
+ name:"Bright Angel Lodge",
+ location:"Grand Canyon South Rim · 그랜드캐니언",
+ description:"그랜드캐니언의 역사적인 숙소 중 하나야. 공원 안에서 특별한 분위기의 숙박을 원할 때 비교할 수 있어.",
+ advantage:"역사적인 건물과 전망대 접근성.",
+ family:"객실별 시설과 욕실 형태가 다를 수 있어 상세 확인이 필요해.",
+ map:"Bright Angel Lodge Grand Canyon"
+},
+{
+ area:"Grand Canyon",
+ name:"The Grand Hotel at the Grand Canyon",
+ location:"Tusayan · 그랜드캐니언",
+ description:"그랜드캐니언 사우스림 입구와 가까운 투사얀 지역의 호텔이야. 공원 밖에서 숙박을 찾는다면 비교할 만해.",
+ advantage:"국립공원 입구 주변 숙박.",
+ family:"공원 입장 및 이동 시간을 함께 고려해.",
+ map:"The Grand Hotel at the Grand Canyon"
+},
+{
+ area:"Grand Canyon",
+ name:"Holiday Inn Resort The Squire",
+ location:"Tusayan · 그랜드캐니언",
+ description:"투사얀 지역에 있는 리조트형 호텔이야. 가족 여행에서 시설과 객실 구성을 함께 비교하기 좋아.",
+ advantage:"공원 입구 인근의 리조트형 숙박.",
+ family:"가족 객실과 부대시설 운영 여부를 확인해.",
+ map:"Holiday Inn Resort The Squire Grand Canyon"
+},
+{
+ area:"Grand Canyon",
+ name:"Red Feather Lodge",
+ location:"Tusayan · 그랜드캐니언",
+ description:"투사얀에 위치한 숙박 시설로 사우스림 관광을 위한 숙소 후보야.",
+ advantage:"그랜드캐니언 입구와 가까운 지역.",
+ family:"객실 타입과 조식 포함 여부를 확인해.",
+ map:"Red Feather Lodge Tusayan"
+},
+{
+ area:"Grand Canyon",
+ name:"Grand Canyon Plaza Hotel",
+ location:"Tusayan · 그랜드캐니언",
+ description:"투사얀 중심부에서 숙박을 찾을 때 비교해 볼 만한 호텔이야.",
+ advantage:"주변 식당과 편의시설 이용에 유리한 위치.",
+ family:"4인 객실의 침대 구성과 추가 요금을 확인해.",
+ map:"Grand Canyon Plaza Hotel Tusayan"
+},
+{
+ area:"Grand Canyon",
+ name:"Best Western Premier Grand Canyon Squire Inn",
+ location:"Tusayan · 그랜드캐니언",
+ description:"그랜드캐니언 사우스림 입구 인근의 대형 숙박 시설이야. 가족 여행 숙소 후보로 비교할 수 있어.",
+ advantage:"다양한 객실과 부대시설을 갖춘 숙박 후보.",
+ family:"객실 종류, 조식, 수영장 등 계절별 운영 여부를 확인해.",
+ map:"Best Western Premier Grand Canyon Squire Inn"
+},
+{
+ area:"Grand Canyon",
+ name:"Grand Canyon Railway Hotel",
+ location:"Williams · 애리조나",
+ description:"그랜드캐니언 철도 출발지인 윌리엄스에 위치한 호텔이야. 철도 여행을 함께 계획할 경우 고려할 만해.",
+ advantage:"윌리엄스 관광과 철도 이용에 적합.",
+ family:"사우스림까지 이동 시간이 필요하므로 투어 동선을 확인해.",
+ map:"Grand Canyon Railway Hotel Williams"
+},
+{
+ area:"Grand Canyon",
+ name:"La Quinta Inn & Suites Williams",
+ location:"Williams · 애리조나",
+ description:"윌리엄스 지역에서 숙박을 찾을 때 비교해 볼 수 있는 호텔이야.",
+ advantage:"그랜드캐니언 주변 지역 숙박 후보.",
+ family:"그랜드캐니언까지의 실제 이동 시간을 확인해.",
+ map:"La Quinta Inn Williams Arizona"
+},
+{
+ area:"Grand Canyon",
+ name:"Hampton Inn & Suites Flagstaff",
+ location:"Flagstaff · 애리조나",
+ description:"플래그스태프 지역의 숙박 후보야. 주변 도시 관광과 함께 일정을 구성할 때 고려할 수 있어.",
+ advantage:"도시 편의시설을 이용하기 좋은 지역.",
+ family:"그랜드캐니언과 거리가 있으므로 이동 시간을 충분히 고려해.",
+ map:"Hampton Inn Suites Flagstaff"
+},
+{
+ area:"Grand Canyon",
+ name:"Little America Hotel Flagstaff",
+ location:"Flagstaff · 애리조나",
+ description:"플래그스태프에 위치한 호텔로 넓은 부지와 자연 환경이 특징이야.",
+ advantage:"플래그스태프 지역에서 숙박할 때 비교할 만함.",
+ family:"투어 출발 장소와의 거리부터 확인해.",
+ map:"Little America Hotel Flagstaff"
+},
 
-const hotels=[
-// LOS ANGELES
-["LA","Best Western Plus L.A. Midtown","현재 계획한 숙소 · 미드타운","https://www.bestwestern.com/"],
-["LA","The LINE LA","코리아타운 중심 · 식당과 교통 편리","https://www.thelinehotel.com/los-angeles/"],
-["LA","Hotel Normandie","코리아타운 · 부티크 호텔","https://www.hotelnormandiela.com/"],
-["LA","Kins Hotel","코리아타운 · 객실 구성 확인","https://www.thekinshotel.com/"],
-["LA","Hometel Suites","코리아타운 · 스위트형 객실","https://www.hometelsuites.com/"],
-["LA","Oxford Palace Hotel","코리아타운 · 한식당 접근","https://www.oxfordhotel.com/"],
-["LA","Miyako Hotel Los Angeles","리틀 도쿄 · 다운타운 접근","https://www.miyakohotels.com/los-angeles/"],
-["LA","The Wayfarer Downtown LA","다운타운 · 공용 공간과 객실","https://www.wayfarerdtla.com/"],
-["LA","Hotel Figueroa","다운타운 · 부티크 스타일","https://www.hotelfigueroa.com/"],
-["LA","Omni Los Angeles Hotel","다운타운 · 문화시설 접근","https://www.omnihotels.com/hotels/los-angeles"],
-["LA","Freehand Los Angeles","다운타운 · 다양한 객실 형태","https://freehandhotels.com/los-angeles/"],
-["LA","The Biltmore Los Angeles","다운타운 · 역사적인 호텔","https://www.millenniumhotels.com/en/los-angeles/millennium-biltmore-los-angeles/"],
-
-// LAS VEGAS
-["VEGAS","Marriott's Grand Chateau","스트립 인근 · 빌라형 객실","https://www.marriott.com/en-us/hotels/lasvg-marriotts-grand-chateau/overview/"],
-["VEGAS","Vdara Hotel & Spa","비게임형 · 스위트 호텔","https://vdara.mgmresorts.com/"],
-["VEGAS","Four Seasons Hotel Las Vegas","조용한 고급 호텔","https://www.fourseasons.com/lasvegas/"],
-["VEGAS","Residence Inn Las Vegas Convention Center","주방형 스위트 객실","https://www.marriott.com/"],
-["VEGAS","Home2 Suites Las Vegas Strip South","스위트형 · 가족 숙박 후보","https://www.hilton.com/"],
-["VEGAS","Hyatt Place Las Vegas","기본 시설 중심의 호텔","https://www.hyatt.com/"],
-["VEGAS","Embassy Suites Las Vegas","스위트형 객실 · 조식 조건 확인","https://www.hilton.com/"],
-["VEGAS","Hilton Garden Inn Las Vegas Strip South","스트립 남쪽 지역","https://www.hilton.com/"],
-["VEGAS","The Venetian Resort","넓은 스위트형 객실","https://www.venetianlasvegas.com/"],
-["VEGAS","Wynn Las Vegas","고급 리조트 · 스트립 북쪽","https://www.wynnlasvegas.com/"],
-["VEGAS","Treasure Island","스트립 중심부","https://treasureisland.com/"],
-["VEGAS","Park MGM","스트립 남쪽 · 리조트 호텔","https://parkmgm.mgmresorts.com/"],
-
-// GRAND CANYON
-["GC","The Squire at Grand Canyon","투사얀 · 사우스림 입구 인근","https://www.thesquiregrandcanyon.com/"],
-["GC","Grand Canyon Plaza Hotel","투사얀 · 공원 남쪽 입구 근처","https://www.grandcanyonplaza.com/"],
-["GC","The Grand Hotel at the Grand Canyon","투사얀 · 사우스림 접근","https://www.grandcanyon.com/"],
-["GC","Holiday Inn Express Grand Canyon","투사얀 · 조식 여부 확인","https://www.ihg.com/"],
-["GC","Red Feather Lodge","투사얀 · 실속형 숙박 후보","https://www.redfeatherlodge.com/"],
-["GC","Grand Canyon Inn","밸리 지역 · 차량 이동 필요","https://www.grandcanyoninn.com/"],
-["GC","Grand Canyon Railway Hotel","윌리엄스 · 기차역 근처","https://www.thetrain.com/"],
-["GC","Best Western Plus Inn of Williams","윌리엄스 지역","https://www.bestwestern.com/"],
-["GC","Comfort Inn Near Grand Canyon","윌리엄스 · 차량 이동 필요","https://www.choicehotels.com/"],
-["GC","Hampton Inn Williams","윌리엄스 지역 · 체인 호텔","https://www.hilton.com/"],
-["GC","El Tovar Hotel","그랜드캐니언 사우스림 내부","https://www.grandcanyonlodges.com/"],
-["GC","Yavapai Lodge","사우스림 내부 · 공원 숙소","https://www.visitgrandcanyon.com/"],
-
-// SAN DIEGO
-["SD","Best Western Plus Bayside Inn","현재 계획한 숙소 · 리틀 이탈리아 인근","https://www.baysideinn.com/"],
-["SD","Carté Hotel San Diego","리틀 이탈리아 인근","https://www.cartehotel.com/"],
-["SD","Courtyard San Diego Downtown Little Italy","리틀 이탈리아 · 도보 관광","https://www.marriott.com/"],
-["SD","Hampton Inn San Diego Downtown","다운타운 · 항구 접근","https://www.hilton.com/"],
-["SD","Harborview Inn & Suites","다운타운 북쪽 · 실속형 후보","https://www.harborviewinnsandiego.com/"],
-["SD","Hilton Garden Inn San Diego Downtown/Bayside","베이사이드 · 다운타운","https://www.hilton.com/"],
-["SD","Homewood Suites San Diego Downtown/Bayside","주방형 스위트 객실","https://www.hilton.com/"],
-["SD","La Pensione Hotel","리틀 이탈리아 중심","https://www.lapensionehotel.com/"],
-["SD","Residence Inn San Diego Downtown","스위트형 객실","https://www.marriott.com/"],
-["SD","The Sofia Hotel","다운타운 · 주요 관광지 접근","https://www.thesofiahotel.com/"],
-["SD","Urban Boutique Hotel","리틀 이탈리아 · 부티크","https://www.urbanboutiquehotel.com/"],
-["SD","Wyndham San Diego Bayside","항구 앞 · 해안 전망 후보","https://www.wyndhamhotels.com/"],
-["SD","Embassy Suites San Diego Bay Downtown","항구 인근 · 스위트형","https://www.hilton.com/"],
-["SD","SpringHill Suites San Diego Downtown/Bayfront","베이프런트 · 스위트형","https://www.marriott.com/"],
-["SD","The Bristol Hotel San Diego","다운타운 · 부티크 호텔","https://www.thebristolsandiego.com/"],
-["SD","The DEXTRO Little Italy","리틀 이탈리아 인근","https://www.thedextro.com/"]
+{
+ area:"SD",
+ name:"Best Western Plus Bayside Inn",
+ location:"Downtown · 샌디에이고",
+ description:"샌디에이고 다운타운과 항구 주변을 관광할 때 고려할 수 있는 호텔이야. 리틀 이탈리와 항구 지역을 방문하기 좋은 위치야.",
+ advantage:"다운타운, 항구, 리틀 이탈리 관광에 활용 가능.",
+ family:"객실별 최대 인원과 침대 구성을 확인해.",
+ map:"Best Western Plus Bayside Inn San Diego"
+},
+{
+ area:"SD",
+ name:"Manchester Grand Hyatt San Diego",
+ location:"Downtown Waterfront · 샌디에이고",
+ description:"샌디에이고 항구 주변의 대형 호텔이야. 항구 전망과 도심 관광을 중요하게 생각한다면 후보로 추천해.",
+ advantage:"항구와 시내 중심부 접근성.",
+ family:"전망 객실과 일반 객실 가격 차이를 비교해.",
+ map:"Manchester Grand Hyatt San Diego"
+},
+{
+ area:"SD",
+ name:"Marriott Marquis San Diego Marina",
+ location:"Marina District · 샌디에이고",
+ description:"마리나 지역에 위치한 대형 호텔이야. 항구와 주변 관광지를 편하게 둘러보고 싶을 때 고려할 수 있어.",
+ advantage:"마리나와 항구 주변 관광.",
+ family:"리조트 요금, 주차 요금, 객실 인원을 확인해.",
+ map:"Marriott Marquis San Diego Marina"
+},
+{
+ area:"SD",
+ name:"Hilton San Diego Bayfront",
+ location:"Bayfront · 샌디에이고",
+ description:"샌디에이고 베이프런트에 있는 대형 호텔이야. 항구와 컨벤션 센터 주변 관광에 적합한 위치야.",
+ advantage:"바다와 항구 주변 전망.",
+ family:"객실 전망과 추가 요금을 확인해.",
+ map:"Hilton San Diego Bayfront"
+},
+{
+ area:"SD",
+ name:"The Sofia Hotel",
+ location:"Downtown · 샌디에이고",
+ description:"다운타운에 위치한 역사적인 호텔이야. 시내 중심부를 걸어서 둘러보고 싶은 여행객에게 고려할 만해.",
+ advantage:"다운타운 관광과 식당 접근성.",
+ family:"객실 크기와 4인 숙박 가능 여부를 확인해.",
+ map:"The Sofia Hotel San Diego"
+},
+{
+ area:"SD",
+ name:"Courtyard San Diego Downtown",
+ location:"Downtown · 샌디에이고",
+ description:"도심 중심부에 위치한 호텔이야. 다운타운의 식당과 관광지를 이용할 때 편리한 후보야.",
+ advantage:"시내 관광과 이동에 적합.",
+ family:"객실 타입과 침대 수를 확인해.",
+ map:"Courtyard San Diego Downtown"
+},
+{
+ area:"SD",
+ name:"The Guild Hotel",
+ location:"Downtown · 샌디에이고",
+ description:"역사적인 건축물을 활용한 개성 있는 호텔이야. 도심에서 독특한 분위기의 숙소를 찾는다면 비교할 만해.",
+ advantage:"독특한 인테리어와 도심 위치.",
+ family:"객실 크기와 최대 투숙 인원을 확인해.",
+ map:"The Guild Hotel San Diego"
+},
+{
+ area:"SD",
+ name:"Old Town Inn",
+ location:"Old Town · 샌디에이고",
+ description:"올드타운 인근에 위치한 숙소야. 올드타운 관광을 중심으로 여행할 때 비교할 수 있어.",
+ advantage:"올드타운 관광과 주변 교통 접근성.",
+ family:"객실 타입과 이동 수단을 확인해.",
+ map:"Old Town Inn San Diego"
+},
+{
+ area:"SD",
+ name:"Hampton Inn San Diego Downtown",
+ location:"Downtown · 샌디에이고",
+ description:"다운타운 북쪽 지역의 호텔이야. 도심 관광과 리틀 이탈리 방문을 함께 계획할 때 후보가 될 수 있어.",
+ advantage:"리틀 이탈리와 다운타운 접근성.",
+ family:"조식 포함 조건과 객실 인원을 확인해.",
+ map:"Hampton Inn San Diego Downtown"
+},
+{
+ area:"SD",
+ name:"Embassy Suites by Hilton San Diego Bay Downtown",
+ location:"Downtown · 샌디에이고",
+ description:"스위트형 객실을 제공하는 호텔이야. 일반 객실보다 공간을 중요하게 생각하는 가족이 비교할 만해.",
+ advantage:"스위트형 객실을 찾는 가족에게 적합한 후보.",
+ family:"4인 숙박 가능 여부와 조식, 추가 요금을 확인해.",
+ map:"Embassy Suites San Diego Bay Downtown"
+},
+{
+ area:"SD",
+ name:"Sheraton San Diego Resort",
+ location:"Harbor Island · 샌디에이고",
+ description:"하버 아일랜드에 위치한 리조트형 호텔이야. 바다 전망과 휴식을 중요하게 생각할 때 살펴볼 만해.",
+ advantage:"항구와 바다 전망을 즐길 수 있는 위치.",
+ family:"다운타운 이동 교통편과 리조트 요금을 확인해.",
+ map:"Sheraton San Diego Resort"
+},
+{
+ area:"SD",
+ name:"Catamaran Resort Hotel and Spa",
+ location:"Mission Bay · 샌디에이고",
+ description:"미션 베이 주변에 위치한 리조트형 숙소야. 해변과 휴양 분위기를 즐기려는 여행객에게 적합해.",
+ advantage:"휴양형 숙박과 해변 분위기.",
+ family:"다운타운 및 라호야까지 이동 시간을 확인해.",
+ map:"Catamaran Resort Hotel San Diego"
+},
+{
+ area:"SD",
+ name:"La Jolla Shores Hotel",
+ location:"La Jolla · 샌디에이고",
+ description:"라호야 쇼어스 해변 근처의 호텔이야. 바다를 가까이에서 즐기고 싶은 여행객에게 좋은 후보야.",
+ advantage:"해변과 가까운 숙박 위치.",
+ family:"해변 접근성과 객실 가격을 비교해.",
+ map:"La Jolla Shores Hotel"
+},
+{
+ area:"SD",
+ name:"Hyatt Regency La Jolla",
+ location:"La Jolla · 샌디에이고",
+ description:"라호야 지역의 호텔로 주변 관광과 차량 이동을 함께 고려할 수 있어.",
+ advantage:"라호야 지역 숙박 후보.",
+ family:"해변까지의 거리와 대중교통을 확인해.",
+ map:"Hyatt Regency La Jolla"
+},
+{
+ area:"SD",
+ name:"Residence Inn San Diego Downtown",
+ location:"Downtown · 샌디에이고",
+ description:"장기 투숙에 적합한 객실 타입을 포함한 호텔이야. 주방 시설이 있는 객실을 찾는 가족이라면 비교할 만해.",
+ advantage:"주방이 있는 객실을 찾을 때 유용한 후보.",
+ family:"실제 객실의 침대 구성과 최대 인원을 확인해.",
+ map:"Residence Inn San Diego Downtown"
+}
 ];
 
-function hotelRegion(r){
- return {LA:"로스앤젤레스",VEGAS:"라스베이거스",GC:"그랜드캐니언",SD:"샌디에이고"}[r];
-}
-function renderHotels(filter="ALL"){
- const root=document.getElementById("hotelGrid");
- root.innerHTML="";
- hotels.filter(h=>filter==="ALL"||h[0]===filter).forEach(h=>{
-  const el=document.createElement("article");
-  el.className="hotel";
-  el.innerHTML=`
-   <span class="tag">${hotelRegion(h[0])}</span>
-   <h3>${esc(h[1])}</h3>
-   <p>${esc(h[2])}</p>
-   <a href="${h[3]}" target="_blank" rel="noopener noreferrer">호텔 홈페이지 열기 ↗</a>`;
-  root.appendChild(el);
- });
-}
-document.querySelectorAll("[data-hotel]").forEach(btn=>{
- btn.onclick=()=>{
-  document.querySelectorAll("[data-hotel]").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  renderHotels(btn.dataset.hotel);
- };
-});
+const checklistGroups = {
+  checkTravel:[
+    "항공권 예약 및 일정 확인",
+    "여권 유효기간 확인",
+    "미국 입국 관련 서류 확인",
+    "여행자 보험 확인",
+    "호텔 예약 확인서 저장",
+    "그랜드캐니언 투어 예약 확인"
+  ],
+  checkItems:[
+    "해외 결제 가능한 카드 준비",
+    "미국 달러 소액 현금 준비",
+    "휴대전화 충전기 준비",
+    "보조배터리 준비",
+    "미국용 콘센트 어댑터 준비",
+    "상비용품 및 개인용품 준비",
+    "겨울용 겉옷과 편한 신발 준비",
+    "여행용 가방과 캐리어 확인"
+  ],
+  checkBooking:[
+    "LA 숙소 예약",
+    "라스베이거스 투어 숙박 확인",
+    "샌디에이고 숙소 예약",
+    "유니버설 스튜디오 입장권 확인",
+    "LA ↔ 샌디에이고 교통편 확인",
+    "공항 이동 교통편 확인",
+    "각 호텔의 4인 투숙 조건 확인"
+  ]
+};
 
-function loadChecks(){
- const saved=JSON.parse(localStorage.getItem("tripChecks")||"{}");
- document.querySelectorAll("#checks input").forEach(c=>{
-  c.checked=!!saved[c.dataset.id];
-  c.closest(".check").classList.toggle("done",c.checked);
-  c.onchange=()=>{
-   const obj=JSON.parse(localStorage.getItem("tripChecks")||"{}");
-   obj[c.dataset.id]=c.checked;
-   localStorage.setItem("tripChecks",JSON.stringify(obj));
-   c.closest(".check").classList.toggle("done",c.checked);
-   updateProgress();
-  };
- });
- updateProgress();
-}
-function updateProgress(){
- const all=[...document.querySelectorAll("#checks input")];
- const n=all.filter(x=>x.checked).length;
- document.getElementById("progress").textContent=`${n} / ${all.length} 완료`;
-}
-function saveMemo(){
- localStorage.setItem("tripMemo",document.getElementById("memo").value);
- alert("메모 저장 완료!");
-}
-function clearMemo(){
- if(confirm("메모를 삭제할까요?")){
-  document.getElementById("memo").value="";
-  localStorage.removeItem("tripMemo");
- }
-}
-function loadMemo(){
- document.getElementById("memo").value=localStorage.getItem("tripMemo")||"";
+function showSection(id,button) {
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  button.classList.add("active");
 }
 
-loadDays();
-renderDays();
+function loadSchedule() {
+  try {
+    const saved=localStorage.getItem("usTripSchedule2027");
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultSchedule));
+  } catch(e) {
+    return JSON.parse(JSON.stringify(defaultSchedule));
+  }
+}
+
+let schedule=loadSchedule();
+
+function saveSchedule() {
+  localStorage.setItem("usTripSchedule2027",JSON.stringify(schedule));
+}
+
+function renderSchedule() {
+  const list=document.getElementById("scheduleList");
+  list.innerHTML="";
+
+  schedule.forEach((day,index)=>{
+    const box=document.createElement("div");
+    box.className="day";
+
+    const top=document.createElement("div");
+    top.className="day-top";
+
+    const title=document.createElement("div");
+    title.className="day-title";
+    title.textContent=day.date+" · "+day.title;
+
+    const buttons=document.createElement("div");
+    buttons.className="button-row";
+
+    const edit=document.createElement("button");
+    edit.className="btn gray small";
+    edit.textContent="수정";
+    edit.onclick=()=>editDay(index);
+
+    const remove=document.createElement("button");
+    remove.className="btn red small";
+    remove.textContent="삭제";
+    remove.onclick=()=>deleteDay(index);
+
+    buttons.append(edit,remove);
+    top.append(title,buttons);
+    box.append(top);
+
+    day.events.forEach(event=>{
+      const item=document.createElement("div");
+      item.className="event";
+
+      const time=document.createElement("b");
+      time.textContent=event[0];
+
+      const detail=document.createElement("span");
+      detail.textContent=event[1]+" — "+event[2];
+
+      item.append(time,detail);
+      box.append(item);
+    });
+
+    list.append(box);
+  });
+}
+
+function editDay(index) {
+  const day=schedule[index];
+  const date=prompt("날짜를 입력하세요.",day.date);
+  if(date===null) return;
+
+  const title=prompt("일정 제목을 입력하세요.",day.title);
+  if(title===null) return;
+
+  const eventText=day.events.map(e=>e.join(" | ")).join("\n");
+  const events=prompt(
+    "시간 | 장소 | 설명 형식으로 한 줄에 하나씩 입력하세요.",
+    eventText
+  );
+  if(events===null) return;
+
+  day.date=date;
+  day.title=title;
+  day.events=events.split("\n")
+    .map(line=>line.split("|").map(x=>x.trim()))
+    .filter(row=>row.some(x=>x))
+    .map(row=>[row[0]||"",row[1]||"",row.slice(2).join(" | ")||""]);
+
+  saveSchedule();
+  renderSchedule();
+}
+
+function addDay() {
+  const date=prompt("새 날짜를 입력하세요.");
+  if(!date) return;
+
+  const title=prompt("일정 제목을 입력하세요.");
+  if(!title) return;
+
+  schedule.push({date,title,events:[["오전","새 일정","내용을 수정해 주세요."]]});
+  saveSchedule();
+  renderSchedule();
+}
+
+function deleteDay(index) {
+  if(!confirm("이 날짜의 일정을 삭제할까요?")) return;
+  schedule.splice(index,1);
+  saveSchedule();
+  renderSchedule();
+}
+
+function restoreSchedule() {
+  if(!confirm("일정을 원래 기본 일정으로 복원할까요? 현재 수정 내용은 사라집니다.")) return;
+  schedule=JSON.parse(JSON.stringify(defaultSchedule));
+  saveSchedule();
+  renderSchedule();
+}
+
+function renderHotels(area="all") {
+  const list=document.getElementById("hotelList");
+  list.innerHTML="";
+
+  const filtered=hotels.filter(h=>area==="all"||h.area===area);
+
+  filtered.forEach(h=>{
+    const card=document.createElement("div");
+    card.className="hotel";
+
+    const name=document.createElement("h3");
+    name.textContent=h.name;
+
+    const location=document.createElement("div");
+    location.className="location";
+    location.textContent=h.location;
+
+    const desc=document.createElement("p");
+    desc.textContent=h.description;
+
+    const advantage=document.createElement("div");
+    advantage.className="hotel-info";
+    advantage.textContent="⭐ 장점: "+h.advantage;
+
+    const family=document.createElement("div");
+    family.className="hotel-info";
+    family.textContent="👨‍👩‍👧‍👦 가족 여행 참고: "+h.family;
+
+    const buttons=document.createElement("div");
+    buttons.className="button-row";
+
+    const map=document.createElement("button");
+    map.className="btn small";
+    map.textContent="지도에서 위치 보기";
+    map.onclick=()=>{
+      window.open("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(h.map),"_blank");
+    };
+
+    const search=document.createElement("button");
+    search.className="btn gray small";
+    search.textContent="호텔 정보 검색";
+    search.onclick=()=>{
+      window.open("https://www.google.com/search?q="+encodeURIComponent(h.name+" hotel official website"),"_blank");
+    };
+
+    buttons.append(map,search);
+    card.append(name,location,desc,advantage,family,buttons);
+    list.append(card);
+  });
+}
+
+function filterHotels(area,button) {
+  document.querySelectorAll(".hotel-filters button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  renderHotels(area);
+}
+
+function renderChecklist() {
+  Object.keys(checklistGroups).forEach(group=>{
+    const container=document.getElementById(group);
+    container.innerHTML="";
+
+    checklistGroups[group].forEach((item,index)=>{
+      const id=group+"_"+index;
+      const label=document.createElement("label");
+      label.className="check-item";
+
+      const input=document.createElement("input");
+      input.type="checkbox";
+      input.checked=localStorage.getItem("check_"+id)==="true";
+
+      input.addEventListener("change",()=>{
+        localStorage.setItem("check_"+id,input.checked);
+        updateProgress();
+      });
+
+      const span=document.createElement("span");
+      span.textContent=item;
+
+      label.append(input,span);
+      container.append(label);
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const checks=[...document.querySelectorAll("#checklist input[type=checkbox]")];
+  const done=checks.filter(c=>c.checked).length;
+  const total=checks.length;
+  const percent=total?done/total*100:0;
+
+  document.getElementById("progressBar").style.width=percent+"%";
+  document.getElementById("progressText").textContent=
+    "완료 "+done+" / "+total+" ("+Math.round(percent)+"%)";
+}
+
+function resetChecklist() {
+  if(!confirm("체크리스트를 모두 초기화할까요?")) return;
+
+  Object.keys(checklistGroups).forEach(group=>{
+    checklistGroups[group].forEach((item,index)=>{
+      localStorage.removeItem("check_"+group+"_"+index);
+    });
+  });
+
+  renderChecklist();
+}
+
+function saveMemo() {
+  const memo=document.getElementById("travelMemo").value;
+  localStorage.setItem("usTripMemo2027",memo);
+  document.getElementById("memoStatus").textContent="저장 완료";
+}
+
+function loadMemo() {
+  document.getElementById("travelMemo").value=
+    localStorage.getItem("usTripMemo2027")||"";
+}
+
+renderSchedule();
 renderHotels();
-loadChecks();
+renderChecklist();
 loadMemo();
 </script>
 
-<footer>
- WEST COAST FAMILY TRIP · 2027<br>
- Your journey, your memories.
-</footer>
 </body>
 </html>
